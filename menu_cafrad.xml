@@ -1,0 +1,61 @@
+<odoo>
+
+    <data>
+
+    <menuitem name="CAFRAD ERP" id="cafrad_app.menu_root" groups="base.group_user" />
+
+    <!-- menu categories -->
+
+    <menuitem name="Apprenants"
+              id="cafrad_app.apprenants"
+              parent="cafrad_app.menu_root"
+              sequence="2" groups="base.group_user"/>
+        <menuitem name="Creer un apprenant"
+                  id="cafrad_app.create_apprenant"
+                  parent="cafrad_app.apprenants"
+                  sequence="3"
+                  groups="base.group_user"
+                  action="cafrad_app.view_apprenant_cafrad_action"/>
+
+
+    <!-- Configurations -->
+
+   <menuitem name="Configurations"
+              id="cafrad_app.config"
+              parent="cafrad_app.menu_root"
+              sequence="4"/>
+        <menuitem name="Annees Academiques"
+                  id="cafrad_app.ana_academique"
+                  parent="cafrad_app.config"
+                  sequence="4"
+                  action="cafrad_app.view_ane_academiq_action"/>
+
+        <menuitem name="Religions"
+                  id="cafrad_app.religion"
+                  parent="cafrad_app.config"
+                  sequence="4"
+                  action="cafrad_app.view_religion_cafrad_action"/>
+
+
+        <menuitem name="Regions"
+                  id="cafrad_app.region"
+                  parent="cafrad_app.config"
+                  sequence="4"
+                  action="cafrad_app.view_region_cafrad_action"/>
+
+        <menuitem name="Filieres"
+                  id="cafrad_app.speciality"
+                  parent="cafrad_app.config"
+                  sequence="4"
+                  action="cafrad_app.view_speciality_cafrad_action"/>
+        <menuitem name="Salle de classe"
+                  id="cafrad_app.salle_classe"
+                  parent="cafrad_app.config"
+                  sequence="4"
+                  action="cafrad_app.view_salle_classe_cafrad_action"/>
+
+
+
+    </data>
+
+</odoo>

@@ -1,96 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-        <record id="view_apprenant_cafrad_filter" model="ir.ui.view">
-            <field name="name">apprenant.cafrad.filter</field>
-            <field name="model">apprenant.cafrad</field>
+        <!--<record id="view_ane_academiq_filter" model="ir.ui.view">-->
+            <!--<field name="name">ane.academiq.cafrad.filter</field>-->
+            <!--<field name="model">ane.academiq.cafrad</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<search string="Annees ACADEMIQUES">-->
+                    <!--<field name="date_start"/>-->
+                    <!--<field name="date_end"/>-->
+                    <!--<group expand="0" string="Group By">-->
+                         <!--<filter string="Debut" name="groupby_date_start" domain="[]" context="{'group_by': 'date_start'}"/>-->
+                        <!--<filter string="Fin" name="groupby_date_end" domain="[]" context="{'group_by': 'date_end'}"/>-->
+                    <!--</group>-->
+                <!--</search>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record model="ir.ui.view" id="view_ane_academiq_tree">
+            <field name="name">Les Années Academiques</field>
+            <field name="model">ane.academiq.cafrad</field>
             <field name="arch" type="xml">
-                <search string="Apprenats">
-                    <field name="name"/>
-                    <field name="school"/>
-                    <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
-                    <group expand="0" string="Group By">
-                         <filter string="Anne Academique" name="groupby_ane_academique_id" domain="[]" context="{'group_by': 'ane_academique_id'}"/>
-                        <filter string="Etablissement" name="groupby_school" domain="[]" context="{'group_by': 'school'}"/>
-                        <filter string="classe_id" name="groupby_classe_id" domain="[]" context="{'group_by': 'classe_id'}"/>
-                         <filter string="mobility" name="groupby_mobility" domain="[]" context="{'group_by': 'mobility'}"/>
-                    </group>
-                </search>
-            </field>
-        </record>
-        <record model="ir.ui.view" id="view_apprenant_cafrad_tree">
-            <field name="name">Liste des Apprenants</field>
-            <field name="model">apprenant.cafrad</field>
-            <field name="arch" type="xml">
-                <tree string="Liste des Apprenants">
-                    <field name="matricule"/>
-                    <field name="name"/>
-                    <field name="school"/>
-                    <field name="ane_academique_id"/>
-                    <field name="sexe"/>
-                    <field name="mobility"/>
-                    <field name="age"/>
+                <tree string="Les Années Academiques">
+                    <field name="date_start"/>
+                    <field name="date_end"/>
                 </tree>
 
             </field>
         </record>
-        <record model="ir.ui.view" id="view_apprenant_cafrad_form">
+        <record model="ir.ui.view" id="view_ane_academiq_form">
             <field name="name">Apprenants</field>
-            <field name="model">apprenant.cafrad</field>
+            <field name="model">ane.academiq.cafrad</field>
             <field name="arch" type="xml">
                 <form string="Apprenants">
+                    <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants
+                    </p>
+                    <header>
+
+                    </header>
                     <sheet>
                         <group>
                             <group>
-                                <field name="date_register"/>
-                                <field name="name"/>
-                                <field name="date_nais" />
-                                <field name="lieu_nais"/>
-                                <field name="sexe" />
+                                 <field name="date_start"/>
+
                             </group>
                             <group>
-                                <field name="matricule"/>
-                                <field name="age" />
-                                <field name="school"/>
-                                <field name="show_reserved" attrs="{'invisible': [('code', '!=', 'incoming')]}"/>
+                                <field name="date_end"/>
+                                <field name ="active"/>
+
                             </group>
-                        </group>
-                        <group>
-                            <group attrs='{"invisible": [("code", "not in", ["incoming", "outgoing", "internal"])]}' string="Traceability" groups="stock.group_production_lot" name="stock_picking_type_lot">
-                                <field name="use_create_lots"/>
-                                <field name="use_existing_lots"/>
-                            </group>
-                            <group attrs='{"invisible": [("code", "not in", ["incoming", "outgoing", "internal"])]}' string="Packages" groups="stock.group_tracking_lot">
-                                <field name="show_entire_packs"/>
-                            </group>
-                            <!-- As this group will be hidden without multi_loccation, you will not be able to create a
-                             picking type with the code 'Internal', which make sense, but as the field 'code' on picking
-                             types can't be partially hidden, you can still select the code internal in the form view -->
-                            <group string="Locations" groups="stock.group_stock_multi_locations">
-                                <field name="default_location_src_id" options="{'no_create': True}" attrs="{'required': [('code', 'in', ('internal', 'outgoing'))]}"/>
-                                <field name="default_location_dest_id" options="{'no_create': True}" attrs="{'required': [('code', 'in', ('internal', 'incoming'))]}"/>
-                            </group>
+
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
 
-        <record id="stock_picking_type_action" model="ir.actions.act_window">
-            <field name="name">Inventory Overview</field>
-            <field name="res_model">stock.picking.type</field>
+        <record id="view_ane_academiq_action" model="ir.actions.act_window">
+            <field name="name">Annees Academiques </field>
+            <field name="res_model">ane.academiq.cafrad</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="view_mode">kanban,form</field>
+            <field name="view_mode">tree,form</field>
             <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
-                Create a new operation type
+                Creez vos Annees Academiques ici
               </p><p>
-                The operation type system allows you to assign each stock
-                operation a specific type which will alter its views accordingly.
-                On the operation type you could e.g. specify if packing is needed by default,
-                if it should show the customer.
+                Pour creer une annee Academqie, cliquer sur le buton creer en haut a gauche de ce message
               </p>
             </field>
         </record>
-
-
 </odoo>

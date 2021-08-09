@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_apprenant_cafrad_filter" model="ir.ui.view">
+            <field name="name">apprenant.cafrad.filter</field>
+            <field name="model">apprenant.cafrad</field>
+            <field name="arch" type="xml">
+                <search string="Apprenants">
+                    <field name="name"/>
+                    <field name="school"/>
+                    <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                    <group expand="0" string="Group By">
+                         <filter string="Anne Academique" name="groupby_ane_academique_id" domain="[]" context="{'group_by': 'ane_academique_id'}"/>
+                        <filter string="Etablissement" name="groupby_school" domain="[]" context="{'group_by': 'school'}"/>
+                        <filter string="classe_id" name="groupby_classe_id" domain="[]" context="{'group_by': 'classe_id'}"/>
+                         <filter string="mobility" name="groupby_mobility" domain="[]" context="{'group_by': 'mobility'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_apprenant_cafrad_tree">
+            <field name="name">Liste des Apprenants</field>
+            <field name="model">apprenant.cafrad</field>
+            <field name="arch" type="xml">
+                <tree string="Liste des Apprenants">
+                    <field name="matricule"/>
+                    <field name="name"/>
+                    <field name="school"/>
+                    <field name="ane_academique_id"/>
+                    <field name="sexe"/>
+                    <field name="mobility"/>
+                    <field name="age"/>
+                </tree>
+
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_apprenant_cafrad_form">
+            <field name="name">Apprenants</field>
+            <field name="model">apprenant.cafrad</field>
+            <field name="arch" type="xml">
+                <form string="Apprenants">
+                        <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants
+                               </p>
+                    <header>
+
+                    </header>
+                    <sheet>
+                        <group string="Informations sur l'apprenant">
+                            <group>
+                                <field name="date_register" readonly="1"/>
+                                <field name="ane_academique_id"/>
+                                <field name="name"/>
+                                <field name="date_nais" />
+                                <field name="age" />
+                                <field name="lieu_nais"/>
+                                <field name="sexe" />
+                                <field name="apprenant_phone"/>
+
+                            </group>
+                            <group>
+                                <field name="photo" widget="image"/>
+                                <field name="matricule"/>
+
+                                <field name="school"/>
+                                <field name="ancien_new" />
+                                <field name="occupation"/>
+
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Informations personnelles">
+                                <group>
+                                    <field name="religion_id"/>
+                                    <field name="region_id"/>
+                                    <field name="classe_id"/>
+                                    <field name="mobility"/>
+                                </group>
+                            </page>
+                        </notebook>
+                         <notebook>
+                            <page string="Informations sur les parents">
+                                <group>
+                                    <field name="parent_name" />
+                                    <field name="parent_phone" />
+                            </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_apprenant_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Liste des apprennants</field>
+            <field name="res_model">apprenant.cafrad</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants
+              </p><p>
+                Cette interface vous permet d'enregistrer les informations des apprenants
+              </p>
+            </field>
+        </record>
+
+
+</odoo>

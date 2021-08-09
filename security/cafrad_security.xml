@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<data noupdate="1">
+    <record id="base.default_user" model="res.users">
+
+    </record>
+    <record model="ir.rule" id="apprenant_rule">
+        <field name="name">Aprennants</field>
+        <field name="model_id" ref="model_apprenant_cafrad"/>
+        <field name="global" eval="True"/>
+    </record>
+
+</data>
+</odoo>

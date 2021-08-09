@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- RELIGIONS-->
+        <record model="ir.ui.view" id="view_religion_cafrad_tree">
+            <field name="name">Les Religions</field>
+            <field name="model">religion.cafrad</field>
+            <field name="arch" type="xml">
+                <tree string="Les Religions">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_religion_cafrad_from">
+            <field name="name">Les Religions</field>
+            <field name="model">religion.cafrad</field>
+            <field name="arch" type="xml">
+                <form string="Les religions">
+                    <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur les religions
+                    </p>
+                    <header>
+
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                 <field name="name"/>
+
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_religion_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Les religions </field>
+            <field name="res_model">religion.cafrad</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Creez vos religions ici
+              </p><p>
+                Pour creer une  religion, cliquer sur le buton creer en haut a gauche de ce message
+              </p>
+            </field>
+        </record>
+
+
+    <!-- REGIONS-->
+
+        <record model="ir.ui.view" id="view_region_cafrad_tree">
+            <field name="name">Les Regions</field>
+            <field name="model">region.cafrad</field>
+            <field name="arch" type="xml">
+                <tree string="Les Religions">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_region_cafrad_from">
+            <field name="name">Les Regions</field>
+            <field name="model">region.cafrad</field>
+            <field name="arch" type="xml">
+                <form string="Les religions">
+                    <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur les regions
+                    </p>
+                    <header>
+
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                 <field name="name"/>
+
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_region_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Les regions </field>
+            <field name="res_model">region.cafrad</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Creez vos regions ici
+              </p><p>
+                Pour creer une  region, cliquer sur le buton creer en haut a gauche de ce message
+              </p>
+            </field>
+        </record>
+
+
+         <!-- SALLE DE CLASSES-->
+
+         <record model="ir.ui.view" id="view_salle_classe_cafrad_tree">
+            <field name="name">Les Salles de Classes</field>
+            <field name="model">salle.classe.cafrad</field>
+            <field name="arch" type="xml">
+                <tree string="Les Classes">
+                    <field name="name"/>
+                    <field name="reponsable_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_salle_classe_cafrad_form">
+            <field name="name">Les Salles de Classes</field>
+            <field name="model">salle.classe.cafrad</field>
+            <field name="arch" type="xml">
+                <form string="Les religions">
+                    <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Salles de Classes
+                    </p>
+                    <header>
+
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                 <field name="name"/>
+                                <field name="reponsable_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_salle_classe_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Les Salles de Classes </field>
+            <field name="res_model">salle.classe.cafrad</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Creez vos Salles de classe ici
+              </p><p>
+                Pour creer une  salle de classe, cliquer sur le buton creer en haut a gauche de ce message
+              </p>
+            </field>
+        </record>
+
+
+
+    <!-- SPECIALITES-->
+
+        <record model="ir.ui.view" id="view_speciality_cafrad_tree">
+            <field name="name">Les Filieres</field>
+            <field name="model">speciality.cafrad</field>
+            <field name="arch" type="xml">
+                <tree string="Les Filieres">
+                    <field name="name"/>
+                    <field name="responsable_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_speciality_cafrad_from">
+            <field name="name">Les Filieres</field>
+            <field name="model">speciality.cafrad</field>
+            <field name="arch" type="xml">
+                <form string="Les Filieres">
+                    <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur les filieres
+                    </p>
+                    <header>
+
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                 <field name="name"/>
+                                <field name="responsable_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_speciality_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Les Filieres </field>
+            <field name="res_model">speciality.cafrad</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Creez vos Filieres ici
+              </p><p>
+                Pour creer une  filieres, cliquer sur le buton creer en haut a gauche de ce message
+              </p>
+            </field>
+        </record>
+
+</odoo>
