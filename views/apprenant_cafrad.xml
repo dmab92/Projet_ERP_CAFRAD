@@ -41,51 +41,70 @@
                         <p class="oe_grey">
                                     Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants
                                </p>
+
                     <header>
 
                     </header>
                     <sheet>
-                        <group string="Informations sur l'apprenant">
+                        <div class="oe_button_box" name="buttons"></div>
+                    <div class="oe_inline">
+                        <newline />
+                        <separator string="Informations Personelles" />
+                        <br />
+                        <field name="photo" widget="image" class="oe_avatar oe_left" style="max-width:100px;max-height:117px;"/>
+                        <div class="oe_title">
                             <group>
                                 <field name="date_register" readonly="1"/>
-                                <field name="ane_academique_id"/>
-                                <field name="name"/>
+                                <field name="name" placeholder="Noms et prenoms"  required="1" />
                                 <field name="date_nais" />
-                                <field name="age" />
-                                <field name="lieu_nais"/>
-                                <field name="sexe" />
-                                <field name="apprenant_phone"/>
-
+                                <field name="age"/>
+                                <field name="matricule"/>
+                                <field name="lieu_nais" placeholder="Lieu de Naissance"/>
+                                <field name="mobility"/>
                             </group>
                             <group>
-                                <field name="photo" widget="image"/>
-                                <field name="matricule"/>
 
-                                <field name="school"/>
-                                <field name="ancien_new" />
-                                <field name="occupation"/>
 
                             </group>
-                        </group>
+                        </div>
+                    </div>
                         <notebook>
-                            <page string="Informations personnelles">
+                            <page string="Informations Generales">
                                 <group>
-                                    <field name="religion_id"/>
-                                    <field name="region_id"/>
-                                    <field name="classe_id"/>
-                                    <field name="mobility"/>
+                                    <group>
+
+                                        <field name="sexe" />
+                                        <field name="school"/>
+                                        <field name="classe_id"/>
+                                        <field name="ancien_new" />
+                                        <field name="occupation"/>
+                                    </group>
+                                    <group>
+                                        <field name="ane_academique_id"/>
+                                        <field name="apprenant_phone"/>
+                                         <field name="religion_id"/>
+                                        <field name="region_id"/>
+                                    </group>
                                 </group>
                             </page>
-                        </notebook>
-                         <notebook>
                             <page string="Informations sur les parents">
                                 <group>
                                     <field name="parent_name" />
                                     <field name="parent_phone" />
-                            </group>
+                                </group>
+                                 <separator string="Informations en cas d'urgence" colspan="4" />
+                                    <field name="urgence_person" colspan="4" placeholder="Noms et Prenoms"/>
+                                    <field name="urgence_phone" colspan="4" placeholder="Telephone"/>
+                            </page>
+                            <page string="Pieces  Jointes">
+                                <group>
+                                    <field name="attachment_ids"  string="Ajouter des pieces jointes" widget="many2many_binary"/>
+                                </group>
                             </page>
                         </notebook>
+
                     </sheet>
+
                 </form>
             </field>
         </record>
@@ -94,7 +113,7 @@
             <field name="name">Liste des apprennants</field>
             <field name="res_model">apprenant.cafrad</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_mode">tree,form</field>
             <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants
@@ -103,6 +122,4 @@
               </p>
             </field>
         </record>
-
-
 </odoo>

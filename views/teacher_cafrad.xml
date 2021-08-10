@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_teacher_cafrad_filter" model="ir.ui.view">
+            <field name="name">teacher.cafrad.filter</field>
+            <field name="model">teacher.cafrad</field>
+            <field name="arch" type="xml">
+                <search string="Enseignants">
+                    <field name="name"/>
+                    <field name="school"/>
+                    <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Etablissement" name="groupby_school" domain="[]" context="{'group_by': 'school'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_teacher_cafrad_tree">
+            <field name="name">Liste des Enseignants</field>
+            <field name="model">teacher.cafrad</field>
+            <field name="arch" type="xml">
+                <tree string="Liste des Enseignants">
+                    <field name="matricule"/>
+                    <field name="name"/>
+                    <field name="school"/>
+                    <field name="sexe"/>
+                    <field name="teacher_phone"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_teacher_cafrad_form">
+            <field name="name">Enseignants</field>
+            <field name="model">teacher.cafrad</field>
+            <field name="arch" type="xml">
+                <form string="Ensignants">
+                        <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur les enseignants
+                               </p>
+                    <header>
+
+                    </header>
+                    <sheet>
+                        <group string="Informations sur l'enseiignant">
+                            <group>
+                                <field name="date_register" readonly="1"/>
+                                <field name="name"/>
+                                <field name="sexe" />
+                                <field name="teacher_phone"/>
+                            </group>
+                            <group>
+                                <field name="photo" widget="image"/>
+                                <field name="matricule"/>
+                                <field name="school"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Pieces  Jointes">
+                                <group>
+                                    <field name="attachment_ids"  string="Ajouter des pieces jointes" widget="many2many_binary"/>
+                                </group>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="view_teacher_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Liste des Enseignants</field>
+            <field name="res_model">teacher.cafrad</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur les enseignants
+              </p><p>
+                Cette interface vous permet d'enregistrer les informations des enseignants
+              </p>
+            </field>
+        </record>
+</odoo>

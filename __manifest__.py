@@ -87,14 +87,17 @@ Impression de tous les états statistiques (Rapport d’activité, fiche de suiv
         'security/ir.model.access.csv',
         'security/cafrad_security.xml',
         'views/apprenant_cafrad.xml',
+        'views/timetable_views.xml',
+        'views/teacher_cafrad.xml',
         'views/ane_academiq_cafrad.xml',
         'views/config_class.xml',
         'menu_cafrad.xml',
         #'report_cafrad.xml',
-
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],
+    'installable': True,
+    'auto_install': False
 }

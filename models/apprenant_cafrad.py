@@ -6,6 +6,8 @@ from dateutil.relativedelta import relativedelta
 from odoo.tools.translate import _
 
 
+
+
 class apprenant_cafrad(models.Model):
     _name = "apprenant.cafrad"
     _description = "Apprenant du CAFRAD"
@@ -45,15 +47,42 @@ class apprenant_cafrad(models.Model):
         if data < 100000 and data >= 10000:
             return 'MAT' + str(data + 1) + '/' + sort_year
 
+
+    @api.depends('date_nais')
+    def compute_age(self):
+        '''Method to calculate student age'''
+        current_dt = date.today()
+        for rec in self:
+            if rec.compute_age:
+                start = rec.date_nais
+                age_calc = ((current_dt - start).days / 365)
+                # Age should be greater than 0
+                if age_calc > 0.0:
+                    rec.age = age_calc
+            else:
+                rec.age = 0
+
+    # @api.onchange('date_nais')
+    # def compute_age(self):
+    #     for rec in self:
+    #         if rec.date_nais:
+    #             dt = rec.date_nais
+    #             d1 = datetime.strptime(str(dt), "%Y-%m-%d").date()
+    #             d2 = date.today()
+    #             rd = relativedelta(d2, d1)
+    #             rec.age = int(rd.years)
+
     #FIELDS
     name = fields.Char("Nom de l'apprenant")
     date_nais = fields.Date('Date de naissance')
     lieu_nais = fields.Char("Lieu de Naissance")
     sexe = fields.Selection([('masc', 'Masculin'), ('fem', 'Feminin')], 'Sexe')
     matricule = fields.Char("Matricule de l'apprenant", readonly="True", default=lambda self: self._get_next_reference())
-    age = fields.Integer('Age', compute="compute_age")
+    #age = fields.Integer('Age', compute="compute_age")
+    age = fields.Integer(compute='compute_age', string='Age',readonly=True)
+    #age = fields.Integer('Age')
     date_register = fields.Datetime('Date d\'énregistrement', default=fields.datetime.now())
-    school = fields.Selection([('ebase', 'Education de base'), ('cef', 'CEF')],'Ecole'
+    school = fields.Selection([('ebase', 'Education de base'), ('cef', 'CEF')],'Ecole',
                                      help="L'etablissement de l'apprenant")
     ancien_new = fields.Selection([('ancien', 'Ancien'), ('new', 'Nouveau')], 'Ancien/Nouveau', required=True)
     ane_academique_id = fields.Many2one('ane.academiq.cafrad', "Annee Academique", required=True)
@@ -62,56 +91,28 @@ class apprenant_cafrad(models.Model):
                                 string='Région d\'origine', help="La région d'origine de l'apprenant")
     classe_id = fields.Many2one('salle.classe.cafrad',
                                 string='Classe', help="La classe de l'apprenant")
-
     parent_name= fields.Char("Nom et Prenoms des parents")
     parent_phone = fields.Char("Telephone des parents")
     apprenant_phone= fields.Char("Telephone de l'apprenant")
     occupation = fields.Char("Derniere Ocuppation ou Ocuppation Actuelle")
-    mobility=  fields.Boolean("Personne a mobilite reduite ?", defaut=False)
+    mobility = fields.Boolean("Personne a mobilite reduite ?", defaut=False)
     photo = fields.Binary(string="photo de l'apprenant")
+    urgence_phone = fields.Char("Telephone d'urgence")
+    urgence_person = fields.Char("Nom et Prenoms")
 
+    attachment_ids = fields.Many2many("ir.attachment")
 
     #FUNCTIONS
-
-    @api.depends("date_nais")
-    def compute_age(self):
-        for record in self:
-            if record.date_nais:
-                d1 = datetime.datetime.strptime(record.date_nais, "%Y-%m-%d").date()
-                rd = relativedelta(date.today(), d1)
-                record.age = rd.years
-
-#
-# class religion_cafrad(models.Model):
-#     _name = "religion.cafrad"
-#     _description = " Religion des apprenants du CAFRAD"
-#     _order = 'id DESC'
-#
-#     name = fields.Char("Nom de la réligion")
-#
-#
-#
-# class region_cafrad(models.Model):
-#     _name = "region.cafrad"
-#     _description = " Region des apprenants du CAFRAD"
-#     _order = 'id DESC'
-#
-#     name = fields.Char("Nom de la région")
-#
-#
-# class classe_cafrad(models.Model):
-#     _name = "classe.cafrad"
-#     _description = "Classe des apprenants du CAFRAD"
-#     _order = 'id DESC'
-#
-#     name = fields.Char("Nom de la classe")
-#
-#
-#
-# class speciality_cafrad(models.Model):
-#     _name = "speciality.cafrad"
-#     _description = "Filere de formation des apprenants du CAFRAD"
-#     _order = 'id DESC'
-#
-#     name = fields.Char("Nom de la filiere")
-#     responsable = fields.Many2one('')
+    # @api.depends('date_nais')
+    # def compute_age(self):
+    #     '''Method to calculate student age'''
+    #     current_dt = date.today()
+    #     for rec in self:
+    #         if rec.compute_age:
+    #             start = rec.date_nais
+    #             age_calc = ((current_dt - start).days / 365)
+    #             # Age should be greater than 0
+    #             if age_calc > 0.0:
+    #                 rec.age = age_calc
+    #         else:
+    #             rec.age = 0

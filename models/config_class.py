@@ -38,3 +38,14 @@ class speciality_cafrad(models.Model):
     responsable_id = fields.Many2one('hr.employee',
                                   "Responsable",
                                   help="Il s'agit du responsable de la filiere")
+
+
+class matiere_cafrad(models.Model):
+    _name = "matiere.cafrad"
+    _description = "Matiere de formation des apprenants du CAFRAD"
+    _order = 'id DESC'
+
+    name = fields.Char("Nom de la filiere", required=True)
+    responsable_id = fields.Many2one('teacher.cafrad',
+                                  "Responsable",
+                                  help="Il s'agit du responsable de la matiere")

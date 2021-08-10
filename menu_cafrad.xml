@@ -17,6 +17,11 @@
                   groups="base.group_user"
                   action="cafrad_app.view_apprenant_cafrad_action"/>
 
+    <menuitem name="Emplois de Temps"
+              id="cafrad_app.time_table"
+              parent="cafrad_app.menu_root"
+              sequence="2" groups="base.group_user"
+              action="view_time_table_cafrad_action"/>
 
     <!-- Configurations -->
 
@@ -52,7 +57,15 @@
                   id="cafrad_app.salle_classe"
                   parent="cafrad_app.config"
                   sequence="4"
-                  action="cafrad_app.view_salle_classe_cafrad_action"/>
+                  action="cafrad_app.view_salle_classe_cafrad_action"/>\
+
+        <menuitem name="Enseignants"
+                  id="cafrad_app.teacher"
+                  parent="cafrad_app.config"
+                  sequence="5"
+                  action="cafrad_app.view_teacher_cafrad_action"/>
+
+
 
 
 

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_time_table_cafrad_filter" model="ir.ui.view">
+            <field name="name">time.table.cafrad.filter</field>
+            <field name="model">time.table.cafrad</field>
+            <field name="arch" type="xml">
+                <search string="Emploi de temps">
+                    <field name="name"/>
+                    <field name="school"/>
+                    <field name="ane_academique_id"/>
+                    <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                    <group expand="0" string="Group By">
+                         <filter string="Anne Academique" name="groupby_ane_academique_id" domain="[]" context="{'group_by': 'ane_academique_id'}"/>
+                        <filter string="Etablissement" name="groupby_school" domain="[]" context="{'group_by': 'school'}"/>
+                        <filter string="class_room_id" name="groupby_class_room_id" domain="[]" context="{'group_by': 'class_room_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_time_table_cafrad_tree">
+            <field name="name">Emploi de temps</field>
+            <field name="model">time.table.cafrad</field>
+            <field name="arch" type="xml">
+                <tree string="Emploi de Temps">
+                    <field name="name"/>
+                    <field name="school"/>
+                    <field name="ane_academique_id"/>
+                    <field name="class_room_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_time_table_cafrad_form">
+            <field name="name">Emploi de temps</field>
+            <field name="model">time.table.cafrad</field>
+            <field name="arch" type="xml">
+                <form string="Emploi de temps">
+                        <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos Emplois de Temps
+                               </p>
+                    <header>
+                        <button name="button_validate"
+                        string="Valider" type="object" class="oe_highlight" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,validated" />
+                    </header>
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <field name="name" placeholder="Entrer une Description"/>
+                            <field name="ane_academique_id"  widget="selection"/>
+                            <field name="school"  />
+                            <field name="class_room_id" options="{&quot;no_create&quot;: True}"/>
+
+                        </group>
+                         <notebook colspan="4">
+                            <page string="Emploi de Temps">
+                                <field name="timetable_ids" nolabel="1" colspan="4">
+                                    <tree string="TimeTable" editable="top">
+                                        <field name="week_day"/>
+                                        <field name="matiere_id" required="1" />
+                                        <field name="start_time" required="1"/>
+                                        <field name="end_time" required="1"/>
+                                        <field name="teacher_id" options='{"no_open": True, "no_create": True}' required="1"/>
+                                        <!--<field name="class_room_id" options='{"no_open": True, "no_create": True}'/>-->
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_time_table_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Emplois de Temps</field>
+            <field name="res_model">time.table.cafrad</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos emplois de temps ici
+              </p><p>
+                Cette interface vous permet d'enregistrer les informations sur vos emplois de temps
+              </p>
+            </field>
+        </record>
+</odoo>
