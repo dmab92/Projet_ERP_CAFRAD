@@ -9,7 +9,7 @@ from odoo.tools.translate import _
 class teacher_cafrad(models.Model):
     _name = "teacher.cafrad"
     _description = "Enseignant du CAFRAD"
-    _rec_name = 'name'
+    _rec_name = 'employee_id'
     _order = 'id DESC'
 
     def _get_next_reference(self):
@@ -42,7 +42,8 @@ class teacher_cafrad(models.Model):
 
 
     #FIELDS
-    name = fields.Char("Nom de l'enseignant")
+    #name = fields.Char("Nom de l'enseignant")
+    employee_id = fields.Many2one('hr.employee',string="Nom de l'enseignant")
     sexe = fields.Selection([('masc', 'Masculin'), ('fem', 'Feminin')], 'Sexe')
     matricule = fields.Char("Matricule de l'enseignant", readonly="True", default=lambda self: self._get_next_reference())
     #age = fields.Integer('Age', compute="compute_age")

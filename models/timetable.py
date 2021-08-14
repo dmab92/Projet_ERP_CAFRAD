@@ -1,29 +1,49 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models, SUPERUSER_ID, _
-from odoo.exceptions import ValidationError
-
 
 class time_table_cafrad(models.Model):
     """Defining model for time table."""
     _description = 'Emploi de temps au CAFRAD'
     _name = 'time.table.cafrad'
 
+    @api.model
+    def _get_default_academic_year(self):
+        academic_year_obj = self.env['ane.academiq.cafrad']
+        academic_year_id = academic_year_obj.search([('active', '=', True)], limit=1)
+        return academic_year_id and academic_year_id.id or False
+
     name = fields.Char('Description')
     ane_academique_id = fields.Many2one('ane.academiq.cafrad', 'Année Academique',
+                                        default=lambda self: self._get_default_academic_year(),
                                   required=True,
                                   help="Selection l'Année Academique")
-    school = fields.Selection([('ebase', 'Education de base'), ('cef', 'CEF')], 'Ecole',
+    school = fields.Selection([('ebase', 'Education de base'), ('cef', 'CEF')], 'Ecole', required=True,
                               help="L'etablissement au quel appartient la salle")
 
     timetable_ids = fields.One2many('time.table.line.cafrad', 'table_id', 'Emploi de temps')
+    start_date = fields.Date('Date de Debut')
+    end_date = fields.Date('Date de fin')
 
-    class_room_id = fields.Many2one('salle.classe.cafrad', 'Salle de Classe')
+    class_room_id = fields.Many2one('salle.classe.cafrad', 'Salle de Classe',required=True)
+
+
+
     state = fields.Selection([('draft', 'Brouillon'),
-                              ('validated', 'Validé')], "Etat")
+                              ('validated', 'Validé')], default='draft',string="Etat")
 
 
-class time_table_line(models.Model):
+    def button_validate(self):
+        return self.write({'state': 'validated'})
+
+    def print_time_table(self):
+        # datas = {
+        #
+        # }
+        return self.env.ref('cafrad_app.action_report_time_table').report_action(self)
+
+
+class time_table_line_cafrad(models.Model):
     """Defining model for time table."""
 
     _description = 'Lignes d''emploi de temps au CAFRAD'
@@ -46,6 +66,6 @@ class time_table_line(models.Model):
                                  ('thursday', 'Jeudi'),
                                  ('friday', 'Vendredi'),
                                  ('saturday', 'Samedi'),
-                                 ('sunday', 'Dimanche')], "Jour de la Semaine")
+                                 ], "Jour de la Semaine")
 
     class_room_id = fields.Many2one('salle.classe.cafrad', 'Salle de Classe')

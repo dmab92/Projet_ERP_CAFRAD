@@ -17,6 +17,43 @@
                   groups="base.group_user"
                   action="cafrad_app.view_apprenant_cafrad_action"/>
 
+        <menuitem name="Apprenants CM2"
+                  id="cafrad_app.aprrenant_cm2"
+                  parent="cafrad_app.apprenants"
+                  sequence="3"
+                  groups="base.group_user"
+                  action="cafrad_app.view_apprenant_cm2_cafrad_action"/>
+
+    <menuitem name="Suivi Des Formations"
+              id="cafrad_app.suivi"
+              parent="cafrad_app.menu_root"
+              sequence="2" groups="base.group_user"/>
+         <menuitem name="Suivi et Insertion"
+                   id="cafrad_app.suivi_insert"
+                   parent="cafrad_app.suivi"
+                   sequence="2"
+                   groups="base.group_user"/>
+
+                <menuitem name="Apprenants"
+                          id="cafrad_app.aprrenant_non_handicap"
+                          parent="cafrad_app.suivi_insert"
+                          sequence="3"
+                          groups="base.group_user"
+                          action="cafrad_app.view_apprenant_not_handicap_cafrad_action"/>
+
+        <menuitem name="Actions Diaconnales"
+              id="cafrad_app.suivi_diaco"
+              parent="cafrad_app.suivi"
+              sequence="2" groups="base.group_user"/>
+
+        <menuitem name="Apprenants Handicapés"
+                  id="cafrad_app.aprrenant_handicap"
+                  parent="cafrad_app.suivi_diaco"
+                  sequence="3"
+                  groups="base.group_user"
+                  action="cafrad_app.view_apprenant_handicap_cafrad_action"/>
+
+
     <menuitem name="Emplois de Temps"
               id="cafrad_app.time_table"
               parent="cafrad_app.menu_root"

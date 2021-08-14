@@ -64,14 +64,11 @@ Gestion de la caisse
 Tableau bord du manager 
 Impression de tous les états statistiques (Rapport d’activité, fiche de suivi, Fiche d’écoute, emploi de temps, Chronogramme, rapport, planning d’activité, etc…) 
 
-
-
     """,
-
     'author': "Boris MENI",
     'Email': 'borismeni2@gmail.com',
     'Phone':'+237 697005649/ 678128120',
-    'website': "http://www.yourcompany.com",
+    'website': "http://www.mbconsulting.cm",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
@@ -84,19 +81,28 @@ Impression de tous les états statistiques (Rapport d’activité, fiche de suiv
 
     # always loaded
     'data': [
-        'security/ir.model.access.csv',
+        #SECURITY
+        #'security/ir.model.access.csv',
         'security/cafrad_security.xml',
+        #DATA
+        'data/layouts.xml',
+        #VIEWS
         'views/apprenant_cafrad.xml',
         'views/timetable_views.xml',
         'views/teacher_cafrad.xml',
         'views/ane_academiq_cafrad.xml',
         'views/config_class.xml',
+        #MENU
         'menu_cafrad.xml',
-        #'report_cafrad.xml',
+        #WIZARD
+
+        #REPORT
+        'reports/report_timetable.xml',
+        'report_cafrad.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
-        'demo/demo.xml',
+       # 'demo/demo.xml',
     ],
     'installable': True,
     'auto_install': False

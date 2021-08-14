@@ -38,8 +38,16 @@
                                     Cr&#233;ez / &#233;ditez vos Emplois de Temps
                                </p>
                     <header>
-                        <button name="button_validate"
-                        string="Valider" type="object" class="oe_highlight" />
+                        <button name="print_time_table"
+                                string="Imprimer l'emploi de temps"
+                                type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible': [('state','in', 'draft')]}"/>
+
+                         <button name="button_validate"
+                        string="Valider" type="object" class="oe_highlight"
+                         attrs="{'invisible': [('state','=', 'validated')]}"/>
+
                         <field name="state" widget="statusbar" statusbar_visible="draft,validated" />
                     </header>
                     <sheet>
@@ -48,6 +56,8 @@
                             <field name="ane_academique_id"  widget="selection"/>
                             <field name="school"  />
                             <field name="class_room_id" options="{&quot;no_create&quot;: True}"/>
+                             <field name="start_date"  attrs="{'invisible': [('school','=', 'ebase')]}" />
+                             <field name="end_date"  attrs="{'invisible': [('school','=', 'ebase')]}" />
 
                         </group>
                          <notebook colspan="4">
@@ -58,7 +68,7 @@
                                         <field name="matiere_id" required="1" />
                                         <field name="start_time" required="1"/>
                                         <field name="end_time" required="1"/>
-                                        <field name="teacher_id" options='{"no_open": True, "no_create": True}' required="1"/>
+                                        <field name="teacher_id" options='{"no_open": True, "no_create": True}' />
                                         <!--<field name="class_room_id" options='{"no_open": True, "no_create": True}'/>-->
                                     </tree>
                                 </field>

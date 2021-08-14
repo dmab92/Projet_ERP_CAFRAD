@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <odoo>
-         <report id="report_time_table_qweb"
+    <data>
+
+        <report id="action_report_time_table"
                 string="Emploi de Temps"
                 model="time.table.cafrad"
                 report_type = "qweb-pdf"
-                file="timetable.timetable"
-                name="timetable.timetable" />
+                paperformat='cafrad_app.paperformat_A4_horizontal'
+                file="cafrad_app.timetable_report"
+                name="cafrad_app.timetable_report" />
 
+    </data>
 
 </odoo>

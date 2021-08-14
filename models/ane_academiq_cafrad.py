@@ -21,4 +21,4 @@ class ane_academiq_cafrad(models.Model):
 
     def name_get(self):
         '''Method to display name and code'''
-        return [(rec.id, ' ' + str(rec.date_start.year) + '-' + str(rec.date_end.year)) for rec in self]
+        return [(rec.id, ' ' + str(rec.date_start.year) + '/' + str(rec.date_end.year)) for rec in self]

@@ -125,6 +125,7 @@
                             <group>
                                  <field name="name"/>
                                 <field name="reponsable_id"/>
+                                <field name="bool_cm2"/>
                             </group>
                         </group>
                     </sheet>

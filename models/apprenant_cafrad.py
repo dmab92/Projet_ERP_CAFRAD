@@ -82,7 +82,7 @@ class apprenant_cafrad(models.Model):
     age = fields.Integer(compute='compute_age', string='Age',readonly=True)
     #age = fields.Integer('Age')
     date_register = fields.Datetime('Date d\'énregistrement', default=fields.datetime.now())
-    school = fields.Selection([('ebase', 'Education de base'), ('cef', 'CEF')],'Ecole',
+    school = fields.Selection([('ebase', 'Education de base'), ('cef', 'CEF'), ('cafrad', 'CAFRAD')],'Ecole',
                                      help="L'etablissement de l'apprenant")
     ancien_new = fields.Selection([('ancien', 'Ancien'), ('new', 'Nouveau')], 'Ancien/Nouveau', required=True)
     ane_academique_id = fields.Many2one('ane.academiq.cafrad', "Annee Academique", required=True)

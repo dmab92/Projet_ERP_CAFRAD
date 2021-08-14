@@ -26,6 +26,7 @@ class salle_classe_cafrad(models.Model):
     name = fields.Char("Nom de la classe", required=True)
     reponsable_id = fields.Many2one('hr.employee', "Responsable", help="Il s'agit de l'enseigant en charge de la salle, "
           "il peut etre une maitresse ou un prof titulaire")
+    bool_cm2  = fields.Boolean('Est un CM2 ?')
 
 
 
