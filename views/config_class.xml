@@ -124,8 +124,12 @@
                         <group>
                             <group>
                                  <field name="name"/>
-                                <field name="reponsable_id"/>
-                                <field name="bool_cm2"/>
+                                 <field name="reponsable_id"/>
+                                 <field name="bool_cm2"/>
+                            </group>
+                            <group>
+                                <!--<field name="ane_academique_id"/>-->
+                                <!--<field name="code"/>-->
                             </group>
                         </group>
                     </sheet>

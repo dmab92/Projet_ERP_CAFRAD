@@ -10,19 +10,41 @@
               id="cafrad_app.apprenants"
               parent="cafrad_app.menu_root"
               sequence="2" groups="base.group_user"/>
+
         <menuitem name="Creer un apprenant"
                   id="cafrad_app.create_apprenant"
                   parent="cafrad_app.apprenants"
                   sequence="3"
                   groups="base.group_user"
+                  action="cafrad_app.view_create_apprenant_cafrad_action"/>
+
+        <menuitem name="Tous les apprenants"
+                  id="cafrad_app.all_aprenants"
+                  parent="cafrad_app.apprenants"
+                  sequence="3"
+                  groups="base.group_user"
                   action="cafrad_app.view_apprenant_cafrad_action"/>
 
-        <menuitem name="Apprenants CM2"
+
+        <menuitem name="Education De Base"
+              id="cafrad_app.educatiion_base"
+              parent="cafrad_app.apprenants"
+              sequence="2" groups="base.group_user"/>
+
+        <menuitem name="CM1"
+                  id="cafrad_app.aprrenant_cm1"
+                  parent="cafrad_app.apprenants"
+                  sequence="3"
+                  groups="base.group_user"
+                  action="cafrad_app.view_apprenant_cm1_cafrad_action"/>
+
+        <menuitem name="CM2"
                   id="cafrad_app.aprrenant_cm2"
                   parent="cafrad_app.apprenants"
                   sequence="3"
                   groups="base.group_user"
                   action="cafrad_app.view_apprenant_cm2_cafrad_action"/>
+
 
     <menuitem name="Suivi Des Formations"
               id="cafrad_app.suivi"

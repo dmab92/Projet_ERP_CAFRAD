@@ -7,6 +7,7 @@ class time_table_cafrad(models.Model):
     _description = 'Emploi de temps au CAFRAD'
     _name = 'time.table.cafrad'
 
+
     @api.model
     def _get_default_academic_year(self):
         academic_year_obj = self.env['ane.academiq.cafrad']
@@ -15,23 +16,17 @@ class time_table_cafrad(models.Model):
 
     name = fields.Char('Description')
     ane_academique_id = fields.Many2one('ane.academiq.cafrad', 'Année Academique',
-                                        default=lambda self: self._get_default_academic_year(),
-                                  required=True,
+                                        default=lambda self: self._get_default_academic_year(),required=True,
                                   help="Selection l'Année Academique")
-    school = fields.Selection([('ebase', 'Education de base'), ('cef', 'CEF')], 'Ecole', required=True,
+    school = fields.Selection([('ebase', 'Education de base'), ('cef', 'CEF'), ('cafrad', 'CAFRAD')], 'Ecole', required=True,
                               help="L'etablissement au quel appartient la salle")
 
     timetable_ids = fields.One2many('time.table.line.cafrad', 'table_id', 'Emploi de temps')
     start_date = fields.Date('Date de Debut')
     end_date = fields.Date('Date de fin')
-
     class_room_id = fields.Many2one('salle.classe.cafrad', 'Salle de Classe',required=True)
-
-
-
     state = fields.Selection([('draft', 'Brouillon'),
                               ('validated', 'Validé')], default='draft',string="Etat")
-
 
     def button_validate(self):
         return self.write({'state': 'validated'})

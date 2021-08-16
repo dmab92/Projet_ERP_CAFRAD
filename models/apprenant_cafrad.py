@@ -47,11 +47,17 @@ class apprenant_cafrad(models.Model):
         if data < 100000 and data >= 10000:
             return 'MAT' + str(data + 1) + '/' + sort_year
 
+    @api.model
+    def _get_default_academic_year(self):
+        academic_year_obj = self.env['ane.academiq.cafrad']
+        academic_year_id = academic_year_obj.search([('active', '=', True)], limit=1)
+        return academic_year_id and academic_year_id.id or False
 
     @api.depends('date_nais')
     def compute_age(self):
         '''Method to calculate student age'''
         current_dt = date.today()
+        start = date.today()
         for rec in self:
             if rec.compute_age:
                 start = rec.date_nais
@@ -74,7 +80,7 @@ class apprenant_cafrad(models.Model):
 
     #FIELDS
     name = fields.Char("Nom de l'apprenant")
-    date_nais = fields.Date('Date de naissance')
+    date_nais = fields.Date('Date de naissance', default=date.today())
     lieu_nais = fields.Char("Lieu de Naissance")
     sexe = fields.Selection([('masc', 'Masculin'), ('fem', 'Feminin')], 'Sexe')
     matricule = fields.Char("Matricule de l'apprenant", readonly="True", default=lambda self: self._get_next_reference())
@@ -84,8 +90,9 @@ class apprenant_cafrad(models.Model):
     date_register = fields.Datetime('Date d\'énregistrement', default=fields.datetime.now())
     school = fields.Selection([('ebase', 'Education de base'), ('cef', 'CEF'), ('cafrad', 'CAFRAD')],'Ecole',
                                      help="L'etablissement de l'apprenant")
-    ancien_new = fields.Selection([('ancien', 'Ancien'), ('new', 'Nouveau')], 'Ancien/Nouveau', required=True)
-    ane_academique_id = fields.Many2one('ane.academiq.cafrad', "Annee Academique", required=True)
+    ancien_new = fields.Selection([('ancien', 'Ancien'), ('new', 'Nouveau')], 'Ancien/Nouveau')
+    ane_academique_id = fields.Many2one('ane.academiq.cafrad', "Annee Academique",
+                                        default=lambda self: self._get_default_academic_year(),required=True)
     religion_id= fields.Many2one('religion.cafrad',"Religion")
     region_id = fields.Many2one('region.cafrad',
                                 string='Région d\'origine', help="La région d'origine de l'apprenant")
@@ -96,9 +103,12 @@ class apprenant_cafrad(models.Model):
     apprenant_phone= fields.Char("Telephone de l'apprenant")
     occupation = fields.Char("Derniere Ocuppation ou Ocuppation Actuelle")
     mobility = fields.Boolean("Personne a mobilite reduite ?", defaut=False)
+    nature_handicap = fields.Selection([('mal_voyant', 'Mal Voyant(e)'), ('physiq', ' Handicapé(e) Moteur')], 'Nature de l''Handicap')
     photo = fields.Binary(string="photo de l'apprenant")
     urgence_phone = fields.Char("Telephone d'urgence")
     urgence_person = fields.Char("Nom et Prenoms")
+
+    state = fields.Selection([('prospet','Prospet'),('student','Apprenant')])
 
     attachment_ids = fields.Many2many("ir.attachment")
 

@@ -43,7 +43,10 @@
                                </p>
 
                     <header>
-
+                        <button name="button_validate"
+                        string="Valider" type="object" class="oe_highlight"
+                         attrs="{'invisible': [('state','=', 'student')]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="prospet,student" />
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="buttons"></div>
@@ -61,6 +64,7 @@
                                 <field name="matricule"/>
                                 <field name="lieu_nais" placeholder="Lieu de Naissance"/>
                                 <field name="mobility"/>
+                                <field name="nature_handicap" attrs="{'invisible': [('mobility','=', 'False')]}"/>
                             </group>
                             <group>
 
@@ -123,6 +127,21 @@
             </field>
         </record>
 
+
+        <record id="view_create_apprenant_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Liste des apprennants</field>
+            <field name="res_model">apprenant.cafrad</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants
+              </p><p>
+                Cette interface vous permet d'enregistrer les informations des apprenants
+              </p>
+            </field>
+        </record>
+
         <record id="view_apprenant_cm2_cafrad_action" model="ir.actions.act_window">
                 <field name="name">Liste des apprennants du CM2</field>
                 <field name="res_model">apprenant.cafrad</field>
@@ -136,7 +155,7 @@
                     Cette interface vous permet d'enregistrer les informations des apprenants du CM2
                   </p>
                 </field>
-            </record>
+        </record>
 
 
     <record id="view_apprenant_not_handicap_cafrad_action" model="ir.actions.act_window">
@@ -167,4 +186,23 @@
               </p>
             </field>
         </record>
+
+
+
+    <record id="view_apprenant_cm1_cafrad_action" model="ir.actions.act_window">
+        <field name="name">Liste des apprennants du CM1</field>
+        <field name="res_model">apprenant.cafrad</field>
+        <field name="domain">[('classe_id.code', '=', '9'), ('ane_academique_id.active', '=', 'True') ]</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants du CM1
+              </p><p>
+                Cette interface vous permet d'enregistrer les informations des apprenants du CM1
+              </p>
+        </field>
+    </record>
+
+
 </odoo>
