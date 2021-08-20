@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_upgrade_cafrad_filter" model="ir.ui.view">
+           <field name="name">apprenant.cafrad.upgrade.filter</field>
+            <field name="model">apprenant.cafrad.upgrade</field>
+            <field name="arch" type="xml">
+                <search string="Evaluations">
+                    <field name="ane_academique_id"/>
+                    <field name="name"/>
+                    <field name="class_room_id"/>
+                    <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Annee Academique" name="groupby_ane_academique_id" domain="[]" context="{'group_by': 'ane_academique_id'}"/>
+                        <filter string="Description" name="groupby_name" domain="[]" context="{'group_by': 'name'}"/>
+                        <filter string="Salle de classe" name="groupby_class_room_id" domain="[]" context="{'group_by': 'class_room_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_apprenant_upgrade_cafrad_tree">
+            <field name="name">Liste des Evaluations</field>
+            <field name="model">apprenant.cafrad.upgrade</field>
+            <field name="arch" type="xml">
+                <tree string="Liste des Evaluations">
+                    <field name="name"/>
+                    <field name="ane_academique_id"/>
+                    <field name="class_room_id" domain="[('active','=',True)]"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_apprenant_upgrade_cafrad_form">
+            <field name="name">Evaluations</field>
+            <field name="model">apprenant.cafrad.upgrade</field>
+            <field name="arch" type="xml">
+                <form string="Evaluations">
+                        <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Evaluations
+                               </p>
+                    <header>
+                            <!--<button name="get_apprenants"-->
+                                <!--string="Importer les Apprenants"-->
+                                <!--type="object"-->
+                                <!--class="oe_highlight"-->
+                                <!--/>-->
+                    </header>
+                    <sheet>
+
+                            <group>
+                                <field name="name" placehoder="Description"/>
+                                <field name="ane_academique_id" />
+                                <field name="class_room_id" domain="[('ane_academique_id', '=', 'ane_academique_id')]"/>
+                                <field name="date_register"/>
+                            </group>
+
+                        <notebook colspan="4">
+                            <page string="Les apprenants">
+                                <field name="apprenant_ids" nolabel="1" colspan="4">
+                                    <tree string="Apprenants" editable="top">
+                                        <field name="name" required="1"/>
+                                        <field name="classe_id" />
+                                        <field name="annuel_average" required="1" />
+                                         <!--<field name="state" widget="statusbar" statusbar_visible="prospet,student" invisible="1" />-->
+                                        <button name="button_admission"
+                                            string="Admis"
+                                            type="object"
+
+                                            />
+                                        <button name="button_redouble"
+                                            string="Redouble"
+                                            type="object"
+                                            />
+
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="view_apprenant_upgrade_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Liste des Elavautaions</field>
+            <field name="res_model">apprenant.cafrad.upgrade</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Evaluations
+              </p><p>
+                Cette interface vous permet d'enregistrer les informations les Evaluations
+              </p>
+            </field>
+        </record>
+</odoo>

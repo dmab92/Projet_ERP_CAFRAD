@@ -62,7 +62,8 @@ Service accueil et Hébergement /salle de fêtes/espace vert et boukarou
 -	Statistiques et rapports d’activités ;
 Gestion de la caisse
 Tableau bord du manager 
-Impression de tous les états statistiques (Rapport d’activité, fiche de suivi, Fiche d’écoute, emploi de temps, Chronogramme, rapport, planning d’activité, etc…) 
+Impression de tous les états statistiques (Rapport d’activité, 
+fiche de suivi, Fiche d’écoute, emploi de temps, Chronogramme, rapport, planning d’activité, etc…) 
 
     """,
     'author': "Boris MENI",
@@ -73,7 +74,7 @@ Impression de tous les états statistiques (Rapport d’activité, fiche de suiv
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
-    'category': 'Uncategorized',
+    'category': 'CAFRAD Management',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
@@ -92,6 +93,7 @@ Impression de tous les états statistiques (Rapport d’activité, fiche de suiv
         'views/teacher_cafrad.xml',
         'views/ane_academiq_cafrad.xml',
         'views/config_class.xml',
+        'views/apprenant_upgrade.xml',
         #MENU
         'menu_cafrad.xml',
         #WIZARD
@@ -104,6 +106,5 @@ Impression de tous les états statistiques (Rapport d’activité, fiche de suiv
     'demo': [
        # 'demo/demo.xml',
     ],
-    'installable': True,
-    'auto_install': False
+    'application': True,
 }

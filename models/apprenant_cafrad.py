@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, SUPERUSER_ID, _
 import time
-from datetime import datetime, date
-from dateutil.relativedelta import relativedelta
+from datetime import date
+from odoo.exceptions import UserError, Warning, ValidationError
 from odoo.tools.translate import _
-
-
 
 
 class apprenant_cafrad(models.Model):
@@ -79,38 +77,43 @@ class apprenant_cafrad(models.Model):
     #             rec.age = int(rd.years)
 
     #FIELDS
-    name = fields.Char("Nom de l'apprenant")
-    date_nais = fields.Date('Date de naissance', default=date.today())
+    name = fields.Char("Nom de l'apprenant", required=True)
+    date_nais = fields.Date('Date de Naissance')
     lieu_nais = fields.Char("Lieu de Naissance")
     sexe = fields.Selection([('masc', 'Masculin'), ('fem', 'Feminin')], 'Sexe')
     matricule = fields.Char("Matricule de l'apprenant", readonly="True", default=lambda self: self._get_next_reference())
     #age = fields.Integer('Age', compute="compute_age")
-    age = fields.Integer(compute='compute_age', string='Age',readonly=True)
+    age = fields.Integer(string='Age', default=0)
     #age = fields.Integer('Age')
     date_register = fields.Datetime('Date d\'énregistrement', default=fields.datetime.now())
-    school = fields.Selection([('ebase', 'Education de base'), ('cef', 'CEF'), ('cafrad', 'CAFRAD')],'Ecole',
-                                     help="L'etablissement de l'apprenant")
+    school = fields.Selection([('ebase', 'Groupe Scolaire'), ('cef', 'CEF'), ('cafrad', 'CAFRAD')],'Ecole',
+                                     help="L'établissement de l'apprenant")
     ancien_new = fields.Selection([('ancien', 'Ancien'), ('new', 'Nouveau')], 'Ancien/Nouveau')
     ane_academique_id = fields.Many2one('ane.academiq.cafrad', "Annee Academique",
-                                        default=lambda self: self._get_default_academic_year(),required=True)
+                                        default=lambda self: self._get_default_academic_year())
     religion_id= fields.Many2one('religion.cafrad',"Religion")
     region_id = fields.Many2one('region.cafrad',
                                 string='Région d\'origine', help="La région d'origine de l'apprenant")
     classe_id = fields.Many2one('salle.classe.cafrad',
                                 string='Classe', help="La classe de l'apprenant")
-    parent_name= fields.Char("Nom et Prenoms des parents")
-    parent_phone = fields.Char("Telephone des parents")
-    apprenant_phone= fields.Char("Telephone de l'apprenant")
-    occupation = fields.Char("Derniere Ocuppation ou Ocuppation Actuelle")
-    mobility = fields.Boolean("Personne a mobilite reduite ?", defaut=False)
+    parent_name = fields.Char("Nom et Prenoms des parents")
+    parent_phone = fields.Char("Téléphone des parents")
+    apprenant_phone = fields.Char("Téléphone de l'apprenant")
+    occupation = fields.Text("Dernière Ocuppation ou Ocuppation Actuelle")
+    mobility = fields.Boolean("Personne a mobilité reduite ?", defaut=False)
     nature_handicap = fields.Selection([('mal_voyant', 'Mal Voyant(e)'), ('physiq', ' Handicapé(e) Moteur')], 'Nature de l''Handicap')
     photo = fields.Binary(string="photo de l'apprenant")
-    urgence_phone = fields.Char("Telephone d'urgence")
-    urgence_person = fields.Char("Nom et Prenoms")
-
-    state = fields.Selection([('prospet','Prospet'),('student','Apprenant')])
-
+    urgence_phone = fields.Char("Téléphone d'urgence")
+    urgence_person = fields.Char("Nom et Prénoms")
+    state = fields.Selection([('prospet','Prospet'),('student','Apprenant')], default='prospet')
+    hotel_client = fields.Boolean("Est client pour l'Hebergement ?", defaut=False)
+    description = fields.Text("Informations complentaires")
     attachment_ids = fields.Many2many("ir.attachment")
+    annuel_average = fields.Float("Moyenne Annuelle")
+    student_upgra_id = fields.Many2one('apprenant.cafrad.upgrade',string='Admission')
+    state_admission = fields.Selection([('draft', 'Brouillon'),
+                                        ('redouble', 'Redouble'),
+                                        ('admis', 'Admis')], default='draft')
 
     #FUNCTIONS
     # @api.depends('date_nais')
@@ -126,3 +129,79 @@ class apprenant_cafrad(models.Model):
     #                 rec.age = age_calc
     #         else:
     #             rec.age = 0
+
+    @api.onchange('date_nais')
+    def onchange_age(self):
+        '''Method to calculate student age'''
+        current_dt = date.today()
+        for rec in self:
+            if rec.compute_age:
+                start = rec.date_nais
+                age_calc = ((current_dt - start).days / 365)
+                # Age should be greater than 0
+                if age_calc > 0.0:
+                    rec.age = age_calc
+            else:
+                rec.age = 0
+
+    def button_admission(self):
+        apprenant_obj = self.env['apprenant.cafrad']
+        for record in self:
+            if record.annuel_average < record.classe_id.min_average :
+                raise UserError(_("Alerte! la moyenne de cet(te) appprenant(e)  est inférieure a la note minimale "
+                                  "requise  pour l'admision en classe superieure"))
+            #print("Hello World,Hello World,Hello WorldHello World")
+            vals ={
+                'name': record.name,
+                'date_nais': record.date_nais,
+                'lieu_nais': record.lieu_nais,
+                'matricule':record.matricule,
+                'apprenant_phone': record.apprenant_phone,
+                'date_register': record.date_register,
+                'school':record.school,
+                'ancien_new': 'ancien',
+                'ane_academique_id': record.ane_academique_id.next_academique_id or record.ane_academique_id.next_academique_id.id,
+                'religion_id': record.religion_id,
+                'region_id':record.region_id,
+                'classe_id':record.classe_id.next_class.id or record.classe_id.next_class,
+                'parent_name':record.parent_name,
+                'parent_phone':record.parent_phone,
+                'occupation':'',
+                'mobility':record.mobility,
+                'nature_handicap':record.nature_handicap,
+                'photo': record.photo,
+                'urgence_phone':record.urgence_phone,
+                'urgence_person': record.urgence_person,
+                'state': 'student',
+                'hotel_client': 'False',
+                'description': record.description,
+                'annuel_average':'',
+                #'next_class': '',
+                'state_admission':'draft',
+            }
+
+            #print("bonjour,bonjour,bonjour,bonjour,bonjour,bonjour")
+            apprenant_obj.create(vals)
+            #print("Bonsoir,Bonsoir,Bonsoir,Bonsoir,Bonsoir,Bonsoir,Bonsoir")
+        return self.write({"state_admission": 'admis'})
+
+    def button_redouble(self):
+        for record in self:
+            if record.annuel_average > record.classe_id.min_average :
+                raise UserError(_("Alerte! la moyenne de cet élève est superieure a la note minimale requise  pour l'admision en classe superieure"))
+        return self.write({"state_admission": 'redouble'})
+
+    def button_validate(self):
+        partener_obj = self.env['res.partner']
+        for record in self:
+            vals ={
+                'name': record.name,
+                'phone': record.apprenant_phone,
+                'company_type': 'person'
+            }
+            partener_obj.create(vals)
+        return super(apprenant_cafrad, self).write({"state": 'student'})
+
+
+
+

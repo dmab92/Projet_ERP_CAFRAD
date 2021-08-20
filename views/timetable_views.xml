@@ -42,11 +42,13 @@
                                 string="Imprimer l'emploi de temps"
                                 type="object"
                                 class="oe_highlight"
-                                attrs="{'invisible': [('state','in', 'draft')]}"/>
+                                />
 
                          <button name="button_validate"
-                        string="Valider" type="object" class="oe_highlight"
-                         attrs="{'invisible': [('state','=', 'validated')]}"/>
+                                 string="Valider"
+                                 type="object"
+                                 attrs="{'invisible': [('state','in', 'validated')]}"
+                                 class="oe_highlight"/>
 
                         <field name="state" widget="statusbar" statusbar_visible="draft,validated" />
                     </header>
@@ -64,7 +66,7 @@
                             <page string="Emploi de Temps">
                                 <field name="timetable_ids" nolabel="1" colspan="4">
                                     <tree string="TimeTable" editable="top">
-                                        <field name="week_day"/>
+                                        <field name="week_day" required="1"/>
                                         <field name="matiere_id" required="1" />
                                         <field name="start_time" required="1"/>
                                         <field name="end_time" required="1"/>

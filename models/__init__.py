@@ -6,3 +6,4 @@ from . import ane_academiq_cafrad
 from . import config_class
 from . import teacher_cafrad
 from . import timetable
+from . import  apprenant_upgrade

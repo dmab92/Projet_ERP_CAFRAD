@@ -11,6 +11,8 @@ class ane_academiq_cafrad(models.Model):
     date_end = fields.Date('Date de fin', required=True)
     active = fields.Boolean('Active?', default=False)
     description = fields.Char("Description")
+    next_academique_id = fields.Many2one('ane.academiq.cafrad', 'Année Academique Suivante',
+                                        help="Selectionnée l'Année Academique Suivante")
 
     # def name_get(self):
     #     res = []

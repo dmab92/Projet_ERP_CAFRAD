@@ -34,9 +34,8 @@ class salle_classe_cafrad(models.Model):
         ('7', 'CE2'),
         ('9', 'CM1'),
         ('10', 'CM2'),
-        ('11', 'HOTELLERIE 1'),
-        ('12', 'HOTELLERIE 2'),
-        ('13', 'HOTELLERIE 3'),
+        ('12', 'HOTELLERIE 6 MOIS'),
+        ('13', 'HOTELLERIE 1 An'),
         ('14', 'COUTURE 1'),
         ('15', 'COUTURE 2'),
         ('16', 'COUTURE 3'),
@@ -56,6 +55,7 @@ class salle_classe_cafrad(models.Model):
     reponsable_id = fields.Many2one('hr.employee', "Responsable", help="Il s'agit de l'enseigant en charge de la salle, "
           "il peut etre une maitresse ou un prof titulaire")
     bool_cm2  = fields.Boolean('Est un CM2 ?')
+    #active = fields.Boolean('Active ?')
 
     ane_academique_id = fields.Many2one('ane.academiq.cafrad', 'Année Academique',
                                         default=lambda self: self._get_default_academic_year(),
@@ -63,6 +63,12 @@ class salle_classe_cafrad(models.Model):
                                         help="Selection l'Année Academique")
 
     code = fields.Selection(FIXED_CLASS_TYPE, 'Code')
+    next_class = fields.Many2one('salle.classe.cafrad', string="Classe superieure",
+                                 domain=[("ane_academique_id",'=',"ane_academique_id")])
+
+    min_average = fields.Float("Moyenne Minimale", default=10, help="Il sa'agit de moyenne mininal que "
+                                                                    "doit avoir un eleve de cette classe pour"
+                                                                    " etre admis en classe superieure")
 
 class speciality_cafrad(models.Model):
     _name = "speciality.cafrad"

@@ -5,12 +5,12 @@
             <t t-foreach="docs" t-as="o">
                 <t t-call="web.external_layout">
                     <div class="page">
-                        <div class="oe_structure" /><br/><br/>
+                        <div class="oe_structure" />
                         <!--<h4 t-field="o.sudo().standard_id.school_id.name"></h4>-->
                         <center> <h4> EMPLOI DE TEMPS </h4> </center> <br />
-                        <t t-if="o.school == 'cef'">
-                            DU <span t-field="get_date_to_literal(o.start_date)"></span> AU <span t-field="get_date_to_literal(o.end_date)"></span>
-                        </t>
+                        <!--<t t-if="o.school == 'cef'">-->
+                            <!--DU <span t-field="get_date_to_literal(o.start_date)"></span> AU <span t-field="get_date_to_literal(o.end_date)"></span>-->
+                        <!--</t>-->
                         <div class="row" align="center">
                             <table width="100%" style="border: 2px solid black;">
                                 <tr>
@@ -29,7 +29,7 @@
                                 </tr>
                                 <tr>
                                     <td width="25%" align="center" style="font-family: 'Helvetica';font-size: 16px;border: 2px solid black;">
-                                        <span t-field="o.ane_academique_id.date_start"></span>/<span t-field="o.ane_academique_id.date_end"></span>
+                                        <span t-field="o.ane_academique_id.date_start"></span>   /  <span t-field="o.ane_academique_id.date_end"></span>
                                     </td>
                                     <td width="25%" align="center" style="font-family: 'Helvetica';font-size: 16px;border: 2px solid black;">
                                         <span t-field="o.school"></span>
@@ -73,7 +73,7 @@
                                                     <tr>
                                                         <td align="center" width="15%" style="font-family: 'Helvetica';font-size: 16px;border: 2px solid black;">
                                                             <span t-esc="'{0:,.2f}'.format(t['start_time'])"></span>
-                                                            <span> H - </span>
+                                                            <span> </span>
                                                             <span t-esc="'{0:,.2f}'.format(t['end_time'])"></span>
                                                         </td>
                                                         <td align="center" width="14.16%" style="font-family: 'Helvetica';font-size: 16px;border: 2px solid black;">
