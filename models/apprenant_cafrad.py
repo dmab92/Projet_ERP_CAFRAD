@@ -82,7 +82,7 @@ class apprenant_cafrad(models.Model):
     lieu_nais = fields.Char("Lieu de Naissance")
     sexe = fields.Selection([('masc', 'Masculin'), ('fem', 'Feminin')], 'Sexe')
     matricule = fields.Char("Matricule de l'apprenant", readonly="True", default=lambda self: self._get_next_reference())
-    age = fields.Integer(string='Age', default=0)
+    age = fields.Integer(string='Age', default=0, readonly=1)
     date_register = fields.Datetime('Date d\'énregistrement', default=fields.datetime.now())
     school = fields.Selection([('ebase', 'Groupe Scolaire'), ('cef', 'CEF'), ('cafrad', 'CAFRAD')],'Ecole',
                                      help="L'établissement de l'apprenant")
@@ -109,6 +109,8 @@ class apprenant_cafrad(models.Model):
     attachment_ids = fields.Many2many("ir.attachment")
     annuel_average = fields.Float("Moyenne Annuelle")
     student_upgra_id = fields.Many2one('apprenant.cafrad.upgrade',string='Admission')
+
+    speciality_id = fields.Many2one('speciality.cafrad', string='Filière')
     state_admission = fields.Selection([('draft', 'Brouillon'),
                                         ('redouble', 'Redouble'),
                                         ('admis', 'Admis')], default='draft')

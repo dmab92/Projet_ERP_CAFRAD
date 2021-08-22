@@ -49,13 +49,68 @@
                     <sheet>
                         <group col="4" colspan="4">
                             <field name="apprenant_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="date_register" readonly="1"/>
                             <field name="ane_academique_id" readonly="1" options='{"no_open": True, "no_create": True}'/>
                             <field name="apprenant_phone"  />
+                            <field name="matricule" readonly="1" />
                             <field name="class_room_id" readonly="1" options='{"no_open": True, "no_create": True}'/>
-                             <field name="reponsable_id"  options='{"no_open": True, "no_create": True}' />
+                            <field name="reponsable_id"  options='{"no_open": True, "no_create": True}' />
                         </group>
+
                          <notebook colspan="4">
-                            <page string="Lignes de suvi">
+                            <page string="QUESTIONNAIRE">
+                                    <group col="4" colspan="4">
+                                        <field name="your_ambition" />
+                                        <field name="your_passion" />
+                                        <field name="your_quality"  />
+                                        <field name="your_defaut" />
+                                        <field name="why_formation"   />
+                                        <field name="souhait_end"  />
+                                        <field name="type_emploi_end" />
+                                        <field name="why"   />
+                                        <field name="end_word"   />
+                                    </group>
+                            </page>
+                             <page string="ACCOMPAGNEMENT SOCIAL">
+                                    <group col="4" colspan="4">
+                                        <field name="date_nais" />
+                                        <field name="lieu_nais" />
+                                        <field name="sexe"  />
+                                        <field name="email" />
+                                        <field name="last_diplom"   />
+                                        <field name="occupation"  />
+                                        <field name="mobility" />
+                                        <field name="why"   />
+                                        <field name="end_word"   />
+                                    </group>
+                            </page>
+                             <page string="ACCOMPAGNEMENT PEDAGOGIQUE">
+                                    <group col="4" colspan="4">
+                                        <field name="speciality_id" />
+                                        <field name="date_start_training" />
+                                        <field name="tutor_name"  />
+                                        <field name="tutor_phone" />
+                                        <field name="quarter_live"   />
+                                        <field name="matiere_strong"  />
+                                        <field name="matiere_wek" />
+                                        <field name="disciplin_observ" />
+                                        <field name="difficulty"   />
+                                        <field name="solution"   />
+                                        <field name="place_stage" />
+                                    </group>
+                            </page>
+                             <page string="ACCOMPAGNEMENT A L'INSERTION PROFESSIONNELLE">
+                                    <group col="4" colspan="4">
+                                        <field name="nature_parchemin" />
+                                        <field name="work_type" />
+                                        <field name="work_expetation"  />
+                                        <field name="done_activity" />
+                                        <field name="result"   />
+                                        <field name="first_job_location"  />
+                                        <field name="first_job_date" />
+                                    </group>
+                            </page>
+                             <page string="FICHE DE SUIVI">
                                 <field name="fiche_suivi_line_ids" nolabel="1" colspan="4">
                                     <tree string="Lignes de suivi" editable="top">
                                         <field name="date_suivi" />
@@ -90,10 +145,4 @@
             </field>
         </record>
 
-
-        <!--<menuitem name="Fiche de suivi"-->
-                  <!--id="cafrad_app.fiche_suivi"-->
-                  <!--parent="cafrad_app.suivi_insert"-->
-                  <!--groups="base.group_user"-->
-                  <!--action="cafrad_app.view_fiche_suivi_cafrad_action"/>-->
 </odoo>

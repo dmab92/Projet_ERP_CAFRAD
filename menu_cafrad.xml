@@ -200,6 +200,12 @@
                               groups="base.group_user"
                               sequence="27"
                               action="cafrad_app.view_apprenant_not_handicap_cafrad_action"/>
+                    <menuitem name="Fiche de suivi"
+                              id="cafrad_app.fiche_suivi"
+                              parent="cafrad_app.suivi_insert"
+                              groups="base.group_user"
+                              sequence="31"
+                              action="cafrad_app.view_fiche_suivi_cafrad_action"/>
 
 
 
@@ -223,12 +229,7 @@
                       sequence="30"
                       action="cafrad_app.view_fiche_suivi_cafrad_action"/>
 
-            <menuitem name="Fiche de suivi"
-                      id="cafrad_app.fiche_suivi"
-                      parent="cafrad_app.suivi_insert"
-                      groups="base.group_user"
-                      sequence="31"
-                      action="cafrad_app.view_fiche_suivi_cafrad_action"/>
+
 
 
         <menuitem name="Emplois de Temps"
