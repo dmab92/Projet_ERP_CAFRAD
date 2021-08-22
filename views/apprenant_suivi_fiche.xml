@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+        <record id="view_fiche_suivi_cafrad_filter" model="ir.ui.view">
+            <field name="name">apprenant.cafrad.suivi.fiche.filter</field>
+            <field name="model">apprenant.cafrad.suivi.fiche</field>
+            <field name="arch" type="xml">
+                <search string="Fiche de Suivi de l'Apprenant">
+                    <field name="apprenant_id"/>
+                    <field name="ane_academique_id"/>
+                    <field name="class_room_id"/>
+                    <field name="reponsable_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Anne Academique" name="groupby_ane_academique_id" domain="[]" context="{'group_by': 'ane_academique_id'}"/>
+                        <filter string="Apprenant" name="groupby_apprenant_id" domain="[]" context="{'group_by': 'apprenant_id'}"/>
+                        <filter string="class_room_id" name="groupby_class_room_id" domain="[]" context="{'group_by': 'class_room_id'}"/>
+                        <filter string="reponsable_id" name="groupby_reponsable_id" domain="[]" context="{'group_by': 'reponsable_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_fiche_suivi_cafrad_tree">
+            <field name="name"> Fiches de Suivi des Apprenants</field>
+            <field name="model">apprenant.cafrad.suivi.fiche</field>
+            <field name="arch" type="xml">
+                <tree string="Fiche de Suivi de l'Apprenant">
+                    <field name="apprenant_id"/>
+                    <field name="reponsable_id"/>
+                    <field name="ane_academique_id"/>
+                    <field name="class_room_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_fiche_suivi_cafrad_from">
+            <field name="name">Fiches de Suivi des Apprenants</field>
+            <field name="model">apprenant.cafrad.suivi.fiche</field>
+            <field name="arch" type="xml">
+                <form string="Emploi de temps">
+                        <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donnees pour le suivi des apprenants
+                               </p>
+                    <header>
+                        <button name="print_fiche_suivi"
+                                string="Imprimer la fiche de suivi du jeune"
+                                type="object"
+                                class="oe_highlight"
+                                />
+
+                    </header>
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <field name="apprenant_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="ane_academique_id" readonly="1" options='{"no_open": True, "no_create": True}'/>
+                            <field name="apprenant_phone"  />
+                            <field name="class_room_id" readonly="1" options='{"no_open": True, "no_create": True}'/>
+                             <field name="reponsable_id"  options='{"no_open": True, "no_create": True}' />
+                        </group>
+                         <notebook colspan="4">
+                            <page string="Lignes de suvi">
+                                <field name="fiche_suivi_line_ids" nolabel="1" colspan="4">
+                                    <tree string="Lignes de suivi" editable="top">
+                                        <field name="date_suivi" />
+                                        <field name="visit_or_call" />
+                                        <field name="activity"/>
+                                        <field name="person_call"/>
+                                        <field name="activi_evolution" />
+                                        <field name="difficulty"/>
+                                        <field name="solution"  />
+                                        <field name="date_rdv"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_fiche_suivi_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Fiches de suivi des apprenants</field>
+            <field name="res_model">apprenant.cafrad.suivi.fiche</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos Fiches de suivi des apprenants
+              </p><p>
+                Cette interface vous permet d'enregistrer les informations sur vosFiches de suivi des apprenants
+              </p>
+            </field>
+        </record>
+
+
+        <!--<menuitem name="Fiche de suivi"-->
+                  <!--id="cafrad_app.fiche_suivi"-->
+                  <!--parent="cafrad_app.suivi_insert"-->
+                  <!--groups="base.group_user"-->
+                  <!--action="cafrad_app.view_fiche_suivi_cafrad_action"/>-->
+</odoo>

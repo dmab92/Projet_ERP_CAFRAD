@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html>
 <odoo>
     <data>
 
@@ -10,6 +9,14 @@
                 paperformat='cafrad_app.paperformat_A4_horizontal'
                 file="cafrad_app.timetable_report"
                 name="cafrad_app.timetable_report" />
+
+        <report id="action_report_fiche_suivi"
+                string="Fiche de suivi"
+                model="apprenant.cafrad.suivi.fiche"
+                report_type = "qweb-pdf"
+                paperformat='cafrad_app.paperformat_A4_horizontal'
+                file="cafrad_app.fiche_suivi_report"
+                name="cafrad_app.fiche_suivi_report" />
 
     </data>
 

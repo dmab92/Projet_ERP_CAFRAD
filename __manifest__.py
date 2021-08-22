@@ -94,13 +94,16 @@ fiche de suivi, Fiche d’écoute, emploi de temps, Chronogramme, rapport, plann
         'views/ane_academiq_cafrad.xml',
         'views/config_class.xml',
         'views/apprenant_upgrade.xml',
+        'views/apprenant_suivi_fiche.xml',
         #MENU
         'menu_cafrad.xml',
         #WIZARD
 
         #REPORT
         'reports/report_timetable.xml',
+        'reports/report_fiche_suivi.xml',
         'report_cafrad.xml',
+
     ],
     # only loaded in demonstration mode
     'demo': [

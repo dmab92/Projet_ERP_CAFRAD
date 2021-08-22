@@ -34,14 +34,15 @@ class salle_classe_cafrad(models.Model):
         ('7', 'CE2'),
         ('9', 'CM1'),
         ('10', 'CM2'),
+        ('11', 'GARAGE'),
         ('12', 'HOTELLERIE 6 MOIS'),
         ('13', 'HOTELLERIE 1 An'),
         ('14', 'COUTURE 1'),
         ('15', 'COUTURE 2'),
         ('16', 'COUTURE 3'),
-        ('18', 'PATISSERIE 1'),
-        ('19', 'PATISSERIE 2'),
-        ('20', 'PATISSERIE 3')
+        ('18', 'PATISSERIE 6 mois'),
+        ('19', 'PATISSERIE 1 An')
+
     ]
 
 
@@ -76,9 +77,7 @@ class speciality_cafrad(models.Model):
     _order = 'id DESC'
 
     name = fields.Char("Nom de la filiere", required=True)
-    responsable_id = fields.Many2one('hr.employee',
-                                  "Responsable",
-                                  help="Il s'agit du responsable de la filiere")
+    responsable_id = fields.Many2one('hr.employee',"Responsable", help="Il s'agit du responsable de la filiere")
 
 
 class matiere_cafrad(models.Model):

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
         <record id="view_time_table_cafrad_filter" model="ir.ui.view">
             <field name="name">time.table.cafrad.filter</field>

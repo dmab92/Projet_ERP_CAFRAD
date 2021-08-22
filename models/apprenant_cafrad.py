@@ -51,20 +51,20 @@ class apprenant_cafrad(models.Model):
         academic_year_id = academic_year_obj.search([('active', '=', True)], limit=1)
         return academic_year_id and academic_year_id.id or False
 
-    @api.depends('date_nais')
-    def compute_age(self):
-        '''Method to calculate student age'''
-        current_dt = date.today()
-        start = date.today()
-        for rec in self:
-            if rec.compute_age:
-                start = rec.date_nais
-                age_calc = ((current_dt - start).days / 365)
-                # Age should be greater than 0
-                if age_calc > 0.0:
-                    rec.age = age_calc
-            else:
-                rec.age = 0
+    # @api.depends('date_nais')
+    # def compute_age(self):
+    #     '''Method to calculate student age'''
+    #     current_dt = date.today()
+    #     start = date.today()
+    #     for rec in self:
+    #         if rec.compute_age:
+    #             start = rec.date_nais
+    #             age_calc = ((current_dt - start).days / 365)
+    #             # Age should be greater than 0
+    #             if age_calc > 0.0:
+    #                 rec.age = age_calc
+    #         else:
+    #             rec.age = 0
 
     # @api.onchange('date_nais')
     # def compute_age(self):
@@ -82,9 +82,7 @@ class apprenant_cafrad(models.Model):
     lieu_nais = fields.Char("Lieu de Naissance")
     sexe = fields.Selection([('masc', 'Masculin'), ('fem', 'Feminin')], 'Sexe')
     matricule = fields.Char("Matricule de l'apprenant", readonly="True", default=lambda self: self._get_next_reference())
-    #age = fields.Integer('Age', compute="compute_age")
     age = fields.Integer(string='Age', default=0)
-    #age = fields.Integer('Age')
     date_register = fields.Datetime('Date d\'énregistrement', default=fields.datetime.now())
     school = fields.Selection([('ebase', 'Groupe Scolaire'), ('cef', 'CEF'), ('cafrad', 'CAFRAD')],'Ecole',
                                      help="L'établissement de l'apprenant")
@@ -115,27 +113,13 @@ class apprenant_cafrad(models.Model):
                                         ('redouble', 'Redouble'),
                                         ('admis', 'Admis')], default='draft')
 
-    #FUNCTIONS
-    # @api.depends('date_nais')
-    # def compute_age(self):
-    #     '''Method to calculate student age'''
-    #     current_dt = date.today()
-    #     for rec in self:
-    #         if rec.compute_age:
-    #             start = rec.date_nais
-    #             age_calc = ((current_dt - start).days / 365)
-    #             # Age should be greater than 0
-    #             if age_calc > 0.0:
-    #                 rec.age = age_calc
-    #         else:
-    #             rec.age = 0
 
     @api.onchange('date_nais')
     def onchange_age(self):
         '''Method to calculate student age'''
         current_dt = date.today()
         for rec in self:
-            if rec.compute_age:
+            if rec.date_nais:
                 start = rec.date_nais
                 age_calc = ((current_dt - start).days / 365)
                 # Age should be greater than 0

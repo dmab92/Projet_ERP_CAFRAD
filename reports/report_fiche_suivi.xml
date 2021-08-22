@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="fiche_suivi_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="oe_structure" />
+
+                        <center> <h3><u><b>FICHE DE SUIVI INDIVIDUELLE DES JEUNES</b>  </u> </h3>      No................</center>  <br />
+                        <h5>
+                        Nom du Jeune : <span t-field="o.apprenant_id.name"></span>
+                        Contact : <span t-field="o.apprenant_id.apprenant_phone"></span>
+                        Année : <span t-field="o.ane_academique_id.date_start"></span>/<span t-field="o.ane_academique_id.date_end"></span>
+                        Responsqble du suivi: <span t-field="o.reponsable_id.name"></span> </h5>
+                        <table class="table table-sm o_main_table">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th><strong>Numero </strong></th>
+                                        <th><strong>Jour/H du suivi</strong></th>
+                                        <th><strong>Visite au Appel</strong></th>
+                                        <th><strong>Activités</strong></th>
+                                        <th><strong>Qui avait vous rencontrer ou appelé ?</strong></th>
+                                        <th><strong>Evaluation de l'activité</strong></th>
+                                        <th><strong>Difficultes Rencontress</strong></th>
+                                        <th><strong>Solution envisagee/Observqtion</strong></th>
+                                        <th><strong>Prochain Rdv</strong></th>
+                                    </tr>
+                                </thead>
+                            <tbody>
+                                <t t-set="numero" t-value="1"/>
+                                     <t t-foreach="o.fiche_suivi_line_ids" t-as="line">
+                                            <tr>
+                                                <td><span t-esc="numero"/></td>
+                                                <td><span t-esc="line.date_suivi" t-options="{&quot;widget&quot;: &quot;date&quot;}"/> </td>
+                                                <td><span t-esc="{'visit': 'Visite', 'call': 'Appel'}[line.visit_or_call]"/> </td>
+                                                <td><span t-field="line.activity"/></td>
+                                                <td><span t-field="line.person_call"/></td>
+                                                <td><span t-field="line.activi_evolution"/></td>
+                                                <td><span t-field="line.difficulty"/></td>
+                                                <td><span t-field="line.solution"/></td>
+                                                <td><span t-esc="line.date_rdv" t-options="{&quot;widget&quot;: &quot;date&quot;}"/> </td>
+                                            </tr>
+                                         <t t-set="numero" t-value="numero+1"/>
+                                        </t>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
