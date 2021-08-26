@@ -8,3 +8,4 @@ from . import teacher_cafrad
 from . import timetable
 from . import  apprenant_upgrade
 from . import apprenant_suivi_fiche
+from . import apprenant_mediatek

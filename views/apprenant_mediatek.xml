@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--- GESTION  DES EMPRUNTS de LIVRES-->
+        <record id="view_mediatek_cafrad_filter" model="ir.ui.view">
+            <field name="name">mediatek.cafrad.filter</field>
+            <field name="model">mediatek.cafrad</field>
+            <field name="arch" type="xml">
+                <search string="Methiatheque">
+                    <field name="partner_id"/>
+                    <field name="sexe"/>
+                    <field name="livre_id"/>
+                    <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="livre_id" name="groupby_livre_id" domain="[]" context="{'group_by': 'livre_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_mediatek_cafrad_tree">
+            <field name="name">Liste des Emprunts de Livres</field>
+            <field name="model">mediatek.cafrad</field>
+            <field name="arch" type="xml">
+                <tree string="Liste des Emprunts">
+                    <field name="identifiant"/>
+                    <field name="partner_id"/>
+                    <field name="livre_id"/>
+                    <field name="date_out"/>
+                    <field name="date_in"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_teacher_cafrad_form">
+            <field name="name">Emprunts de livre</field>
+            <field name="model">mediatek.cafrad</field>
+            <field name="arch" type="xml">
+                <form string="Ensignants">
+                        <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur les emprunts de livres
+                               </p>
+                    <header>
+
+                    </header>
+                    <sheet>
+                        <group string="Informations sur Generales">
+                            <group>
+                                <field name="date_register" readonly="1"/>
+                                <field name="identifiant"/>
+                                <field name="partner_id"/>
+                                <field name="livre_id"/>
+                            </group>
+                            <group>
+                                <field name="categori_id"/>
+                                <field name="date_out"/>
+                                <field name="date_in" />
+                            </group>
+                        </group>
+
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="view_mediatek_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Liste des Emprunts</field>
+            <field name="res_model">mediatek.cafrad</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur les emprunts de livres
+              </p><p>
+                Cette interface vous permet d'enregistrer les informations des Emprunts
+              </p>
+            </field>
+        </record>
+
+
+
+        <!-- LIVRES-->
+
+        <record model="ir.ui.view" id="view_livre_cafrad_tree">
+            <field name="name">Les Livres</field>
+            <field name="model">livre.cafrad</field>
+            <field name="arch" type="xml">
+
+                <tree string="Les Livres">
+                    <field name="identifiant"/>
+                    <field name="titre"/>
+                     <field name="categori_id"/>
+                    <field name="autor"/>
+                    <field name="date_out"/>
+                </tree>
+
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="view_livre_cafrad_from">
+            <field name="name">Les Livres</field>
+            <field name="model">livre.cafrad</field>
+            <field name="arch" type="xml">
+                <form string="Les Livres">
+                    <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur les livres
+                    </p>
+                    <header>
+
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                 <field name="identifiant"/>
+                                 <field name="titre"/>
+                                 <field name="date_out"/>
+
+                            </group>
+                            <group>
+                                 <field name="categori_id"/>
+                                <field name="autor"/>
+
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_livre_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Les Livres </field>
+            <field name="res_model">livre.cafrad</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Creez vos livre ici
+              </p>
+                <p>
+                Pour creer une  livre, cliquer sur le buton creer en haut a gauche de ce message
+              </p>
+            </field>
+        </record>
+
+
+
+      <!-- CATEGORIES DE LIVRES-->
+
+        <record model="ir.ui.view" id="view_livre_cafrad_tree">
+            <field name="name">Les Categories de Livres</field>
+            <field name="model">cafrad.book.categorie</field>
+            <field name="arch" type="xml">
+                <tree string="Les Livres">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_livre_cafrad_from">
+            <field name="name">Les Categorie  de Livres</field>
+            <field name="model">cafrad.book.categorie</field>
+            <field name="arch" type="xml">
+                <form string="Les religions">
+                    <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Categorie de livres
+                    </p>
+                    <header>
+
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_categori_book_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Les  Categories de Livres </field>
+            <field name="res_model">cafrad.book.categorie</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Creez vos  Categorie de livres ici
+              </p>
+                <p>
+                Pour creer une Categorie de  livre, cliquer sur le buton creer en haut a gauche de ce message
+              </p>
+            </field>
+        </record>
+
+</odoo>

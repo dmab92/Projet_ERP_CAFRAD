@@ -239,6 +239,13 @@
                   sequence="32"
                   action="view_time_table_cafrad_action"/>
 
+        <menuitem name="Médiathèque"
+                  id="cafrad_app.book_loan"
+                  parent="cafrad_app.menu_root"
+                  groups="base.group_user"
+                  sequence="32"
+                  action="cafrad_app.view_mediatek_cafrad_action"/>
+
         <!-- Configurations -->
 
        <menuitem name="Configurations"
@@ -276,6 +283,17 @@
                       id="cafrad_app.teacher"
                       parent="cafrad_app.config"
                       action="cafrad_app.view_teacher_cafrad_action"/>
+
+
+            <menuitem name="Livres"
+                      id="cafrad_app.book"
+                      parent="cafrad_app.config"
+                      action="cafrad_app.view_livre_cafrad_action"/>
+
+            <menuitem name="Categories de livres"
+                      id="cafrad_app.book_categorie"
+                      parent="cafrad_app.config"
+                      action="cafrad_app.view_categori_book_cafrad_action"/>
 
     </data>
 
