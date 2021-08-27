@@ -96,6 +96,7 @@ fiche de suivi, Fiche d’écoute, emploi de temps, Chronogramme, rapport, plann
         'views/apprenant_upgrade.xml',
         'views/apprenant_suivi_fiche.xml',
         'views/apprenant_mediatek.xml',
+        'views/magazine_cafrad.xml',
         #MENU
         'menu_cafrad.xml',
         #WIZARD

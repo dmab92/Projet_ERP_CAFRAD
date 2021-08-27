@@ -76,6 +76,18 @@ class apprenant_cafrad(models.Model):
     #             rd = relativedelta(d2, d1)
     #             rec.age = int(rd.years)
 
+    @api.onchange('date_nais')
+    def onchange_age(self):
+        '''Method to calculate student age'''
+        current_dt = date.today()
+        for rec in self:
+            if rec.date_nais:
+                start = rec.date_nais
+                age_calc = ((current_dt - start).days / 365)
+                # Age should be greater than 0
+                if age_calc > 0.0:
+                    rec.age = age_calc
+
     #FIELDS
     name = fields.Char("Nom de l'apprenant", required=True)
     date_nais = fields.Date('Date de Naissance')
@@ -116,19 +128,8 @@ class apprenant_cafrad(models.Model):
                                         ('admis', 'Admis')], default='draft')
 
 
-    @api.onchange('date_nais')
-    def onchange_age(self):
-        '''Method to calculate student age'''
-        current_dt = date.today()
-        for rec in self:
-            if rec.date_nais:
-                start = rec.date_nais
-                age_calc = ((current_dt - start).days / 365)
-                # Age should be greater than 0
-                if age_calc > 0.0:
-                    rec.age = age_calc
-            else:
-                rec.age = 0
+
+
 
     def button_admission(self):
         apprenant_obj = self.env['apprenant.cafrad']

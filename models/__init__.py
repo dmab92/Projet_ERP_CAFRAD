@@ -9,3 +9,4 @@ from . import timetable
 from . import  apprenant_upgrade
 from . import apprenant_suivi_fiche
 from . import apprenant_mediatek
+from . import magazine_cafrad

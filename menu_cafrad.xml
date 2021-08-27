@@ -246,6 +246,16 @@
                   sequence="32"
                   action="cafrad_app.view_mediatek_cafrad_action"/>
 
+        <menuitem name="Magazine"
+                  id="cafrad_app.magazine"
+                  parent="cafrad_app.menu_root"
+                  groups="base.group_user"
+                  sequence="32"
+                  action="cafrad_app.view_magazine_cafrad_action"/>
+
+
+
+
         <!-- Configurations -->
 
        <menuitem name="Configurations"

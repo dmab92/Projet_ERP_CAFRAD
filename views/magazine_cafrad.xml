@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_magazine_cafrad_filter" model="ir.ui.view">
+            <field name="name">magazine.cafrad.filter</field>
+            <field name="model">magazine.cafrad</field>
+            <field name="arch" type="xml">
+                <search string="Magazines">
+                    <field name="employee_id"/>
+                    <field name="name"/>
+                    <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="employee_id" name="groupby_employee_id" domain="[]" context="{'group_by': 'employee_id'}"/>
+                        <filter string="publication_date" name="groupby_publication_date" domain="[]" context="{'group_by': 'publication_date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_magazine_cafrad_tree">
+            <field name="name">Liste des Magazines</field>
+            <field name="model">magazine.cafrad</field>
+            <field name="arch" type="xml">
+                <tree string="Liste des Magazines">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="publication_date"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_magazine_cafrad_form">
+            <field name="name">Les Magazines</field>
+            <field name="model">magazine.cafrad</field>
+            <field name="arch" type="xml">
+                <form string="Ensignants">
+                        <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Magazines
+                               </p>
+                    <header>
+
+                    </header>
+                    <sheet>
+                        <group string="Informations sur les Magazines">
+                            <group>
+                                <field name="name"/>
+                                <field name="employee_id"/>
+                            </group>
+                            <group>
+                                <field name="publication_date" />
+                                <field name="attachment_ids"  string="Inserer le PDF du Magazine ici" widget="many2many_binary"/>
+                            </group>
+                        </group>
+
+                        <notebook colspan="4">
+                            <page string="Articles">
+                                <field name="article_ids" nolabel="1" colspan="4">
+                                    <tree string="Articles" editable="top">
+                                        <field name="partner_id" required="1"/>
+                                        <field name="description" required="1" />
+                                        <field name="role" required="1"/>
+                                        <field name="attachment_ids" widget="many2many_binary"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_magazine_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Liste des Magazines</field>
+            <field name="res_model">magazine.cafrad</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Magazines
+              </p><p>
+                Cette interface vous permet d'enregistrer les informations des Magazines
+              </p>
+            </field>
+        </record>
+</odoo>

@@ -222,8 +222,8 @@
         <field name="name">Liste des apprennants du CM1</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-        <field name="domain">[('classe_id.code', '=', '9'),
-                             ('state', '=', 'student'),,('ane_academique_id.active', '=', True)
+        <field name="domain">[('classe_id.code', '=', 9),
+                             ('state', '=', 'student'),('ane_academique_id.active', '=', True)
                              ]</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
@@ -240,10 +240,7 @@
         <field name="name">Liste des apprennants du CE2</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-        <field name="domain">[('classe_id.code', '=', '7'),
-                             ('state', '=', 'student'),
-                              ,('ane_academique_id.active', '=', True)
-                             ]</field>
+        <field name="domain">[('classe_id.code', '=', 7),('state', '=', 'student'),('ane_academique_id.active', '=', True)] </field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
@@ -258,8 +255,8 @@
         <field name="name">Liste des apprennants du CE1</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-        <field name="domain">[('classe_id.code', '=', '6'),
-                             ('state', '=', 'student'),
+        <field name="domain">[('classe_id.code', '=', 6),
+                             ('state', '=', 'student')
                                 ,('ane_academique_id.active', '=', True)
                              ]</field>
         <field name="type">ir.actions.act_window</field>
@@ -276,8 +273,8 @@
         <field name="name">Liste des apprennants du CP</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-        <field name="domain">[('classe_id.code', '=', '5'),
-                             ('state', '=', 'student'),
+        <field name="domain">[('classe_id.code', '=', 5),
+                             ('state', '=', 'student')
                                 ,('ane_academique_id.active', '=', True)
                              ]</field>
         <field name="type">ir.actions.act_window</field>
@@ -294,7 +291,7 @@
         <field name="name">Liste des apprennants de la SIL</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-        <field name="domain">[('classe_id.code', '=', '4'),
+        <field name="domain">[('classe_id.code', '=', 4)
                              ('state', '=', 'student'),
                                 ,('ane_academique_id.active', '=', True)
                              ]</field>
@@ -312,8 +309,8 @@
         <field name="name">Liste des apprennants de la Maternelle 1ère Année </field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-        <field name="domain">[('classe_id.code', '=', '1'),
-                             ('state', '=', 'student'),
+        <field name="domain">[('classe_id.code', '=', 1),
+                             ('state', '=', 'student')
             ,('ane_academique_id.active', '=', True)
                              ]</field>
         <field name="type">ir.actions.act_window</field>
@@ -330,8 +327,8 @@
         <field name="name">Liste des apprennants de la Maternelle 2e Année</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-        <field name="domain">[('classe_id.code', '=', '2'),
-                             ('state', '=', 'student'),
+        <field name="domain">[('classe_id.code', '=', 2),
+                             ('state', '=', 'student')
                             ,('ane_academique_id.active', '=', True)
                              ]</field>
         <field name="type">ir.actions.act_window</field>
@@ -348,9 +345,9 @@
         <field name="name">Liste des apprennants d2 Maternelle 3e Année</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-        <field name="domain">[('classe_id.code', '=', '3'),
+        <field name="domain">[('classe_id.code', '=', 3),
                              ('state', '=', 'student'),
-                                ,('ane_academique_id.active', '=', True)
+                                ('ane_academique_id.active', '=', True)
                              ]</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
@@ -369,9 +366,9 @@
         <field name="name">Liste des apprennants de la filiere HOTELLERIE de 6 MOIS</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-        <field name="domain">[('classe_id.code', '=', '12'),
+        <field name="domain">[('classe_id.code', '=', 12),
                              ('state', '=', 'student'),
-                            ,('ane_academique_id.active', '=', True)
+                            ('ane_academique_id.active', '=', True)
                              ]</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
@@ -379,7 +376,7 @@
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants d'HOTELLERIE 6 MOIS
               </p><p>
-                Cette interface vous permet d'enregistrer les informations des apprenants du CM1
+                Cette interface vous permet d'enregistrer les informations des apprenants d'HOTELLERIE 6 MOIS
               </p>
         </field>
     </record>
@@ -388,9 +385,9 @@
         <field name="name">Liste des apprennants de la filiere HOTELLERIE de 1 AN</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-        <field name="domain">[('classe_id.code', '=', '13'),
+        <field name="domain">[('classe_id.code', '=', 13),
                              ('state', '=', 'student'),
-                            ,('ane_academique_id.active', '=', True)
+                            ('ane_academique_id.active', '=', True)
                              ]</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
@@ -408,12 +405,12 @@
         <field name="name">Liste des apprennants de la filiere COUTURE de 1ere Année</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-        <field name="domain">[('classe_id.code', '=', '14'),
+        <field name="domain">[('classe_id.code', '=', 14),
                              ('state', '=', 'student'),
-                            ,('ane_academique_id.active', '=', True)
+                            ('ane_academique_id.active', '=', True)
                              ]</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="context">{'default_ane_academique_id': active_id}</field>
+        <!--<field name="context">{'default_ane_academique_id': active_id}</field>-->
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
@@ -428,12 +425,12 @@
         <field name="name">Liste des apprennants de la filiere COUTURE de 2e Année</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-        <field name="domain">[('classe_id.code', '=', '15'),
+        <field name="domain">[('classe_id.code', '=', 15),
                              ('state', '=', 'student'),
-                            ,('ane_academique_id.active', '=', True)
+                            ('ane_academique_id.active', '=', True)
                              ]</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="context">{'default_ane_academique_id': active_id}</field>
+        <!--<field name="context">{'default_ane_academique_id': active_id}</field>-->
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
@@ -450,12 +447,12 @@
         <field name="name">Liste des apprennants de la filiere COUTURE de 3e Année</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-        <field name="domain">[('classe_id.code', '=', '16'),
+        <field name="domain">[('classe_id.code', '=', 16),
                              ('state', '=', 'student'),
-                            ,('ane_academique_id.active', '=', True)
+                            ('ane_academique_id.active', '=', True)
                              ]</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="context">{'default_ane_academique_id': active_id}</field>
+        <!--<field name="context">{'default_ane_academique_id': active_id}</field>-->
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
@@ -471,12 +468,12 @@
         <field name="name">Liste des apprennants de la filiere PATISSERIE 6 mois</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-        <field name="domain">[('classe_id.code', '=', '17'),
+        <field name="domain">[('classe_id.code', '=', 17),
                              ('state', '=', 'student'),
-                            ,('ane_academique_id.active', '=', True)
+                            ('ane_academique_id.active', '=', True)
                              ]</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="context">{'default_ane_academique_id': active_id}</field>
+        <!--<field name="context">{'default_ane_academique_id': active_id}</field>-->
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
@@ -491,12 +488,12 @@
         <field name="name">Liste des apprennants de la filiere PATISSERIE 1 an</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-        <field name="domain">[('classe_id.code', '=', '18'),
+        <field name="domain">[('classe_id.code', '=', 18),
                              ('state', '=', 'student'),
-                            ,('ane_academique_id.active', '=', True)
+                            ('ane_academique_id.active', '=', True)
                              ]</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="context">{'default_ane_academique_id': active_id}</field>
+        <!--<field name="context">{'default_ane_academique_id': active_id}</field>-->
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">

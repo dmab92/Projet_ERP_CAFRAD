@@ -38,7 +38,7 @@ class mediatek_cafrad(models.Model):
             return 'LOC/' + str(data + 1) + '/' + sort_year
 
     identifiant = fields.Char("Identifiant", readonly="True", default=lambda self: self._get_next_reference())
-    partner_id = fields.Many2one('res.partner', "Abonné(e)")
+    partner_id = fields.Many2one('res.partner', "Abonné(e)", required=True)
     sexe = fields.Selection([('masc', 'Masculin'), ('fem', 'Feminin')], 'Sexe')
     livre_id = fields.Many2one('livre.cafrad', 'Livre')
     categori_id = fields.Many2one('cafrad.book.categorie', 'Categorie', related='livre_id.categori_id')
@@ -53,9 +53,8 @@ class mediatek_cafrad(models.Model):
     def button_loan(self):
         loan_ids = self.env['mediatek.cafrad'].search([('partner_id', '=', self.partner_id.id),('state', '=', 'loan')])
         if len(loan_ids)>0:
-            raise UserError(_(" Desolez %s  ne  plus empreinter un livre car il/elle n'a pas encore "
-                              "retournee %s qu'il/elle a emprunter le")
-                            % (loan_ids[0].partner_id.name,loan_ids[0].livre_id.titre,loan_ids[0].date_out))
+            raise UserError(_(" Desolez cet(te) abonné(e) ne  plus emprunter un livre car il/elle n'a pas encore "
+                              "retourné(e) un precedent livre"))
         return self.write({'state': 'loan'})
 
     def button_back(self):
@@ -65,6 +64,7 @@ class livre_cafrad(models.Model):
     _name = "livre.cafrad"
     _description = "Livres du CAFRAD"
     _order = 'id DESC'
+    _rec_name ='titre'
 
     def _get_next_reference(self):
         query = """SELECT COUNT(id) AS ligne FROM livre_cafrad"""
@@ -94,7 +94,7 @@ class livre_cafrad(models.Model):
 
     identifiant = fields.Char("Identifiant", readonly="True", default=lambda self: self._get_next_reference())
     titre = fields.Char("Titre",  required=True)
-    date_register = fields.Date("Date d\'enregistrement")
+    date_register = fields.Date("Date d\'enregistrement",default=fields.datetime.now())
     date_out = fields.Date('Date de sortie')
     autor = fields.Char("Auteur", required=True)
     categori_id = fields.Many2one('cafrad.book.categorie', 'Categorie')

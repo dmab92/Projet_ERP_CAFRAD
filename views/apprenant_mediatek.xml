@@ -27,6 +27,7 @@
                     <field name="livre_id"/>
                     <field name="date_out"/>
                     <field name="date_in"/>
+                    <field name="state"/>
                 </tree>
             </field>
         </record>
@@ -39,7 +40,20 @@
                                     Cr&#233;ez / &#233;ditez vos donn&#233;es sur les emprunts de livres
                                </p>
                     <header>
+                        <button name="button_loan"
+                                string="Emprunter"
+                                type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible': [('state','not in', 'draft')]}"
+                                />
 
+                         <button name="button_back"
+                                 string="Rembouser"
+                                 type="object"
+                                 attrs="{'invisible': [('state','not in', 'loan')]}"
+                                 class="oe_highlight"/>
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,loan,back" />
                     </header>
                     <sheet>
                         <group string="Informations sur Generales">
@@ -84,18 +98,16 @@
             <field name="name">Les Livres</field>
             <field name="model">livre.cafrad</field>
             <field name="arch" type="xml">
-
-                <tree string="Les Livres">
-                    <field name="identifiant"/>
-                    <field name="titre"/>
+                <tree string="Liste des Livres">
+                     <field name="identifiant"/>
+                     <field name="titre"/>
                      <field name="categori_id"/>
-                    <field name="autor"/>
-                    <field name="date_out"/>
-                </tree>
+                     <field name="autor"/>
+                     <field name="date_out"/>
 
+                </tree>
             </field>
         </record>
-
 
         <record model="ir.ui.view" id="view_livre_cafrad_from">
             <field name="name">Les Livres</field>
@@ -113,13 +125,11 @@
                             <group>
                                  <field name="identifiant"/>
                                  <field name="titre"/>
-                                 <field name="date_out"/>
-
                             </group>
                             <group>
                                  <field name="categori_id"/>
                                 <field name="autor"/>
-
+                                <field name="date_out"/>
                             </group>
                         </group>
                     </sheet>
@@ -131,6 +141,7 @@
             <field name="name">Les Livres </field>
             <field name="res_model">livre.cafrad</field>
             <field name="type">ir.actions.act_window</field>
+            <field name="view_id" ref="view_livre_cafrad_tree"/>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
@@ -143,10 +154,9 @@
         </record>
 
 
-
       <!-- CATEGORIES DE LIVRES-->
 
-        <record model="ir.ui.view" id="view_livre_cafrad_tree">
+        <record model="ir.ui.view" id="view_categori_livre_cafrad_tree">
             <field name="name">Les Categories de Livres</field>
             <field name="model">cafrad.book.categorie</field>
             <field name="arch" type="xml">
@@ -155,11 +165,11 @@
                 </tree>
             </field>
         </record>
-        <record model="ir.ui.view" id="view_livre_cafrad_from">
+        <record model="ir.ui.view" id="view_categori_livre_cafrad_from">
             <field name="name">Les Categorie  de Livres</field>
             <field name="model">cafrad.book.categorie</field>
             <field name="arch" type="xml">
-                <form string="Les religions">
+                <form string="Les Categories de livres">
                     <p class="oe_grey">
                                     Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Categorie de livres
                     </p>
