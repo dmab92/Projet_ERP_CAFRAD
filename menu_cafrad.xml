@@ -253,6 +253,13 @@
                   sequence="32"
                   action="cafrad_app.view_magazine_cafrad_action"/>
 
+        <menuitem name="Radio"
+                  id="cafrad_app.radio"
+                  parent="cafrad_app.menu_root"
+                  groups="base.group_user"
+                  sequence="33"
+                  action="cafrad_app.view_radio_cafrad_action"/>
+
 
 
 
@@ -261,6 +268,8 @@
        <menuitem name="Configurations"
                   id="cafrad_app.config"
                   parent="cafrad_app.menu_root"
+                  sequence="34"
+
                   />
             <menuitem name="Annees Academiques"
                       id="cafrad_app.ana_academique"
@@ -304,6 +313,11 @@
                       id="cafrad_app.book_categorie"
                       parent="cafrad_app.config"
                       action="cafrad_app.view_categori_book_cafrad_action"/>
+
+            <menuitem name="Emissions Radio"
+                      id="cafrad_app.emission_radio"
+                      parent="cafrad_app.config"
+                      action="cafrad_app.view_emission_radio_cafrad_action"/>
 
     </data>
 

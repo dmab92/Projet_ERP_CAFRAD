@@ -62,11 +62,14 @@
                                 <field name="identifiant"/>
                                 <field name="partner_id"/>
                                 <field name="livre_id"/>
+                                <field name="profession"/>
                             </group>
                             <group>
                                 <field name="categori_id"/>
                                 <field name="date_out"/>
                                 <field name="date_in" />
+                                <field name="phone_number"/>
+                                <field name="motif"/>
                             </group>
                         </group>
 

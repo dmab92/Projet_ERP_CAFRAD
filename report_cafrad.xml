@@ -18,6 +18,13 @@
                 file="cafrad_app.fiche_suivi_report"
                 name="cafrad_app.fiche_suivi_report" />
 
+        <report id="action_report_conducteur_antene"
+                string="Conducteur d'antenne"
+                model="radio.cafrad"
+                report_type = "qweb-pdf"
+                file="cafrad_app.conducteur_antenne"
+                name="cafrad_app.conducteur_antenne" />
+
     </data>
 
 </odoo>

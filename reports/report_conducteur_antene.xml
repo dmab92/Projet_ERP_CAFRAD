@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="conducteur_antenne">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="oe_structure" />
+
+                        <center> <h3><u><b>CONDUCTEUR D'ANTENNE</b>  </u> </h3>   </center>  <br />
+
+                        <table class="table table-sm o_main_table">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th><strong>Heure </strong></th>
+                                        <th><strong>Designations</strong></th>
+                                        <th><strong>Artistes et Titres</strong></th>
+                                        <th><strong>Duree</strong></th>
+                                        <th><strong>Support</strong></th>
+                                    </tr>
+                                </thead>
+                            <tbody>
+
+                                     <t t-foreach="o.radioline_ids" t-as="line">
+                                            <tr>
+                                                <td><span t-esc="line.date_hour" t-options="{&quot;widget&quot;: &quot;date&quot;}"/> </td>
+                                                <td><span t-field="line.designation"/></td>
+                                                <td><span t-field="line.artiste"/></td>
+                                                <td><span t-field="line.support"/></td>
+                                                <td><span t-field="line.duree"/></td>
+                                            </tr>
+                                        </t>
+                            </tbody>
+                        </table>
+                        Invités) du programme(s):
+                        <t t-if="len(o.invites_ids) != '0'">
+                              <t t-foreach="invites_ids" t-as="line">
+                              <span t-esc="line.name" />,
+                              </t>
+                        </t>    <br />
+                        NB: Veuiilez viser vos conducteurs 24h avant
+                    <br /> Le Charge des programmes <span t-field="o.programe_owner_id.name"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

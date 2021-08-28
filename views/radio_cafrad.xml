@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+        <record id="view_radio_cafrad_filter" model="ir.ui.view">
+            <field name="name">radio.cafrad.filter</field>
+            <field name="model">radio.cafrad</field>
+            <field name="arch" type="xml">
+                <search string="Conducteurs d'antennes">
+                    <field name="emission_id"/>
+                    <field name="presentateur_id"/>
+                    <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Emission" name="groupby_emission_id" domain="[]" context="{'group_by': 'emission_id'}"/>
+                        <filter string="Presentateur" name="groupby_presentateur_id" domain="[]" context="{'group_by': 'presentateur_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_radio_cafrad_tree">
+            <field name="name">Conducteur d'antenne</field>
+            <field name="model">radio.cafrad</field>
+            <field name="arch" type="xml">
+                <tree string="Conducteur d'anttene">
+                    <field name="emission_id"/>
+                    <field name="presentateur_id"/>
+                    <field name="date_hour"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_radio_cafrad_form">
+            <field name="name">Conducteur d'antenne</field>
+            <field name="model">radio.cafrad</field>
+            <field name="arch" type="xml">
+                <form string="Emploi de temps">
+                        <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos Conducteurs d'antennes
+                               </p>
+                    <header>
+                        <button name="print_conducteur_antene"
+                                string="Imprimer le conducteur d'antenne"
+                                type="object"
+                                class="oe_highlight"
+                                icon="fa-check"
+                                />
+                        <!--<field name="state" widget="statusbar" statusbar_visible="draft,validated" />-->
+                    </header>
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <field name="emission_id" options="{&quot;no_create&quot;: True}" />
+                            <field name="presentateur_id"  options="{&quot;no_create&quot;: True}" />
+                            <field name="date_hour" />
+                            <field name="programe_owner_id"/>
+                            <field name="invites_ids"  widget="many2many_tags"
+                        options="{'no_create_edit': True}"/>
+                        </group>
+                         <notebook colspan="4">
+                            <page string="Details">
+                                <field name="radioline_ids" nolabel="1" colspan="4">
+                                    <tree string="Details" editable="top">
+                                        <field name="date_hour"/>
+                                        <field name="designation" />
+                                        <field name="artiste" />
+                                        <field name="duree" />
+                                        <field name="support" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_radio_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Conducteurs D'antennes</field>
+            <field name="res_model">radio.cafrad</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos conducteurs d'anntennes
+              </p><p>
+                Cette interface vous permet d'enregistrer les informations sur vos conducteurs d'antennes
+              </p>
+            </field>
+        </record>
+
+    <!-- EMISSIONS-->
+
+        <record model="ir.ui.view" id="view_emission_cafrad_tree">
+            <field name="name">Les Emissions</field>
+            <field name="model">emission.radio.cafrad</field>
+            <field name="arch" type="xml">
+                <tree string="Les Emissions">
+                    <field name="name"/>
+                    <field name="presentateur_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_emission_cafrad_from">
+            <field name="name">Les Emissions</field>
+            <field name="model">emission.radio.cafrad</field>
+            <field name="arch" type="xml">
+                <form string="Les Filieres">
+                    <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Emissions
+                    </p>
+                    <header>
+
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                 <field name="name"/>
+                                <field name="presentateur_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_emission_radio_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Les Emissions </field>
+            <field name="res_model">emission.radio.cafrad</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Creez vos Emissions ici
+              </p>
+                <p>
+                Pour creer une  Emissions, cliquer sur le buton creer en haut a gauche de ce message
+               </p>
+            </field>
+        </record>
+</odoo>

@@ -38,6 +38,9 @@ class mediatek_cafrad(models.Model):
             return 'LOC/' + str(data + 1) + '/' + sort_year
 
     identifiant = fields.Char("Identifiant", readonly="True", default=lambda self: self._get_next_reference())
+    profession = fields.Char("Profession")
+    phone_number = fields.Char("Telephone")
+    motif = fields.Char("Motif")
     partner_id = fields.Many2one('res.partner', "Abonné(e)", required=True)
     sexe = fields.Selection([('masc', 'Masculin'), ('fem', 'Feminin')], 'Sexe')
     livre_id = fields.Many2one('livre.cafrad', 'Livre')

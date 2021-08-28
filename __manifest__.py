@@ -78,7 +78,7 @@ fiche de suivi, Fiche d’écoute, emploi de temps, Chronogramme, rapport, plann
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base','hr'],
 
     # always loaded
     'data': [
@@ -97,6 +97,7 @@ fiche de suivi, Fiche d’écoute, emploi de temps, Chronogramme, rapport, plann
         'views/apprenant_suivi_fiche.xml',
         'views/apprenant_mediatek.xml',
         'views/magazine_cafrad.xml',
+        'views/radio_cafrad.xml',
         #MENU
         'menu_cafrad.xml',
         #WIZARD
@@ -104,6 +105,7 @@ fiche de suivi, Fiche d’écoute, emploi de temps, Chronogramme, rapport, plann
         #REPORT
         'reports/report_timetable.xml',
         'reports/report_fiche_suivi.xml',
+        'reports/report_conducteur_antene.xml',
         'report_cafrad.xml',
 
     ],
