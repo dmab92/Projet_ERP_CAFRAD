@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, SUPERUSER_ID, _
 import time
-from datetime import date
+from datetime import date, datetime
+from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, Warning, ValidationError
 from odoo.tools.translate import _
+
+
 
 
 class apprenant_cafrad(models.Model):
@@ -51,50 +54,16 @@ class apprenant_cafrad(models.Model):
         academic_year_id = academic_year_obj.search([('active', '=', True)], limit=1)
         return academic_year_id and academic_year_id.id or False
 
-    # @api.depends('date_nais')
-    # def compute_age(self):
-    #     '''Method to calculate student age'''
-    #     current_dt = date.today()
-    #     start = date.today()
-    #     for rec in self:
-    #         if rec.compute_age:
-    #             start = rec.date_nais
-    #             age_calc = ((current_dt - start).days / 365)
-    #             # Age should be greater than 0
-    #             if age_calc > 0.0:
-    #                 rec.age = age_calc
-    #         else:
-    #             rec.age = 0
 
-    # @api.onchange('date_nais')
-    # def compute_age(self):
-    #     for rec in self:
-    #         if rec.date_nais:
-    #             dt = rec.date_nais
-    #             d1 = datetime.strptime(str(dt), "%Y-%m-%d").date()
-    #             d2 = date.today()
-    #             rd = relativedelta(d2, d1)
-    #             rec.age = int(rd.years)
-
-    @api.onchange('date_nais')
-    def onchange_age(self):
-        '''Method to calculate student age'''
-        current_dt = date.today()
-        for rec in self:
-            if rec.date_nais:
-                start = rec.date_nais
-                age_calc = ((current_dt - start).days / 365)
-                # Age should be greater than 0
-                if age_calc > 0.0:
-                    rec.age = age_calc
 
     #FIELDS
     name = fields.Char("Nom de l'apprenant", required=True)
-    date_nais = fields.Date('Date de Naissance')
+    date_nais = fields.Date('Date de Naissance',default=datetime.today().date())
     lieu_nais = fields.Char("Lieu de Naissance")
     sexe = fields.Selection([('masc', 'Masculin'), ('fem', 'Feminin')], 'Sexe')
     matricule = fields.Char("Matricule de l'apprenant", readonly="True", default=lambda self: self._get_next_reference())
-    age = fields.Integer(string='Age', default=0, readonly=1)
+    #age = fields.Integer(string='Age', readonly=1)
+    age = fields.Integer('Age',  compute="compute_age")
     date_register = fields.Datetime('Date d\'énregistrement', default=fields.datetime.now())
     school = fields.Selection([('ebase', 'Groupe Scolaire'), ('cef', 'CEF'), ('cafrad', 'CAFRAD')],'Ecole',
                                      help="L'établissement de l'apprenant")
@@ -123,13 +92,22 @@ class apprenant_cafrad(models.Model):
     student_upgra_id = fields.Many2one('apprenant.cafrad.upgrade',string='Admission')
 
     speciality_id = fields.Many2one('speciality.cafrad', string='Filière')
-    state_admission = fields.Selection([('draft', 'Brouillon'),
+    state_admission = fields.Selection([('draft', 'En attente de decision'),
                                         ('redouble', 'Redouble'),
-                                        ('admis', 'Admis')], default='draft')
+                                        ('admis', 'Admis')],  string='Situation',default='draft')
 
+    #-------------------------------------SURCHARGE DE L'ORM----------------------------#
 
-
-
+    @api.depends('date_nais')
+    def compute_age(self):
+        for record in self:
+            record.age=0
+            if record.date_nais:
+                d1 = record.date_nais
+                d2 = datetime.today().date()
+                record.age = relativedelta(d2, d1).years
+        else:
+            pass
 
     def button_admission(self):
         apprenant_obj = self.env['apprenant.cafrad']

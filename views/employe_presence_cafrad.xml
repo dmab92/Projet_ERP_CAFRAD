@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_employe_presence_cafrad_filter" model="ir.ui.view">
+           <field name="name">employee.presence.cafrad.filter</field>
+            <field name="model">employee.presence.cafrad</field>
+            <field name="arch" type="xml">
+                <search string="Presences">
+                    <field name="ane_academique_id"/>
+                    <field name="name"/>
+                    <field name="company_id"/>
+
+                    <group expand="0" string="Group By">
+                        <filter string="Jour" name="groupby_date_register" domain="[]" context="{'group_by': 'date_register'}"/>
+                        <filter string="Description" name="groupby_name" domain="[]" context="{'group_by': 'name'}"/>
+                        <filter string="Etablissement" name="groupby_company_id" domain="[]" context="{'group_by': 'company_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_employe_presence_cafrad_tree">
+            <field name="name">Liste des presences</field>
+            <field name="model">employee.presence.cafrad</field>
+            <field name="arch" type="xml">
+                <tree string="Liste des Presences">
+                    <field name="name"/>
+                    <field name="company_id" />
+                    <field name="ane_academique_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_employe_presence_cafrad_form">
+            <field name="name">Presences</field>
+            <field name="model">employee.presence.cafrad</field>
+            <field name="arch" type="xml">
+                <form string="Evaluations">
+                        <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Presences des employes
+                               </p>
+                    <header>
+                            <button name="button_validate"
+                                    string="Valider"
+                                    type="object"
+                                    class="oe_highlight"
+                                    icon="fa-check-cirle"
+                                />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,validated" />
+
+                    </header>
+                    <sheet>
+
+                            <group>
+                                <field name="name" placehoder="Description"/>
+                                <field name="date_register" readonly="1" />
+                                <field name="company_id"  />
+                                <field name="ane_academique_id" />
+                            </group>
+
+                        <notebook colspan="4">
+                            <page string="Les Personnels">
+                                <field name="employee_ids"  attrs="{'readonly':[('state','in',['validated'])]}" nolabel="1" colspan="4">
+                                    <tree string="Les Personnels" editable="top">
+                                        <field name="name" required="1"/>
+                                        <field name="company_id" />
+                                        <field name="job_id" />
+                                        <field name="mobile_phone"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_employe_presence_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Liste de Presences</field>
+            <field name="res_model">employee.presence.cafrad</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur les presences des Employees
+              </p><p>
+                Cette interface vous permet d'enregistrer les informations les Employees
+              </p>
+            </field>
+        </record>
+</odoo>

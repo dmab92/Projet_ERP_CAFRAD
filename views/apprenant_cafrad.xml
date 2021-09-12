@@ -137,6 +137,24 @@
         </record>
 
 
+        <record id="view_all_prospect_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Liste de tous les Prospects</field>
+            <field name="res_model">apprenant.cafrad</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="domain">[('state', '=', 'prospet')]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_apprenant_cafrad_tree"/>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur les prospects
+              </p>
+                <p>
+                Cette interface vous permet d'enregistrer les informations des prospects
+              </p>
+            </field>
+        </record>
+
+
         <record id="view_create_prospect_cafrad_action" model="ir.actions.act_window">
             <field name="name">Liste des Prospects</field>
             <field name="res_model">apprenant.cafrad</field>
@@ -225,6 +243,7 @@
         <field name="domain">[('classe_id.code', '=', 9),
                              ('state', '=', 'student'),('ane_academique_id.active', '=', True)
                              ]</field>
+<!--        <field name="context">{'default_classe_id':'formation'}</field>-->
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
@@ -287,7 +306,7 @@
               </p>
         </field>
     </record>
-    <record id="view_apprenant_si1_cafrad_action" model="ir.actions.act_window">
+    <record id="view_apprenant_sil_cafrad_action" model="ir.actions.act_window">
         <field name="name">Liste des apprennants de la SIL</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
@@ -345,10 +364,7 @@
         <field name="name">Liste des apprennants d2 Maternelle 3e Année</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-        <field name="domain">[('classe_id.code', '=', 3),
-                             ('state', '=', 'student'),
-                                ('ane_academique_id.active', '=', True)
-                             ]</field>
+        <field name="domain">[('classe_id.code', '=', 3),('state', '=', 'student'), ('ane_academique_id.active', '=', True) ]</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
@@ -366,10 +382,7 @@
         <field name="name">Liste des apprennants de la filiere HOTELLERIE de 6 MOIS</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-        <field name="domain">[('classe_id.code', '=', 12),
-                             ('state', '=', 'student'),
-                            ('ane_academique_id.active', '=', True)
-                             ]</field>
+        <field name="domain">[('classe_id.code', '=', 12), ('state', '=', 'student'), ('ane_academique_id.active', '=', True)]</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
@@ -500,6 +513,30 @@
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants de PATISSERIE  1 an
               </p><p>
                 Cette interface vous permet d'enregistrer les informations de PATISSERIE 1 an
+              </p>
+        </field>
+    </record>
+
+
+
+
+
+    <record id="view_apprenant_garage_cafrad_action" model="ir.actions.act_window">
+        <field name="name">Liste des apprennants du  GARAGE</field>
+        <field name="res_model">apprenant.cafrad</field>
+        <field name="view_id" ref="view_apprenant_cafrad_tree"/>
+        <field name="domain">[('classe_id.code', '=', 14),
+                             ('state', '=', 'student'),
+                            ('ane_academique_id.active', '=', True)
+                             ]</field>
+        <field name="type">ir.actions.act_window</field>
+        <!--<field name="context">{'default_ane_academique_id': active_id}</field>-->
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants du GARAGE
+              </p><p>
+                Cette interface vous permet d'enregistrer les informations du GARAGE
               </p>
         </field>
     </record>

@@ -48,7 +48,7 @@
                                 <field name="teacher_phone"/>
                             </group>
                             <group>
-                                <field name="photo" widget="image"/>
+                                <field name="photo" widget="image" class="oe_avatar oe_left" style="max-width:100px;max-height:117px;"/>
                                 <field name="matricule"/>
                                 <field name="school"/>
                             </group>
@@ -56,7 +56,7 @@
                         <notebook>
                             <page string="Pieces  Jointes">
                                 <group>
-                                    <field name="attachment_ids"  string="Ajouter des pieces jointes" widget="many2many_binary"/>
+                                    <field name="attachment_ids"  string="Ajouter des pieces jointes"   widget="many2many_binary"/>
                                 </group>
                             </page>
                         </notebook>

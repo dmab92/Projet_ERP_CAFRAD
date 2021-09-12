@@ -44,7 +44,26 @@
                                 type="object"
                                 class="oe_highlight"
                                 />
-
+                        <button name="set_to_running"
+                                string="En cours d'insertion"
+                                type="object"
+                                class="oe_highlight"
+                                icon="fa-circle"
+                                attrs="{'invisible': [('state','not in', ['draft'])]}"
+                                />
+                        <button name="set_to_insert"
+                                string="Inseré(e)"
+                                type="object"
+                                class="oe_highlight"
+                                icon="fa-check-circle"
+                                attrs="{'invisible': [('state','not in', ['running'])]}"
+                                />
+                         <button name="set_to_draft"
+                                string="Remettre en brouillon"
+                                type="object"
+                                attrs="{'invisible': [('state','not in', ['insert'])]}"
+                                />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,running,insert" />
                     </header>
                     <sheet>
                         <group col="4" colspan="4">
@@ -124,8 +143,16 @@
                                     </tree>
                                 </field>
                             </page>
+                             <page string="FICHE DE PLACEMENT EN STAGE PROFESSIONNEL">
+                                    <group col="4" colspan="4">
+                                        <field name="date_start_stage" />
+                                        <field name="date_end_stage"/>
+                                        <field name="theme_stage" />
+                                        <field name="encadreur_aca" />
+                                        <field name="encadreur_pro" />
+                                    </group>
+                            </page>
                         </notebook>
-
                     </sheet>
                 </form>
             </field>

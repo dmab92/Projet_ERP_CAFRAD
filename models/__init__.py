@@ -11,3 +11,4 @@ from . import apprenant_suivi_fiche
 from . import apprenant_mediatek
 from . import magazine_cafrad
 from . import radio_cafrad
+from . import employe_presence_cafrad

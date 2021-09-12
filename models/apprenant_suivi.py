@@ -19,6 +19,8 @@ class apprenant_cafrad_suivi(models.Model):
     reponsable_id = fields.Many2one('hr.employee', "Responsable du suivi",
                                     help="Il s'agit du personel en charge du suivi de l'apprnant")
 
+
+
     fiche_suivi_line_ids = fields.One2many("apprenant.cafrad.suivi.fiche.line",'apprenant_suivi_fiche_id',string="Suivi de l'apprenant")
 
     @api.onchange('apprenant_id')

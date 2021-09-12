@@ -7,6 +7,9 @@ class apprenant_cafrad_suivi_fiche(models.Model):
     _description = "Fiche de Suivi des apprenannts du CAFRAD"
     _order = 'id DESC'
 
+    state = fields.Selection([('draft', 'Brouillon'),
+                              ('running', 'En cours d''insertion'),
+                              ('insert', 'Inseré(e)')], default='draft')
     ################################## A/-ACCOMPAGNEMENT SOCIAL  ########################################
 
     apprenant_id = fields.Many2one('apprenant.cafrad',string="Nom du Jeune", required=True,
@@ -82,6 +85,14 @@ class apprenant_cafrad_suivi_fiche(models.Model):
     why = fields.Char("Pourquoi ?")
     end_word = fields.Char("Votre mot de fin")
 
+    ################################## E/-FICHE DE PLACEMENT EN STAGE PROFESSIONNEL ########################################
+
+    date_start_stage = fields.Date("Date de debut de stage")
+    date_end_stage = fields.Date("Date de fin de stage")
+    theme_stage = fields.Char("Theme de Soutenance")
+    encadreur_aca = fields.Many2one("teacher.cafrad", "Encadreur Academique")
+    encadreur_pro = fields.Many2one("res.partner", "Encadreur Professionel")
+
     @api.onchange('apprenant_id')
     def _onchange_apprenant_id(self):
         for rec in self:
@@ -104,6 +115,18 @@ class apprenant_cafrad_suivi_fiche(models.Model):
                 rec.mobility = rec.apprenant_id.mobility
                 rec.nature_handicap = rec.apprenant_id.nature_handicap
 
+
+
+
+
+    def set_to_running(self):
+        return self.write({"state": 'running'})
+
+    def set_to_insert(self):
+        return self.write({"state": 'insert'})
+
+    def set_to_draft(self):
+        return self.write({"state": 'draft'})
 
 
     def print_fiche_suivi(self):

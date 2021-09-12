@@ -3,7 +3,6 @@ from odoo import api, fields, models, SUPERUSER_ID, _
 import time
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
-from odoo.tools.translate import _
 
 
 class teacher_cafrad(models.Model):
@@ -39,31 +38,32 @@ class teacher_cafrad(models.Model):
         if data < 1000 and data >= 100:
             return 'EN/' + str(data + 1) + '/' + sort_year
 
-
-
     #FIELDS
     #name = fields.Char("Nom de l'enseignant")
+    date_nais = fields.Date('Date de Naissance', default=datetime.today().date())
     employee_id = fields.Many2one('hr.employee',string="Nom de l'enseignant")
     sexe = fields.Selection([('masc', 'Masculin'), ('fem', 'Feminin')], 'Sexe')
     matricule = fields.Char("Matricule de l'enseignant", readonly="True", default=lambda self: self._get_next_reference())
-    #age = fields.Integer('Age', compute="compute_age")
+    age = fields.Integer('Age', compute="compute_age")
     date_register = fields.Datetime('Date d\'énregistrement', default=fields.datetime.now())
-    school = fields.Selection([('ebase', 'Education de base'), ('cef', 'CEF')],'Ecole',
-                                     help="L'etablissement de l'apprenant")
+    school = fields.Selection([('ebase', 'Groupe Scolaire'), ('cef', 'CEF'),
+                               ('cafrad', 'CAFRAD')],'Ecole',
+                                help="L'etablissement de l'enseignant")
     teacher_phone= fields.Char("Telephone de l'enseignant")
+    classe_id = fields.Many2one('salle.classe.cafrad',
+                                string='Salle de Classe', help="La classe de l'enseignant")
     photo = fields.Binary(string="photo de l'Enseigant")
     attachment_ids = fields.Many2many("ir.attachment")
 
 
-    #FUNCTIONS
+    #-------------FUNCTIONS-------------#
 
-    # @api.depends("date_nais")
-    # def compute_age(self):
-    #     for record in self:
-    #         if record.date_nais:
-    #             d1 = datetime.datetime.strptime(record.date_nais, "%Y-%m-%d").date()
-    #             rd = relativedelta(date.today(), d1)
-    #             record.age = rd.years
+    @api.depends('date_nais')
+    def compute_age(self):
+        if self.date_nais:
+            d1 = self.date_nais
+            d2 = datetime.today().date()
+            self.age = relativedelta(d2, d1).years
 
 
 

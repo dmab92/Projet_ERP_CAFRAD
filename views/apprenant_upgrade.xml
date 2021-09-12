@@ -60,17 +60,23 @@
                                         <field name="name" required="1"/>
                                         <field name="classe_id" />
                                         <field name="annuel_average" required="1" />
-                                         <!--<field name="state" widget="statusbar" statusbar_visible="prospet,student" invisible="1" />-->
+                                         <field name="state" widget="statusbar" statusbar_visible="prospet,student" invisible="1" />
+
                                         <button name="button_admission"
                                             string="Admis"
                                             type="object"
-
+                                            class="oe_link"
+                                            attrs="{'invisible':[('state_admission','in',['redouble','admis'])]}"
                                             />
+
                                         <button name="button_redouble"
                                             string="Redouble"
                                             type="object"
+                                            class="oe_link"
+                                            attrs="{'invisible':[('state_admission','in',['redouble','admis'])]}"
                                             />
 
+                                        <field name="state_admission"  string='Situation' nolabel="1"  readonly="1"/>
                                     </tree>
                                 </field>
                             </page>
