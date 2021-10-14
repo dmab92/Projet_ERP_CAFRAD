@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ___________________Projets CAFRAD ___________ -->
+        <record id="view_projet_cafrad_filter" model="ir.ui.view">
+            <field name="name">apprenant.projet.filter</field>
+            <field name="model">apprenant.projet</field>
+            <field name="arch" type="xml">
+                <search string="Projets">
+                    <field name="ane_academique_id"/>
+                    <field name="name"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Annee Academique" name="groupby_ane_academique_id" domain="[]" context="{'group_by': 'ane_academique_id'}"/>
+                        <filter string="Nom du projet" name="groupby_name" domain="[]" context="{'group_by': 'name'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_projet_cafrad_tree">
+            <field name="name">Liste des Projets</field>
+            <field name="model">apprenant.projet</field>
+            <field name="arch" type="xml">
+                <tree string="Liste des Projets">
+                    <field name="name"/>
+                    <field name="objectif"/>
+                    <field name="moyens"/>
+                    <field name="observation"/>
+                    <field name="day_hour"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_projet_cafrad_form">
+            <field name="name">Les Projets</field>
+            <field name="model">apprenant.projet</field>
+            <field name="arch" type="xml">
+                <form string="Projets">
+                        <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Projets
+                               </p>
+                    <header>
+
+                    </header>
+                    <sheet>
+                        <group string="Informations sur les Projets">
+                            <group>
+                                <field name="name"/>
+                                <field name="ane_academique_id"/>
+                                <field name="date_register"/>
+                                <field name="observation"/>
+                            </group>
+                            <group>
+                                <field name="objectif" />
+                                <field name="moyens" />
+                                <field name="day_hour"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_projet_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Liste des Projets</field>
+            <field name="res_model">apprenant.projet</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Projets
+              </p><p>
+                Cette interface vous permet d'enregistrer les informations des Projets
+              </p>
+            </field>
+        </record>
+
+    <!-- ___________________ SUIVI Projets CAFRAD ___________ -->
+
+       <record id="view_suivi_projet_cafrad_filter" model="ir.ui.view">
+            <field name="name">apprenant.suivi.projet.filter</field>
+            <field name="model">apprenant.suivi.projet</field>
+            <field name="arch" type="xml">
+                <search string="Suivi des projets">
+                    <field name="ane_academique_id"/>
+                    <field name="name"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Année Academique" name="groupby_ane_academique_id" domain="[]"
+                                context="{'group_by': 'ane_academique_id'}"/>
+                        <filter string="name" name="groupby_name" domain="[]" context="{'group_by': 'name'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_suivi_projet_cafrad_tree">
+            <field name="name">Suivi de Projets</field>
+            <field name="model">apprenant.suivi.projet</field>
+            <field name="arch" type="xml">
+                <tree string="Liste des Projets Suivis">
+                    <field name="name"/>
+                    <field name="apprenant_id"/>
+                    <field name="projet_id"/>
+                    <field name="date_register"/>
+                    <field name="ane_academique_id"/>
+                    <field name="reponsable_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_suivi_projet_cafrad_form">
+            <field name="name">Liste des Projets Suivis</field>
+            <field name="model">apprenant.suivi.projet</field>
+            <field name="arch" type="xml">
+                <form string="Projets">
+                        <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Projets Suivis
+                               </p>
+                    <header>
+
+                    </header>
+                    <sheet>
+                        <group string="Informations sur les Projets Suivi">
+                            <group>
+                                <field name="name"/>
+                                <field name="apprenant_id"/>
+                                <field name="projet_id"/>
+                            </group>
+                            <group>
+                                <field name="date_register"/>
+                                <field name="ane_academique_id"/>
+                                <field name="reponsable_id"/>
+                            </group>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Details du suivi">
+                                <field name="lines_suivi_projet_ids" nolabel="1" colspan="4">
+                                    <tree string="Details du suivi" editable="top">
+                                        <field name="date_register" />
+                                        <field name="action" />
+                                        <field name="resultat" />
+                                        <field name="difficulte" />
+                                        <field name="solution" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_suivi_projet_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Liste des Projets Suivis</field>
+            <field name="res_model">apprenant.suivi.projet</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Projets Suivis
+              </p><p>
+                Cette interface vous permet d'enregistrer les informations sur les Projets Suivis
+              </p>
+            </field>
+        </record>
+</odoo>

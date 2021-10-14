@@ -1,13 +1,10 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, SUPERUSER_ID, _
 import time
-from datetime import date, datetime
+from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, Warning, ValidationError
 from odoo.tools.translate import _
-
-
-
 
 class apprenant_cafrad(models.Model):
     _name = "apprenant.cafrad"
@@ -51,7 +48,7 @@ class apprenant_cafrad(models.Model):
     @api.model
     def _get_default_academic_year(self):
         academic_year_obj = self.env['ane.academiq.cafrad']
-        academic_year_id = academic_year_obj.search([('active', '=', True)], limit=1)
+        academic_year_id = academic_year_obj.search([('actived', '=', True)], limit=1)
         return academic_year_id and academic_year_id.id or False
 
 
@@ -60,20 +57,25 @@ class apprenant_cafrad(models.Model):
     name = fields.Char("Nom de l'apprenant", required=True)
     date_nais = fields.Date('Date de Naissance',default=datetime.today().date())
     lieu_nais = fields.Char("Lieu de Naissance")
-    sexe = fields.Selection([('masc', 'Masculin'), ('fem', 'Feminin')], 'Sexe')
+    sexe = fields.Selection([('masc', 'Masculin'), ('fem', 'Feminin')], 'Sexe',required=True)
     matricule = fields.Char("Matricule de l'apprenant", readonly="True", default=lambda self: self._get_next_reference())
-    #age = fields.Integer(string='Age', readonly=1)
     age = fields.Integer('Age',  compute="compute_age")
     date_register = fields.Datetime('Date d\'énregistrement', default=fields.datetime.now())
-    school = fields.Selection([('ebase', 'Groupe Scolaire'), ('cef', 'CEF'), ('cafrad', 'CAFRAD')],'Ecole',
-                                     help="L'établissement de l'apprenant")
-    ancien_new = fields.Selection([('ancien', 'Ancien'), ('new', 'Nouveau')], 'Ancien/Nouveau')
+    school = fields.Selection([('ebase', 'Groupe Scolaire'),
+                               ('cef', 'Formation CEF'),
+                               ('cafrad', 'Formation BEPANDA'),
+                               ('other', 'Autre Formation'),
+                               ('externe', 'Externe')], 'Ecole',
+                              required=True,help="L'établissement de l'apprenant")
+
+    ancien_new = fields.Selection([('ancien', 'Ancien'),
+                                   ('new', 'Nouveau')] ,'Ancien/Nouveau', default='new')
     ane_academique_id = fields.Many2one('ane.academiq.cafrad', "Annee Academique",
                                         default=lambda self: self._get_default_academic_year())
     religion_id= fields.Many2one('religion.cafrad',"Religion")
     region_id = fields.Many2one('region.cafrad',
                                 string='Région d\'origine', help="La région d'origine de l'apprenant")
-    classe_id = fields.Many2one('salle.classe.cafrad',
+    classe_id = fields.Many2one('salle.classe.cafrad', required=True,
                                 string='Classe', help="La classe de l'apprenant")
     parent_name = fields.Char("Nom et Prenoms des parents")
     parent_phone = fields.Char("Téléphone des parents")
@@ -95,6 +97,8 @@ class apprenant_cafrad(models.Model):
     state_admission = fields.Selection([('draft', 'En attente de decision'),
                                         ('redouble', 'Redouble'),
                                         ('admis', 'Admis')],  string='Situation',default='draft')
+
+    payment_ids = fields.One2many('payment.apprenant', 'apprenant_id', string='Mes Payements')
 
     #-------------------------------------SURCHARGE DE L'ORM----------------------------#
 
@@ -120,15 +124,16 @@ class apprenant_cafrad(models.Model):
                 'name': record.name,
                 'date_nais': record.date_nais,
                 'lieu_nais': record.lieu_nais,
+                'sexe':record.sexe,
                 'matricule':record.matricule,
                 'apprenant_phone': record.apprenant_phone,
                 'date_register': record.date_register,
                 'school':record.school,
                 'ancien_new': 'ancien',
-                'ane_academique_id': record.ane_academique_id.next_academique_id or record.ane_academique_id.next_academique_id.id,
+                'ane_academique_id': record.ane_academique_id.next_academique_id and record.ane_academique_id.next_academique_id.id,
                 'religion_id': record.religion_id,
                 'region_id':record.region_id,
-                'classe_id':record.classe_id.next_class.id or record.classe_id.next_class,
+                'classe_id':record.classe_id.next_class and record.classe_id.next_class.id,
                 'parent_name':record.parent_name,
                 'parent_phone':record.parent_phone,
                 'occupation':'',
@@ -144,16 +149,14 @@ class apprenant_cafrad(models.Model):
                 #'next_class': '',
                 'state_admission':'draft',
             }
-
-            #print("bonjour,bonjour,bonjour,bonjour,bonjour,bonjour")
             apprenant_obj.create(vals)
-            #print("Bonsoir,Bonsoir,Bonsoir,Bonsoir,Bonsoir,Bonsoir,Bonsoir")
         return self.write({"state_admission": 'admis'})
 
     def button_redouble(self):
         for record in self:
             if record.annuel_average > record.classe_id.min_average :
-                raise UserError(_("Alerte! la moyenne de cet élève est superieure a la note minimale requise  pour l'admision en classe superieure"))
+                raise UserError(_("Alerte! la moyenne de cet élève est "
+                                  "superieure a la note minimale requise  pour l'admision en classe superieure"))
         return self.write({"state_admission": 'redouble'})
 
     def button_validate(self):
@@ -162,11 +165,69 @@ class apprenant_cafrad(models.Model):
             vals ={
                 'name': record.name,
                 'phone': record.apprenant_phone,
-                'company_type': 'person'
+                'street': record.matricule,
+                'company_type': 'person',
+
             }
             partener_obj.create(vals)
         return super(apprenant_cafrad, self).write({"state": 'student'})
 
 
+    def button_generer(self):
+        #payment_obj = self.env['payment.apprenant']
+        sales_ids = self.env['sale.order'].search([('origin', '=', self.matricule),
+                                                   ('state', 'in', ['sale','done'])])
+        for record in self:
+            if len(sales_ids) == 0:
+                raise UserError(_("Desole !!!! Cet apprenant n'a  encore effectue aucun payment pour cette année academique"))
+            else :
+                for sale in sales_ids:
+                        vals = {
+                             'name': sale.name,
+                             'matricule': sale.origin,
+                             'ane_academique_id': sale.ane_academique_id and sale.ane_academique_id.id,
+                             'date_payement': sale.date_order,
+                             'montant': sale.amount_total,
+                             'state': sale.state,
+                             'apprenant_id': self.id
+                          }
+                        record.write({'payment_ids': [[0, 0, vals]]})
 
 
+
+class payment_apprenant(models.Model):
+    _name = "payment.apprenant"
+    _description = "Payements des apprenants du CAFRAD"
+    _rec_name = 'name'
+    _order = 'id DESC'
+
+    name  = fields.Char("Numero de payment")
+    matricule= fields.Char("Matricule")
+    apprenant_id = fields.Many2one('apprenant.cafrad',string="Apprenant")
+    ane_academique_id = fields.Many2one('ane.academiq.cafrad', "Annee Academique")
+    date_payement = fields.Datetime('Date du payment')
+    montant  = fields.Integer("Montant")
+    state = fields.Selection([
+        ('draft', 'Brouillon'),
+        ('sent', 'Validé'),
+        ('sale', 'Validé'),
+        ('done', 'Validé'),
+        ('cancel', 'Annulé'),
+    ], string='Etat', readonly=True)
+
+
+    #lines = fields.One2many("sale.order.line", string="Line de payements")
+
+
+# class payment_apprenant_line(models.Model):
+#     _name = "payment.apprenant.line"
+#     _description = "Payements des apprenants du CAFRAD"
+#     _rec_name = 'name'
+#     _order = 'id DESC'
+#
+#     name = fields.Char("Numero de payment")
+#     price_unit = fields.Char("Prix Unitaire")
+#     apprenant_id = fields.Many2one('apprenant.cafrad', string="Apprenant")
+#     ane_academique_id = fields.Many2one('ane.academiq.cafrad', "Annee Academique")
+#     date_payement = fields.Datetime('Date du payment')
+#     montant = fields.Char("Montant")

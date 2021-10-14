@@ -7,7 +7,7 @@
                 <search string="Enseignants">
                     <field name="employee_id"/>
                     <field name="school"/>
-                    <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+
                     <group expand="0" string="Group By">
                         <filter string="Etablissement" name="groupby_school" domain="[]" context="{'group_by': 'school'}"/>
                     </group>

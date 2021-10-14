@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_apprenant_rule,apprenant_cafrad.apprenant_cafrad,model_cafrad_app_cafrad_app,base.group_user,1,1,1,1
-access_employee_presence_cafrad,employee_presence_cafrad.employee_presence_cafrad,model_employee_presence_cafrad,base.group_user,1,1,1,1
+access_apprenant_projet_rule,apprenant_projet.apprenant_projet,model_apprenant_projet,base.group_user,1,1,1,0
+
+

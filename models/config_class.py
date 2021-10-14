@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, SUPERUSER_ID, _
+from odoo.exceptions import UserError, Warning, ValidationError
 
 
 class religion_cafrad(models.Model):
@@ -41,7 +42,8 @@ class salle_classe_cafrad(models.Model):
         ('15', 'COUTURE 2'),
         ('16', 'COUTURE 3'),
         ('18', 'PATISSERIE 6 mois'),
-        ('19', 'PATISSERIE 1 An')
+        ('19', 'PATISSERIE 1 An'),
+        ('20', 'AUTRES FORMATIONS'),
 
     ]
 
@@ -49,14 +51,14 @@ class salle_classe_cafrad(models.Model):
     @api.model
     def _get_default_academic_year(self):
         academic_year_obj = self.env['ane.academiq.cafrad']
-        academic_year_id = academic_year_obj.search([('active', '=', True)], limit=1)
+        academic_year_id = academic_year_obj.search([('actived', '=', True)], limit=1)
         return academic_year_id and academic_year_id.id or False
 
     name = fields.Char("Nom de la classe", required=True)
     reponsable_id = fields.Many2one('hr.employee', "Responsable", help="Il s'agit de l'enseigant en charge de la salle, "
           "il peut etre une maitresse ou un prof titulaire")
     bool_cm2  = fields.Boolean('Est un CM2 ?')
-    #active = fields.Boolean('Active ?')
+
 
     ane_academique_id = fields.Many2one('ane.academiq.cafrad', 'Année Academique',
                                         default=lambda self: self._get_default_academic_year(),
@@ -70,6 +72,25 @@ class salle_classe_cafrad(models.Model):
     min_average = fields.Float("Moyenne Minimale", default=10, help="Il sa'agit de moyenne mininal que "
                                                                     "doit avoir un eleve de cette classe pour"
                                                                     " etre admis en classe superieure")
+
+    apprenant_ids = fields.One2many('apprenant.cafrad', 'classe_id', copy=True, string="Les Apprenants")
+    number_apprenant =  fields.Integer("Nombre d'eleves", compute='_get_apprenant_count', store=True)
+
+    @api.constrains('min_average')
+    def _check_values(self):
+        for record in self:
+            if record.min_average < 0.0 or record.min_average > 20.0:
+                raise UserError(_("'Alert !!!! La moyenne minimale doit etre comprise entre 0 et 20.'"))
+
+    @api.depends('apprenant_ids')
+    def _get_apprenant_count(self):
+        for r in self:
+            r.number_apprenant = len(r.apprenant_ids)
+
+    # def name_get(self):
+    #     '''Method to display name and code'''
+    #     return [(rec.id, ' ' + str(rec.name) + '-' + str(rec.ane_academique_id.name)) for rec in self]
+
 
 class speciality_cafrad(models.Model):
     _name = "speciality.cafrad"
@@ -89,3 +110,11 @@ class matiere_cafrad(models.Model):
     responsable_id = fields.Many2one('teacher.cafrad',
                                   "Responsable",
                                   help="Il s'agit du responsable de la matiere")
+
+class payement_cafrad_type(models.Model):
+    _name = "payement.cafrad.type"
+    _description = "Type de paiment au CAFRAD"
+    _order = 'id DESC'
+
+    name = fields.Char("Nom", required=1)
+

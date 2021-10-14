@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-        <!--<record id="view_ane_academiq_filter" model="ir.ui.view">-->
-            <!--<field name="name">ane.academiq.cafrad.filter</field>-->
-            <!--<field name="model">ane.academiq.cafrad</field>-->
-            <!--<field name="arch" type="xml">-->
-                <!--<search string="Annees ACADEMIQUES">-->
-                    <!--<field name="date_start"/>-->
-                    <!--<field name="date_end"/>-->
-                    <!--<group expand="0" string="Group By">-->
-                         <!--<filter string="Debut" name="groupby_date_start" domain="[]" context="{'group_by': 'date_start'}"/>-->
-                        <!--<filter string="Fin" name="groupby_date_end" domain="[]" context="{'group_by': 'date_end'}"/>-->
-                    <!--</group>-->
-                <!--</search>-->
-            <!--</field>-->
-        <!--</record>-->
+        <record id="view_ane_academiq_filter" model="ir.ui.view">
+            <field name="name">ane.academiq.cafrad.filter</field>
+            <field name="model">ane.academiq.cafrad</field>
+            <field name="arch" type="xml">
+                <search string="Annees Academiques">
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="actived"/>
+                    <group expand="0" string="Group By">
+                         <filter string="Debut" name="groupby_date_start" domain="[]" context="{'group_by': 'date_start'}"/>
+                        <filter string="Fin" name="groupby_date_end" domain="[]" context="{'group_by': 'date_end'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
 
         <record model="ir.ui.view" id="view_ane_academiq_tree">
             <field name="name">Les Années Academiques</field>
@@ -22,18 +23,18 @@
                 <tree string="Les Années Academiques">
                     <field name="date_start"/>
                     <field name="date_end"/>
-                    <field name ="active"/>
+                    <field name ="actived"/>
                 </tree>
 
             </field>
         </record>
         <record model="ir.ui.view" id="view_ane_academiq_form">
-            <field name="name">Apprenants</field>
+            <field name="name">Les Années Academiques</field>
             <field name="model">ane.academiq.cafrad</field>
             <field name="arch" type="xml">
                 <form string="Apprenants">
                     <p class="oe_grey">
-                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur Les Années Academiques
                     </p>
                     <header>
 
@@ -45,7 +46,7 @@
                             </group>
                             <group>
                                 <field name="date_end"/>
-                                <field name ="active"/>
+                                <field name ="actived"/>
                                 <field name="next_academique_id"/>
                             </group>
                         </group>
@@ -58,7 +59,7 @@
         </record>
 
         <record id="view_ane_academiq_action" model="ir.actions.act_window">
-            <field name="name">Années Academiques </field>
+            <field name="name">Années Academiques</field>
             <field name="res_model">ane.academiq.cafrad</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_id" ref="view_ane_academiq_tree"/>
@@ -67,7 +68,7 @@
               <p class="o_view_nocontent_smiling_face">
                 Creez vos Annees Academiques ici
               </p><p>
-                Pour creer une annee Academqie, cliquer sur le buton creer en haut a gauche de ce message
+                Pour creer une annee Academique, cliquer sur le buton creer en haut a gauche de ce message
               </p>
             </field>
         </record>

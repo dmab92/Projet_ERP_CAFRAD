@@ -7,7 +7,7 @@
                 <search string="Les Apprenants">
                     <field name="name"/>
                     <field name="school"/>
-                    <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+
                     <group expand="0" string="Group By">
                          <filter string="Anne Academique" name="groupby_ane_academique_id" domain="[]" context="{'group_by': 'ane_academique_id'}"/>
                         <filter string="Etablissement" name="groupby_school" domain="[]" context="{'group_by': 'school'}"/>
@@ -18,15 +18,15 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="view_apprenant_cafrad_tree">
+        <record model="ir.ui.view" id="view_apprenant_cafrad_tree" >
             <field name="name">Liste des Apprenants</field>
             <field name="model">apprenant.cafrad</field>
             <field name="arch" type="xml">
-                <tree string="Liste des Apprenants">
+                <tree string="Liste des Apprenants" >
                     <field name="matricule"/>
                     <field name="name"/>
                     <field name="school"/>
-                    <field name="classe_id"/>
+                    <field name="classe_id" />
                     <field name="ane_academique_id"/>
                     <field name="sexe"/>
                     <field name="mobility"/>
@@ -83,10 +83,9 @@
                             <page string="Informations Generales">
                                 <group>
                                     <group>
-
                                         <field name="sexe" />
                                         <field name="school"/>
-                                        <field name="classe_id" domain="[]"/>
+                                        <field name="classe_id" domain="[('ane_academique_id.actived', '=', True)]"/>
                                         <field name="ancien_new" />
                                         <field name="occupation"/>
                                     </group>
@@ -107,11 +106,29 @@
                                     <field name="urgence_person" colspan="4" placeholder="Noms et Prenoms"/>
                                     <field name="urgence_phone" colspan="4" placeholder="Telephone"/>
                             </page>
+
+                            <page string="Mes Payements">
+                                <button name="button_generer" string="Charger les payments"
+                                        class="oe_highlight"
+                                        type='object'/>
+                                    <field name="payment_ids"   colspan="4">
+										<tree editable="false"  create="false">
+											<field name='name'/>
+											<field name='matricule'/>
+											<field name='ane_academique_id'/>
+											<field name='date_payement'/>
+                                            <field name='montant' />
+                                            <field name="state"/>
+										</tree>
+									</field>
+                            </page>
+
                             <page string="Pieces  Jointes">
                                 <group>
                                     <field name="attachment_ids"  string="Ajouter des pieces jointes" widget="many2many_binary"/>
                                 </group>
                             </page>
+
                         </notebook>
 
                     </sheet>
@@ -120,14 +137,52 @@
             </field>
         </record>
 
+    <!-- graph view -->
+<!--        <record model="ir.ui.view" id="view_all_apprenant_cafrad_graph">-->
+<!--            <field name="name">apprenant.cafrad.graph</field>-->
+<!--            <field name="model">apprenant.cafrad</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <graph  type ="bar" string="Liste des apprenants">-->
+<!--                    <field name="name" type="row"/>-->
+<!--                    <field name="age" type="measure"/>-->
+<!--                </graph>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <record id="view_all_apprenant_cafrad_graph" model="ir.ui.view">
+            <field name="name">apprenant.cafrad.graph</field>
+            <field name="model">apprenant.cafrad</field>
+            <field name="arch" type="xml">
+                <graph string="Liste des apprenants">
+                    <field name="name" groups="base.group_user"/>
+                    <field name="age" type="measure" groups="base.group_user"/>
+                </graph>
+            </field>
+        </record>
+
+<!--        <record id="view_move_graph" model="ir.ui.view">-->
+<!--            <field name="name">stock.move.graph</field>-->
+<!--            <field name="model">stock.move</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <graph string="Stock Moves Analysis">-->
+<!--                    <field name="product_id"/>-->
+<!--                    <field name="location_dest_id" groups="stock.group_stock_multi_locations" type="row"/>-->
+<!--                    <field name="product_uom_qty" type="measure"/>-->
+<!--                </graph>-->
+<!--            </field>-->
+<!--        </record>-->
+
+
+
         <record id="view_all_apprenant_cafrad_action" model="ir.actions.act_window">
             <field name="name">Liste de tous les apprennants</field>
             <field name="res_model">apprenant.cafrad</field>
             <field name="type">ir.actions.act_window</field>
             <field name="domain">[('state', '=', 'student')]</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph</field>
             <field name="view_id" ref="view_apprenant_cafrad_tree"/>
             <field name="help" type="html">
+
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants
               </p><p>
@@ -142,7 +197,8 @@
             <field name="res_model">apprenant.cafrad</field>
             <field name="type">ir.actions.act_window</field>
             <field name="domain">[('state', '=', 'prospet')]</field>
-            <field name="view_mode">tree,form</field>
+
+            <field name="view_mode">tree,form,graph</field>
             <field name="view_id" ref="view_apprenant_cafrad_tree"/>
             <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
@@ -155,30 +211,30 @@
         </record>
 
 
-        <record id="view_create_prospect_cafrad_action" model="ir.actions.act_window">
-            <field name="name">Liste des Prospects</field>
-            <field name="res_model">apprenant.cafrad</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="domain">[('state', '=', 'prospet')]</field>
-            <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-            <field name="view_mode">tree,form</field>
-            <field name="help" type="html">
-              <p class="o_view_nocontent_smiling_face">
-                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Prospects
-              </p><p>
-                Cette interface vous permet d'enregistrer les informations des Prospects
-              </p>
-            </field>
-        </record>
+<!--        <record id="view_create_prospect_cafrad_action" model="ir.actions.act_window">-->
+<!--            <field name="name">Liste des Prospects</field>-->
+<!--            <field name="res_model">apprenant.cafrad</field>-->
+<!--            <field name="type">ir.actions.act_window</field>-->
+<!--            <field name="domain">[('state', '=', 'prospet')]</field>-->
+<!--            <field name="view_id" ref="view_apprenant_cafrad_tree"/>-->
+<!--            <field name="view_mode">tree,form</field>-->
+<!--            <field name="help" type="html">-->
+<!--              <p class="o_view_nocontent_smiling_face">-->
+<!--                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Prospects-->
+<!--              </p><p>-->
+<!--                Cette interface vous permet d'enregistrer les informations des Prospects-->
+<!--              </p>-->
+<!--            </field>-->
+<!--        </record>-->
 
 
         <record id="view_create_apprenant_cafrad_action" model="ir.actions.act_window">
             <field name="name">Liste des apprennants</field>
             <field name="res_model">apprenant.cafrad</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="domain">[('state', '=', 'student'),('ane_academique_id.active', '=', True)]</field>
-            <field name="view_id" ref="view_apprenant_cafrad_form"/>
-            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state', '=', 'student'),('ane_academique_id.actived', '=', True)]</field>
+            <field name="view_id" ref="view_apprenant_cafrad_tree"/>
+            <field name="view_mode">tree,form,graph</field>
             <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants
@@ -193,9 +249,9 @@
             <field name="name">Liste des apprennants</field>
             <field name="res_model">apprenant.cafrad</field>
             <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-            <field name="domain">[('state', '=', 'student'),('mobility', '=', False),('ane_academique_id.active', '=', True)]</field>
+            <field name="domain">[('state', '=', 'student'),('mobility', '=', False),('ane_academique_id.actived', '=', True)]</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph</field>
             <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants
@@ -208,9 +264,9 @@
             <field name="name">Liste des apprennants Handicapés et Deficients Visuels</field>
             <field name="res_model">apprenant.cafrad</field>
             <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-            <field name="domain">[('mobility', '=', True),('state', '=', 'student'),('ane_academique_id.active', '=', True)]</field>
+            <field name="domain">[('mobility', '=', True),('state', '=', 'student'),('ane_academique_id.actived', '=', True)]</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph</field>
             <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants Handicapés et Deficients Visuels
@@ -224,9 +280,9 @@
                 <field name="name">Liste des apprennants du CM2</field>
                 <field name="res_model">apprenant.cafrad</field>
                 <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-                <field name="domain">[('state', '=', 'student'),('classe_id.code', '=', '10'),('ane_academique_id.active', '=', True)]</field>
+                <field name="domain">[('state', '=', 'student'),('classe_id.code', '=', '10'),('ane_academique_id.actived', '=', True)]</field>
                 <field name="type">ir.actions.act_window</field>
-                <field name="view_mode">tree,form</field>
+                <field name="view_mode">tree,form,graph</field>
                 <field name="help" type="html">
                   <p class="o_view_nocontent_smiling_face">
                      Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants du CM2
@@ -241,11 +297,10 @@
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
         <field name="domain">[('classe_id.code', '=', 9),
-                             ('state', '=', 'student'),('ane_academique_id.active', '=', True)
-                             ]</field>
-<!--        <field name="context">{'default_classe_id':'formation'}</field>-->
+                             ('state', '=', 'student'),
+                             ('ane_academique_id.actived', '=', True)]</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,graph</field>
         <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants du CM1
@@ -259,9 +314,9 @@
         <field name="name">Liste des apprennants du CE2</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-        <field name="domain">[('classe_id.code', '=', 7),('state', '=', 'student'),('ane_academique_id.active', '=', True)] </field>
+        <field name="domain">[('classe_id.code', '=', 7),('state', '=', 'student'),('ane_academique_id.actived', '=', True)] </field>
         <field name="type">ir.actions.act_window</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,graph</field>
         <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants du CE2
@@ -276,10 +331,10 @@
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
         <field name="domain">[('classe_id.code', '=', 6),
                              ('state', '=', 'student')
-                                ,('ane_academique_id.active', '=', True)
+                                ,('ane_academique_id.actived', '=', True)
                              ]</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,graph</field>
         <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants du CE1
@@ -294,10 +349,10 @@
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
         <field name="domain">[('classe_id.code', '=', 5),
                              ('state', '=', 'student')
-                                ,('ane_academique_id.active', '=', True)
+                                ,('ane_academique_id.actived', '=', True)
                              ]</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,graph</field>
         <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants du CP
@@ -310,12 +365,11 @@
         <field name="name">Liste des apprennants de la SIL</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-        <field name="domain">[('classe_id.code', '=', 4)
+        <field name="domain">[('classe_id.code', '=', 4),
                              ('state', '=', 'student'),
-                                ,('ane_academique_id.active', '=', True)
-                             ]</field>
+                             ('ane_academique_id.actived', '=', True)]</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,graph</field>
         <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants de la SIL
@@ -329,11 +383,10 @@
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
         <field name="domain">[('classe_id.code', '=', 1),
-                             ('state', '=', 'student')
-            ,('ane_academique_id.active', '=', True)
+                             ('state', '=', 'student') ,('ane_academique_id.actived', '=', True)
                              ]</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,graph</field>
         <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants de la Maternelle 1ère Année
@@ -348,10 +401,10 @@
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
         <field name="domain">[('classe_id.code', '=', 2),
                              ('state', '=', 'student')
-                            ,('ane_academique_id.active', '=', True)
+                            ,('ane_academique_id.actived', '=', True)
                              ]</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,graph</field>
         <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenantsd de la  Maternelle 2e Année
@@ -364,9 +417,9 @@
         <field name="name">Liste des apprennants d2 Maternelle 3e Année</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-        <field name="domain">[('classe_id.code', '=', 3),('state', '=', 'student'), ('ane_academique_id.active', '=', True) ]</field>
+        <field name="domain">[('classe_id.code', '=', 3),('state', '=', 'student'), ('ane_academique_id.actived', '=', True) ]</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,graph</field>
         <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants de la Maternelle 3e Année
@@ -377,14 +430,13 @@
     </record>
 
 
-
     <record id="view_apprenant_h6m_cafrad_action" model="ir.actions.act_window">
         <field name="name">Liste des apprennants de la filiere HOTELLERIE de 6 MOIS</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
-        <field name="domain">[('classe_id.code', '=', 12), ('state', '=', 'student'), ('ane_academique_id.active', '=', True)]</field>
+        <field name="domain">[('classe_id.code', '=', 12), ('state', '=', 'student'), ('ane_academique_id.actived', '=', True)]</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,graph</field>
         <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants d'HOTELLERIE 6 MOIS
@@ -400,10 +452,10 @@
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
         <field name="domain">[('classe_id.code', '=', 13),
                              ('state', '=', 'student'),
-                            ('ane_academique_id.active', '=', True)
+                            ('ane_academique_id.actived', '=', True)
                              ]</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,graph</field>
         <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants d'HOTELLERIE 1 AN
@@ -413,18 +465,17 @@
         </field>
     </record>
 
-
     <record id="view_apprenant_couture1_cafrad_action" model="ir.actions.act_window">
         <field name="name">Liste des apprennants de la filiere COUTURE de 1ere Année</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
         <field name="domain">[('classe_id.code', '=', 14),
                              ('state', '=', 'student'),
-                            ('ane_academique_id.active', '=', True)
+                            ('ane_academique_id.actived', '=', True)
                              ]</field>
         <field name="type">ir.actions.act_window</field>
         <!--<field name="context">{'default_ane_academique_id': active_id}</field>-->
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,graph</field>
         <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants de COUTURE
@@ -440,11 +491,11 @@
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
         <field name="domain">[('classe_id.code', '=', 15),
                              ('state', '=', 'student'),
-                            ('ane_academique_id.active', '=', True)
+                            ('ane_academique_id.actived', '=', True)
                              ]</field>
         <field name="type">ir.actions.act_window</field>
         <!--<field name="context">{'default_ane_academique_id': active_id}</field>-->
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,graph</field>
         <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants de COUTURE 2e Année
@@ -462,11 +513,11 @@
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
         <field name="domain">[('classe_id.code', '=', 16),
                              ('state', '=', 'student'),
-                            ('ane_academique_id.active', '=', True)
+                            ('ane_academique_id.actived', '=', True)
                              ]</field>
         <field name="type">ir.actions.act_window</field>
         <!--<field name="context">{'default_ane_academique_id': active_id}</field>-->
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,graph</field>
         <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants de COUTURE 3e Année
@@ -482,12 +533,10 @@
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
         <field name="domain">[('classe_id.code', '=', 17),
-                             ('state', '=', 'student'),
-                            ('ane_academique_id.active', '=', True)
-                             ]</field>
+                             ('state', '=', 'student'), ('ane_academique_id.actived', '=', True) ]</field>
         <field name="type">ir.actions.act_window</field>
         <!--<field name="context">{'default_ane_academique_id': active_id}</field>-->
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,graph</field>
         <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants de PATISSERIE  6 mois
@@ -501,13 +550,15 @@
         <field name="name">Liste des apprennants de la filiere PATISSERIE 1 an</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
+
         <field name="domain">[('classe_id.code', '=', 18),
                              ('state', '=', 'student'),
-                            ('ane_academique_id.active', '=', True)
+                            ('ane_academique_id.actived', '=', True)
                              ]</field>
+
         <field name="type">ir.actions.act_window</field>
         <!--<field name="context">{'default_ane_academique_id': active_id}</field>-->
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,graph</field>
         <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants de PATISSERIE  1 an
@@ -518,20 +569,17 @@
     </record>
 
 
-
-
-
     <record id="view_apprenant_garage_cafrad_action" model="ir.actions.act_window">
         <field name="name">Liste des apprennants du  GARAGE</field>
         <field name="res_model">apprenant.cafrad</field>
         <field name="view_id" ref="view_apprenant_cafrad_tree"/>
         <field name="domain">[('classe_id.code', '=', 14),
                              ('state', '=', 'student'),
-                            ('ane_academique_id.active', '=', True)
+                            ('ane_academique_id.actived', '=', True)
                              ]</field>
         <field name="type">ir.actions.act_window</field>
         <!--<field name="context">{'default_ane_academique_id': active_id}</field>-->
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,graph</field>
         <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants du GARAGE
@@ -542,5 +590,92 @@
     </record>
 
 
+
+
+
+
+    <record id="view_apprenant_groupe_scolaire_cafrad_action" model="ir.actions.act_window">
+        <field name="name">Liste des apprennants du  GROUPE SCOLAIRE</field>
+        <field name="res_model">apprenant.cafrad</field>
+        <field name="view_id" ref="view_apprenant_cafrad_tree"/>
+        <field name="domain">[ ('school', '=', 'ebase'), ('ane_academique_id.actived', '=', True) ]</field>
+        <field name="type">ir.actions.act_window</field>
+        <!--<field name="context">{'default_ane_academique_id': active_id}</field>-->
+        <field name="view_mode">tree,form,graph</field>
+        <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants du GROUPE SCOLAIRE
+              </p><p>
+                Cette interface vous permet d'enregistrer les informations du GROUPE SCOLAIRE
+              </p>
+        </field>
+    </record>
+
+    <record id="view_apprenant_cef__cafrad_action" model="ir.actions.act_window">
+        <field name="name">Liste des apprennants du  CEF</field>
+        <field name="res_model">apprenant.cafrad</field>
+        <field name="view_id" ref="view_apprenant_cafrad_tree"/>
+        <field name="domain">[ ('school', '=', 'cef'), ('ane_academique_id.actived', '=', True) ]</field>
+        <field name="type">ir.actions.act_window</field>
+        <!--<field name="context">{'default_ane_academique_id': active_id}</field>-->
+        <field name="view_mode">tree,form,graph</field>
+        <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants du CEF
+              </p><p>
+                Cette interface vous permet d'enregistrer les informations du CEF
+              </p>
+        </field>
+    </record>
+
+    <record id="view_apprenant_bependa_cafrad_action" model="ir.actions.act_window">
+        <field name="name">Liste des apprennants de la formation BEPENDA</field>
+        <field name="res_model">apprenant.cafrad</field>
+        <field name="view_id" ref="view_apprenant_cafrad_tree"/>
+        <field name="domain">[ ('school', '=', 'cafrad'), ('ane_academique_id.actived', '=', True) ]</field>
+        <field name="type">ir.actions.act_window</field>
+        <!--<field name="context">{'default_ane_academique_id': active_id}</field>-->
+        <field name="view_mode">tree,form,graph</field>
+        <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants de la formation BEPENDA
+              </p><p>
+                Cette interface vous permet d'enregistrer les informations de la formation BEPENDA
+              </p>
+        </field>
+    </record>
+
+    <record id="view_apprenant_other_formation_cafrad_action" model="ir.actions.act_window">
+        <field name="name">Liste des apprennants des Autres Formations</field>
+        <field name="res_model">apprenant.cafrad</field>
+        <field name="view_id" ref="view_apprenant_cafrad_tree"/>
+        <field name="domain">[ ('school', '=', 'other'), ('ane_academique_id.actived', '=', True) ]</field>
+        <field name="type">ir.actions.act_window</field>
+        <!--<field name="context">{'default_ane_academique_id': active_id}</field>-->
+        <field name="view_mode">tree,form,graph</field>
+        <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants des Autres Formations
+              </p><p>
+                Cette interface vous permet d'enregistrer les informations des Autres Formations
+              </p>
+        </field>
+    </record>
+
+    <record id="view_apprenant_externe_cafrad_action" model="ir.actions.act_window">
+        <field name="name">Liste des apprennants EXTERNES</field>
+        <field name="res_model">apprenant.cafrad</field>
+        <field name="view_id" ref="view_apprenant_cafrad_tree"/>
+        <field name="domain">[ ('school', '=', 'externe'), ('ane_academique_id.actived', '=', True) ]</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form,graph</field>
+        <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur les apprenants EXTERNES
+              </p><p>
+                Cette interface vous permet d'enregistrer les informations des apprenants EXTERNES
+              </p>
+        </field>
+    </record>
 
 </odoo>

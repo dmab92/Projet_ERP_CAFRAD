@@ -8,7 +8,7 @@
                     <field name="name"/>
                     <field name="school"/>
                     <field name="ane_academique_id"/>
-                    <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+
                     <group expand="0" string="Group By">
                          <filter string="Anne Academique" name="groupby_ane_academique_id" domain="[]" context="{'group_by': 'ane_academique_id'}"/>
                         <filter string="Etablissement" name="groupby_school" domain="[]" context="{'group_by': 'school'}"/>

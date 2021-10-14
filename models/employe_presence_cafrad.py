@@ -11,7 +11,7 @@ class employee_presence_cafrad(models.Model):
     @api.model
     def _get_default_academic_year(self):
         academic_year_obj = self.env['ane.academiq.cafrad']
-        academic_year_id = academic_year_obj.search([('active', '=', True)], limit=1)
+        academic_year_id = academic_year_obj.search([('actived', '=', True)], limit=1)
         return academic_year_id and academic_year_id.id or False
 
     # @api.model
@@ -25,7 +25,7 @@ class employee_presence_cafrad(models.Model):
                                         default=lambda self: self._get_default_academic_year(), required=True)
     company_id = fields.Many2one("res.company", 'Etablissement', required='1', default=lambda self: self.env.user.company_id)
     date_register = fields.Datetime('Date du jour', default=fields.datetime.now())
-    employee_ids = fields.One2many('hr.employee', 'presence_id', copy=True, string="Les Personnels ")
+    #employee_ids = fields.One2many('hr.employee', 'presence_id', copy=True, string="Les Personnels ")
     state = fields.Selection([('draft', 'Brouillon'),
                               ('validated', 'Validé')], default='draft', string="Etat")
 

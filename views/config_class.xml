@@ -106,7 +106,7 @@
                     <field name="name"/>
                     <field name="reponsable_id"/>
                     <field name="ane_academique_id"/>
-                    <!--<field name="active"/>-->
+                    <field name="number_apprenant"/>
                 </tree>
             </field>
         </record>
@@ -127,17 +127,42 @@
                                  <field name="name"/>
                                  <field name="reponsable_id"/>
                                  <field name="bool_cm2"/>
-                                 <!--<field name="active"/>-->
+                                 <field name="number_apprenant"/>
                             </group>
                             <group>
                                 <field name="ane_academique_id"/>
                                 <field name="code"/>
                                 <field name="next_class"/>
-                                <field name="min_average"/>
+                                <field name="min_average" min="0" max="20"/>
                             </group>
                         </group>
+                        <notebook colspan="4">
+                            <page string="Les apprenants">
+                                <field name="apprenant_ids" nolabel="1" colspan="4">
+                                    <tree string="Apprenants" editable="top">
+                                        <field name="name" readonly="1" required="1"/>
+                                        <field name="classe_id" readonly="1" />
+                                        <field name="annuel_average" required="1" min="0" max="20" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
                     </sheet>
                 </form>
+            </field>
+        </record>
+
+        <record id="view_all_apprenant_cafrad_classe_graph" model="ir.ui.view">
+            <field name="name">salle.classe.cafrad.graph</field>
+            <field name="model">salle.classe.cafrad</field>
+            <field name="arch" type="xml">
+                <graph string="Nombre des apprenants par salle de classe">
+                    <field name="next_class"
+                           domain="[('ane_academique_id.actived', '=', True)]"
+                           groups="base.group_user"/>
+                    <field name="number_apprenant" type="measure" groups="base.group_user"/>
+                </graph>
             </field>
         </record>
 
@@ -145,7 +170,7 @@
             <field name="name">Les Salles de Classes </field>
             <field name="res_model">salle.classe.cafrad</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph</field>
             <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                 Creez vos Salles de classe ici
@@ -200,6 +225,57 @@
             <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                 Creez vos Filieres ici
+              </p><p>
+                Pour creer une  filieres, cliquer sur le buton creer en haut a gauche de ce message
+              </p>
+            </field>
+        </record>
+
+
+
+
+
+     <!-- TYPE DE PAIEMENT-->
+
+        <record model="ir.ui.view" id="view_payment_type_cafrad_tree">
+            <field name="name">Les Types de payements</field>
+            <field name="model">payement.cafrad.type</field>
+            <field name="arch" type="xml">
+                <tree string="Les Types de payements">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_payment_type_cafrad_form">
+            <field name="name">Les Types de payments</field>
+            <field name="model">payement.cafrad.type</field>
+            <field name="arch" type="xml">
+                <form string="Les Types de payments">
+                    <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur les types de paiements
+                    </p>
+                    <header>
+
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                 <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_payment_type_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Les Types de paiements </field>
+            <field name="res_model">payement.cafrad.type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Creez vos Types de payements ici
               </p><p>
                 Pour creer une  filieres, cliquer sur le buton creer en haut a gauche de ce message
               </p>

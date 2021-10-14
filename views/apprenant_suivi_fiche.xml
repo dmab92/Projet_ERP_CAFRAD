@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-        <record id="view_fiche_suivi_cafrad_filter" model="ir.ui.view">
-            <field name="name">apprenant.cafrad.suivi.fiche.filter</field>
-            <field name="model">apprenant.cafrad.suivi.fiche</field>
-            <field name="arch" type="xml">
-                <search string="Fiche de Suivi de l'Apprenant">
-                    <field name="apprenant_id"/>
-                    <field name="ane_academique_id"/>
-                    <field name="class_room_id"/>
-                    <field name="reponsable_id"/>
-                    <group expand="0" string="Group By">
-                        <filter string="Anne Academique" name="groupby_ane_academique_id" domain="[]" context="{'group_by': 'ane_academique_id'}"/>
-                        <filter string="Apprenant" name="groupby_apprenant_id" domain="[]" context="{'group_by': 'apprenant_id'}"/>
-                        <filter string="class_room_id" name="groupby_class_room_id" domain="[]" context="{'group_by': 'class_room_id'}"/>
-                        <filter string="reponsable_id" name="groupby_reponsable_id" domain="[]" context="{'group_by': 'reponsable_id'}"/>
-                    </group>
-                </search>
-            </field>
-        </record>
+<!--        <record id="view_fiche_suivi_cafrad_filter" model="ir.ui.view">-->
+<!--            <field name="name">apprenant.cafrad.suivi.fiche.filter</field>-->
+<!--            <field name="model">apprenant.cafrad.suivi.fiche</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <search string="Fiche de Suivi de l'Apprenant">-->
+<!--                    <field name="apprenant_id"/>-->
+<!--                    <field name="ane_academique_id"/>-->
+<!--                    <field name="class_room_id"/>-->
+<!--                    <field name="reponsable_id"/>-->
+<!--                    <group expand="0" string="Group By">-->
+<!--                        <filter string="Annee Academique" name="groupby_ane_academique_id" domain="[]" context="{'group_by': 'ane_academique_id'}"/>-->
+<!--                        <filte string="Salle de classe" name="groupby_class_room_id" domain="[]" context="{'group_by': 'class_room_id'}"/>-->
+<!--                        <filter string="Etat" name="groupby_state_suivi" domain="[]" context="{'group_by': 'state_suivi'}"/>-->
+<!--                        <filter string="Responsable du suivi" name="groupby_reponsable_id" domain="[]" context="{'group_by': 'reponsable_id'}"/>-->
+<!--                    </group>-->
+<!--                </search>-->
+<!--            </field>-->
+<!--        </record>-->
         <record model="ir.ui.view" id="view_fiche_suivi_cafrad_tree">
             <field name="name"> Fiches de Suivi des Apprenants</field>
             <field name="model">apprenant.cafrad.suivi.fiche</field>
@@ -27,9 +27,35 @@
                     <field name="reponsable_id"/>
                     <field name="ane_academique_id"/>
                     <field name="class_room_id"/>
+                    <field name="state_suivi" />
                 </tree>
             </field>
         </record>
+
+
+        <record id="view_all_apprenant_suivi_cafrad_graph" model="ir.ui.view">
+            <field name="name">apprenant.cafrad.suivi.fiche.graph</field>
+            <field name="model">apprenant.cafrad.suivi.fiche</field>
+            <field name="arch" type="xml">
+                <graph string="Suivi des apprenants">
+                    <field name="apprenant_id" />
+                    <field name="state_suivi" type="measure" groups="base.group_user" />
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_fiche_suivi_cafrad_pivot" model="ir.ui.view">
+            <field name="name">apprenant.cafrad.suivi.fiche.pivot</field>
+            <field name="model">apprenant.cafrad.suivi.fiche</field>
+            <field name="arch" type="xml">
+                <pivot string="Suivi des apprenants">
+                    <field name="apprenant_id" type="row"/>
+                    <field name="class_room_id"  type="row"/>
+                    <field name="state_suivi" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
         <record model="ir.ui.view" id="view_fiche_suivi_cafrad_from">
             <field name="name">Fiches de Suivi des Apprenants</field>
             <field name="model">apprenant.cafrad.suivi.fiche</field>
@@ -49,27 +75,36 @@
                                 type="object"
                                 class="oe_highlight"
                                 icon="fa-circle"
-                                attrs="{'invisible': [('state','not in', ['draft'])]}"
+                                attrs="{'invisible': [('state_suivi','not in', ['draft'])]}"
                                 />
+                        insertalone
                         <button name="set_to_insert"
-                                string="Inseré(e)"
+                                string="Inseré(e) dans une entreprise"
                                 type="object"
                                 class="oe_highlight"
                                 icon="fa-check-circle"
-                                attrs="{'invisible': [('state','not in', ['running'])]}"
+                                attrs="{'invisible': [('state_suivi','not in', ['running'])]}"
                                 />
+                        <button name="set_to_insertalone"
+                                string="Inseré(e) a son compte"
+                                type="object"
+                                class="oe_highlight"
+                                icon="fa-check-circle"
+                                attrs="{'invisible': [('state_suivi','not in', ['running'])]}"
+                                />
+
                          <button name="set_to_draft"
                                 string="Remettre en brouillon"
                                 type="object"
-                                attrs="{'invisible': [('state','not in', ['insert'])]}"
+                                attrs="{'invisible': [('state_suivi','not in', ['insert','insertalone'])]}"
                                 />
-                        <field name="state" widget="statusbar" statusbar_visible="draft,running,insert" />
+                        <field name="state_suivi" widget="statusbar" statusbar_visible="draft,running,insertalone,insert" />
                     </header>
                     <sheet>
                         <group col="4" colspan="4">
                             <field name="apprenant_id" options='{"no_open": True, "no_create": True}'/>
                             <field name="date_register" readonly="1"/>
-                            <field name="ane_academique_id" readonly="1" options='{"no_open": True, "no_create": True}'/>
+                            <field name="ane_academique_id"  options='{"no_open": True, "no_create": True}'/>
                             <field name="apprenant_phone"  />
                             <field name="matricule" readonly="1" />
                             <field name="class_room_id" readonly="1" options='{"no_open": True, "no_create": True}'/>
@@ -127,6 +162,9 @@
                                         <field name="result"   />
                                         <field name="first_job_location"  />
                                         <field name="first_job_date" />
+                                        <field name="partener_insert"/>
+                                        <field name="account_insert"/>
+
                                     </group>
                             </page>
                              <page string="FICHE DE SUIVI">
@@ -158,11 +196,12 @@
             </field>
         </record>
 
+
         <record id="view_fiche_suivi_cafrad_action" model="ir.actions.act_window">
             <field name="name">Fiches de suivi des apprenants</field>
             <field name="res_model">apprenant.cafrad.suivi.fiche</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph,pivot</field>
             <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos Fiches de suivi des apprenants

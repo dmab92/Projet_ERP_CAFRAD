@@ -69,7 +69,7 @@ fiche de suivi, Fiche d’écoute, emploi de temps, Chronogramme, rapport, plann
     'author': "Boris MENI",
     'Email': 'borismeni2@gmail.com',
     'Phone':'+237 697005649/ 678128120',
-    'website': "http://www.mbconsulting.cm",
+    'website': "https://www.mtconsultingandservices.com/",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
@@ -98,7 +98,8 @@ fiche de suivi, Fiche d’écoute, emploi de temps, Chronogramme, rapport, plann
         'views/apprenant_mediatek.xml',
         'views/magazine_cafrad.xml',
         'views/radio_cafrad.xml',
-        'views/employe_presence_cafrad.xml',
+        'views/apprenant_projet.xml',
+        #'views/employe_presence_cafrad.xml',
         #MENU
         'menu_cafrad.xml',
         #WIZARD

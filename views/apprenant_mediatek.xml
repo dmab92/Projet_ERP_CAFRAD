@@ -10,7 +10,7 @@
                     <field name="partner_id"/>
                     <field name="sexe"/>
                     <field name="livre_id"/>
-                    <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+
                     <group expand="0" string="Group By">
                         <filter string="livre_id" name="groupby_livre_id" domain="[]" context="{'group_by': 'livre_id'}"/>
                     </group>

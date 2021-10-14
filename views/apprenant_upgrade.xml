@@ -8,7 +8,6 @@
                     <field name="ane_academique_id"/>
                     <field name="name"/>
                     <field name="class_room_id"/>
-                    <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
                     <group expand="0" string="Group By">
                         <filter string="Annee Academique" name="groupby_ane_academique_id" domain="[]" context="{'group_by': 'ane_academique_id'}"/>
                         <filter string="Description" name="groupby_name" domain="[]" context="{'group_by': 'name'}"/>
@@ -25,7 +24,7 @@
                 <tree string="Liste des Evaluations">
                     <field name="name"/>
                     <field name="ane_academique_id"/>
-                    <field name="class_room_id" domain="[('active','=',True)]"/>
+                    <field name="class_room_id" domain="[('actived','=',True)]"/>
                 </tree>
             </field>
         </record>
@@ -38,11 +37,12 @@
                                     Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Evaluations
                                </p>
                     <header>
-                            <!--<button name="get_apprenants"-->
-                                <!--string="Importer les Apprenants"-->
-                                <!--type="object"-->
-                                <!--class="oe_highlight"-->
-                                <!--/>-->
+<!--                        <button name="set_validated"-->
+<!--                                string="Valider les admissions"-->
+<!--                                type="object"-->
+<!--                                class="oe_highlight"-->
+<!--                                icon="fa-check-circle"-->
+<!--                            />-->
                     </header>
                     <sheet>
 
@@ -51,15 +51,16 @@
                                 <field name="ane_academique_id" />
                                 <field name="class_room_id" domain="[('ane_academique_id', '=', 'ane_academique_id')]"/>
                                 <field name="date_register"/>
+                                <field name="apprenant_count"/>
                             </group>
 
                         <notebook colspan="4">
                             <page string="Les apprenants">
                                 <field name="apprenant_ids" nolabel="1" colspan="4">
                                     <tree string="Apprenants" editable="top">
-                                        <field name="name" required="1"/>
-                                        <field name="classe_id" />
-                                        <field name="annuel_average" required="1" />
+                                        <field name="name" readonly="1" required="1"/>
+                                        <field name="classe_id" readonly="1" />
+                                        <field name="annuel_average" required="1" min="0" max="20" />
                                          <field name="state" widget="statusbar" statusbar_visible="prospet,student" invisible="1" />
 
                                         <button name="button_admission"
@@ -87,12 +88,22 @@
                 </form>
             </field>
         </record>
+        <record id="view_all_apprenant_cafrad_upgrade_graph" model="ir.ui.view">
+            <field name="name">apprenant.cafrad.upgrade.graph</field>
+            <field name="model">apprenant.cafrad.upgrade</field>
+            <field name="arch" type="xml">
+                <graph string="Nombre des apprenants par salle de classe">
+                    <field name="class_room_id" groups="base.group_user"/>
+                    <field name="apprenant_count" type="measure" groups="base.group_user"/>
+                </graph>
+            </field>
+        </record>
 
         <record id="view_apprenant_upgrade_cafrad_action" model="ir.actions.act_window">
             <field name="name">Liste des Elavautaions</field>
             <field name="res_model">apprenant.cafrad.upgrade</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph</field>
             <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Evaluations

@@ -7,7 +7,7 @@
                 <search string="Magazines">
                     <field name="employee_id"/>
                     <field name="name"/>
-                    <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+
                     <group expand="0" string="Group By">
                         <filter string="employee_id" name="groupby_employee_id" domain="[]" context="{'group_by': 'employee_id'}"/>
                         <filter string="publication_date" name="groupby_publication_date" domain="[]" context="{'group_by': 'publication_date'}"/>

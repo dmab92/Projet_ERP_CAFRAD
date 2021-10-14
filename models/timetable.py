@@ -11,15 +11,17 @@ class time_table_cafrad(models.Model):
     @api.model
     def _get_default_academic_year(self):
         academic_year_obj = self.env['ane.academiq.cafrad']
-        academic_year_id = academic_year_obj.search([('active', '=', True)], limit=1)
+        academic_year_id = academic_year_obj.search([('actived', '=', True)], limit=1)
         return academic_year_id and academic_year_id.id or False
 
     name = fields.Char('Description')
     ane_academique_id = fields.Many2one('ane.academiq.cafrad', 'Année Academique',
                                         default=lambda self: self._get_default_academic_year(),required=True,
                                   help="Selection l'Année Academique")
-    school = fields.Selection([('ebase', 'Education de base'), ('cef', 'CEF'), ('cafrad', 'CAFRAD')], 'Ecole', required=True,
-                              help="L'etablissement au quel appartient la salle")
+    school = fields.Selection([('ebase', 'Groupe Scolaire'), ('cef', 'Formation CEF'), ('cafrad', 'Formation BEPENDA')
+                                  , ('other', 'Autre Formation'),
+                                   ('externe', 'Externe')], 'Ecole',
+                              required=True, help="L'établissement de l'apprenant")
 
     timetable_ids = fields.One2many('time.table.line.cafrad', 'table_id', 'Emploi de temps')
     start_date = fields.Date('Date de Debut')

@@ -7,7 +7,7 @@
                 <search string="Conducteurs d'antennes">
                     <field name="emission_id"/>
                     <field name="presentateur_id"/>
-                    <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+
                     <group expand="0" string="Group By">
                         <filter string="Emission" name="groupby_emission_id" domain="[]" context="{'group_by': 'emission_id'}"/>
                         <filter string="Presentateur" name="groupby_presentateur_id" domain="[]" context="{'group_by': 'presentateur_id'}"/>

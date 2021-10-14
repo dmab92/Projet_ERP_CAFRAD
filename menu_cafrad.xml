@@ -1,6 +1,9 @@
 <odoo>
     <data>
-    <menuitem name="CAFRAD ERP" id="cafrad_app.menu_root" groups="base.group_user" />
+    <menuitem name="CAFRAD"
+              id="cafrad_app.menu_root"
+              groups="base.group_user"
+              action="cafrad_app.view_create_apprenant_cafrad_action"/>
 
     <!-- !!!!!!!!!!!!!!!!!!!!!! MENU APPRENANTS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
@@ -39,69 +42,72 @@
                       id="cafrad_app.educatiion_base"
                       parent="cafrad_app.apprenants"
                       groups="base.group_user"
-                      sequence="4"/>
-                       <menuitem name="Maternelle 1"
-                                  id="cafrad_app.aprrenant_maternel1"
-                                  parent="cafrad_app.educatiion_base"
-                                  groups="base.group_user"
-                                  sequence="5"
-                                  action="cafrad_app.view_apprenant_maternel1_cafrad_action"/>
-                       <menuitem name="Maternelle 2"
-                                  id="cafrad_app.aprrenant_materiel2"
-                                  parent="cafrad_app.educatiion_base"
-                                  groups="base.group_user"
-                                  sequence="6"
-                                  action="cafrad_app.view_apprenant_maternel2_cafrad_action"/>
+                      sequence="4"
+                      action="cafrad_app.view_apprenant_groupe_scolaire_cafrad_action"/>
 
-                        <menuitem name="Maternelle 3"
-                                  id="cafrad_app.aprrenant_maternel3"
-                                  parent="cafrad_app.educatiion_base"
-                                  groups="base.group_user"
-                                  sequence="7"
-                                  action="cafrad_app.view_apprenant_maternel3_cafrad_action"/>
+                      
+<!--                       <menuitem name="Maternelle 1"-->
+<!--                                  id="cafrad_app.aprrenant_maternel1"-->
+<!--                                  parent="cafrad_app.educatiion_base"-->
+<!--                                  groups="base.group_user"-->
+<!--                                  sequence="5"-->
+<!--                                  action="cafrad_app.view_apprenant_maternel1_cafrad_action"/>-->
+<!--                       <menuitem name="Maternelle 2"-->
+<!--                                  id="cafrad_app.aprrenant_materiel2"-->
+<!--                                  parent="cafrad_app.educatiion_base"-->
+<!--                                  groups="base.group_user"-->
+<!--                                  sequence="6"-->
+<!--                                  action="cafrad_app.view_apprenant_maternel2_cafrad_action"/>-->
 
-                       <menuitem name="SIL"
-                                  id="cafrad_app.aprrenant_sil"
-                                  parent="cafrad_app.educatiion_base"
-                                  groups="base.group_user"
-                                  sequence="8"
-                                  action="cafrad_app.view_apprenant_sil_cafrad_action"/>
+<!--                        <menuitem name="Maternelle 3"-->
+<!--                                  id="cafrad_app.aprrenant_maternel3"-->
+<!--                                  parent="cafrad_app.educatiion_base"-->
+<!--                                  groups="base.group_user"-->
+<!--                                  sequence="7"-->
+<!--                                  action="cafrad_app.view_apprenant_maternel3_cafrad_action"/>-->
 
-                      <menuitem name="CP"
-                                  id="cafrad_app.aprrenant_cp"
-                                  parent="cafrad_app.educatiion_base"
-                                  groups="base.group_user"
-                                  sequence="9"
-                                  action="cafrad_app.view_apprenant_cp_cafrad_action"/>
+<!--                       <menuitem name="SIL"-->
+<!--                                  id="cafrad_app.aprrenant_sil"-->
+<!--                                  parent="cafrad_app.educatiion_base"-->
+<!--                                  groups="base.group_user"-->
+<!--                                  sequence="8"-->
+<!--                                  action="cafrad_app.view_apprenant_sil_cafrad_action"/>-->
+
+<!--                      <menuitem name="CP"-->
+<!--                                  id="cafrad_app.aprrenant_cp"-->
+<!--                                  parent="cafrad_app.educatiion_base"-->
+<!--                                  groups="base.group_user"-->
+<!--                                  sequence="9"-->
+<!--                                  action="cafrad_app.view_apprenant_cp_cafrad_action"/>-->
 
 
-                      <menuitem name="CE1"
-                                  id="cafrad_app.aprrenant_ce1"
-                                  parent="cafrad_app.educatiion_base"
-                                  groups="base.group_user"
-                                  sequence="10"
-                                  action="cafrad_app.view_apprenant_ce1_cafrad_action"/>
+<!--                      <menuitem name="CE1"-->
+<!--                                  id="cafrad_app.aprrenant_ce1"-->
+<!--                                  parent="cafrad_app.educatiion_base"-->
+<!--                                  groups="base.group_user"-->
+<!--                                  sequence="10"-->
+<!--                                  action="cafrad_app.view_apprenant_ce1_cafrad_action"/>-->
 
-                      <menuitem name="CE2"
-                                  id="cafrad_app.aprrenant_ce2"
-                                  parent="cafrad_app.educatiion_base"
-                                  groups="base.group_user"
-                                  sequence="11"
-                                  action="cafrad_app.view_apprenant_ce2_cafrad_action"/>
+<!--                      <menuitem name="CE2"-->
+<!--                                  id="cafrad_app.aprrenant_ce2"-->
+<!--                                  parent="cafrad_app.educatiion_base"-->
+<!--                                  groups="base.group_user"-->
+<!--                                  sequence="11"-->
+<!--                                  action="cafrad_app.view_apprenant_ce2_cafrad_action"/>-->
 
-                      <menuitem name="CM1"
-                                  id="cafrad_app.aprrenant_cm1"
-                                  parent="cafrad_app.educatiion_base"
-                                  groups="base.group_user"
-                                  sequence="12"
-                                  action="cafrad_app.view_apprenant_cm1_cafrad_action"/>
+<!--                      <menuitem name="CM1"-->
+<!--                                  id="cafrad_app.aprrenant_cm1"-->
+<!--                                  parent="cafrad_app.educatiion_base"-->
+<!--                                  groups="base.group_user"-->
+<!--                                  sequence="12"-->
+<!--                                  action="cafrad_app.view_apprenant_cm1_cafrad_action"/>-->
 
-                      <menuitem name="CM2"
-                                  id="cafrad_app.aprrenant_cm2"
-                                  parent="cafrad_app.educatiion_base"
-                                  sequence="13"
-                                  groups="base.group_user"
-                                  action="cafrad_app.view_apprenant_cm2_cafrad_action"/>
+<!--                      <menuitem name="CM2"-->
+<!--                                  id="cafrad_app.aprrenant_cm2"-->
+<!--                                  parent="cafrad_app.educatiion_base"-->
+<!--                                  sequence="13"-->
+<!--                                  groups="base.group_user"-->
+<!--                                  action="cafrad_app.view_apprenant_cm2_cafrad_action"/>-->
 
 <!-- !!!!!!!!!!!!!!!!!!!!!! MENU CEF!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
@@ -109,82 +115,92 @@
                       id="cafrad_app.cef_formations"
                       parent="cafrad_app.apprenants"
                       groups="base.group_user"
+                      action="cafrad_app.view_apprenant_cef__cafrad_action"
                       sequence="14"/>
 
 
-                <menuitem name="HOTELLERIE 6 mois"
-                          id="cafrad_app.formation_hotellerie6m"
-                          parent="cafrad_app.cef_formations"
-                          groups="base.group_user"
-                          action="cafrad_app.view_apprenant_h6m_cafrad_action"
-                          sequence="15"/>
+<!--                <menuitem name="HOTELLERIE 6 mois"-->
+<!--                          id="cafrad_app.formation_hotellerie6m"-->
+<!--                          parent="cafrad_app.cef_formations"-->
+<!--                          groups="base.group_user"-->
+<!--                          action="cafrad_app.view_apprenant_h6m_cafrad_action"-->
+<!--                          sequence="15"/>-->
 
-                <menuitem name="HOTELLERIE  1 an "
-                          id="cafrad_app.formation_hotellerie1an"
-                          parent="cafrad_app.cef_formations"
-                          groups="base.group_user"
-                          action="cafrad_app.view_apprenant_h1an_cafrad_action"
-                          sequence="15"/>
+<!--                <menuitem name="HOTELLERIE  1 an "-->
+<!--                          id="cafrad_app.formation_hotellerie1an"-->
+<!--                          parent="cafrad_app.cef_formations"-->
+<!--                          groups="base.group_user"-->
+<!--                          action="cafrad_app.view_apprenant_h1an_cafrad_action"-->
+<!--                          sequence="15"/>-->
 
-                <menuitem name="COUTURE 1"
-                          id="cafrad_app.formation_couture1"
-                          parent="cafrad_app.cef_formations"
-                          sequence="16"
-                          action="cafrad_app.view_apprenant_couture1_cafrad_action"
-                          groups="base.group_user"/>
+<!--                <menuitem name="COUTURE 1"-->
+<!--                          id="cafrad_app.formation_couture1"-->
+<!--                          parent="cafrad_app.cef_formations"-->
+<!--                          sequence="16"-->
+<!--                          action="cafrad_app.view_apprenant_couture1_cafrad_action"-->
+<!--                          groups="base.group_user"/>-->
 
-                <menuitem name="COUTURE 2"
-                          id="cafrad_app.formation_couture2"
-                          parent="cafrad_app.cef_formations"
-                          sequence="17"
-                          action="cafrad_app.view_apprenant_couture2_cafrad_action"
-                          groups="base.group_user"/>
-                <menuitem name="COUTURE 3"
-                          id="cafrad_app.formation_couture3"
-                          parent="cafrad_app.cef_formations"
-                          sequence="18"
-                          action="cafrad_app.view_apprenant_couture3_cafrad_action"
-                          groups="base.group_user"/>
+<!--                <menuitem name="COUTURE 2"-->
+<!--                          id="cafrad_app.formation_couture2"-->
+<!--                          parent="cafrad_app.cef_formations"-->
+<!--                          sequence="17"-->
+<!--                          action="cafrad_app.view_apprenant_couture2_cafrad_action"-->
+<!--                          groups="base.group_user"/>-->
+<!--                <menuitem name="COUTURE 3"-->
+<!--                          id="cafrad_app.formation_couture3"-->
+<!--                          parent="cafrad_app.cef_formations"-->
+<!--                          sequence="18"-->
+<!--                          action="cafrad_app.view_apprenant_couture3_cafrad_action"-->
+<!--                          groups="base.group_user"/>-->
 
-                <menuitem name="PATISSERIE 6 mois"
-                          id="cafrad_app.cef_patis6m"
-                          parent="cafrad_app.cef_formations"
-                          sequence="19"
-                          action="cafrad_app.view_apprenant_patis6m_cafrad_action"
-                          groups="base.group_user"/>
+<!--                <menuitem name="PATISSERIE 6 mois"-->
+<!--                          id="cafrad_app.cef_patis6m"-->
+<!--                          parent="cafrad_app.cef_formations"-->
+<!--                          sequence="19"-->
+<!--                          action="cafrad_app.view_apprenant_patis6m_cafrad_action"-->
+<!--                          groups="base.group_user"/>-->
 
-                <menuitem name="PATISSERIE 1 an"
-                          id="cafrad_app.cef_patis6m"
-                          parent="cafrad_app.cef_formations"
-                          sequence="20"
-                          action="cafrad_app.view_apprenant_patis1an_cafrad_action"
-                          groups="base.group_user"/>
+<!--                <menuitem name="PATISSERIE 1 an"-->
+<!--                          id="cafrad_app.cef_patis6m"-->
+<!--                          parent="cafrad_app.cef_formations"-->
+<!--                          sequence="20"-->
+<!--                          action="cafrad_app.view_apprenant_patis1an_cafrad_action"-->
+<!--                          groups="base.group_user"/>-->
 
 
 
 <!-- !!!!!!!!!!!!!!!!!!!!!! MENU FORMATION CAFRAD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
-            <menuitem name="FORMATIONS CAFRAD"
+            <menuitem name="FORMATIONS BEPANDA"
                       id="cafrad_app.formation_cafrad"
                       parent="cafrad_app.apprenants"
                       sequence="21"
-                      action="cafrad_app.view_apprenant_couture1_cafrad_action"
+                      action="cafrad_app.view_apprenant_bependa_cafrad_action"
                       groups="base.group_user"/>
 
-            <menuitem name="GARAGE"
-                      id="cafrad_app.garage"
-                      parent="cafrad_app.formation_cafrad"
-                      sequence="22"
-                      action="cafrad_app.view_apprenant_garage_cafrad_action"
-                      groups="base.group_user"/>
+<!--            <menuitem name="GARAGE"-->
+<!--                      id="cafrad_app.garage"-->
+<!--                      parent="cafrad_app.formation_cafrad"-->
+<!--                      sequence="22"-->
+<!--                      action="cafrad_app.view_apprenant_garage_cafrad_action"-->
+<!--                      groups="base.group_user"/>-->
 
 
             <menuitem name="AUTRES FORMATIONS"
                       id="cafrad_app.formation_cafrad"
                       parent="cafrad_app.apprenants"
                       sequence="23"
-                      action="cafrad_app.view_apprenant_couture1_cafrad_action"
+                      action="cafrad_app.view_apprenant_other_formation_cafrad_action"
                       groups="base.group_user"/>
+
+            <menuitem name="FORMATIONS EXTERNES"
+                      id="cafrad_app.formation_cafrad"
+                      parent="cafrad_app.apprenants"
+                      sequence="23"
+                      action="cafrad_app.view_apprenant_externe_cafrad_action"
+                      groups="base.group_user"/>
+
+
 
             <menuitem name="Admissions"
                       id="cafrad_app.admissions"
@@ -271,12 +287,21 @@
                   sequence="33"
                   action="cafrad_app.view_radio_cafrad_action"/>
 
-        <menuitem name="Presences"
-                  id="cafrad_app.presences"
+
+
+        <menuitem name=" Sui des Projets"
+                  id="cafrad_app.suivi_projets"
                   parent="cafrad_app.menu_root"
                   groups="base.group_user"
-                  sequence="34"
-                  action="cafrad_app.view_employe_presence_cafrad_action"/>
+                  sequence="35"
+                  action="cafrad_app.view_suivi_projet_cafrad_action"/>
+
+<!--        <menuitem name="Presences"-->
+<!--                  id="cafrad_app.presences"-->
+<!--                  parent="cafrad_app.menu_root"-->
+<!--                  groups="base.group_user"-->
+<!--                  sequence="34"-->
+<!--                  action="cafrad_app.view_employe_presence_cafrad_action"/>-->
 
 
 
@@ -286,7 +311,7 @@
        <menuitem name="Configurations"
                   id="cafrad_app.config"
                   parent="cafrad_app.menu_root"
-                  sequence="34"
+                  sequence="36"
 
                   />
             <menuitem name="Annees Academiques"
@@ -337,6 +362,16 @@
                       parent="cafrad_app.config"
                       action="cafrad_app.view_emission_radio_cafrad_action"/>
 
+            <menuitem name="Projets"
+                      id="cafrad_app.projets"
+                      parent="cafrad_app.config"
+                      groups="base.group_user"
+                      action="cafrad_app.view_projet_cafrad_action" />
+            <menuitem name="Types de paiements"
+                      id="cafrad_app.tyep_payments"
+                      parent="cafrad_app.config"
+                      groups="base.group_user"
+                      action="cafrad_app.view_payment_type_cafrad_action" />
     </data>
 
 </odoo>
