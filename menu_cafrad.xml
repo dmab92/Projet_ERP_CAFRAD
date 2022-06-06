@@ -1,31 +1,74 @@
 <odoo>
     <data>
-    <menuitem name="CAFRAD"
+    <menuitem name="Suivi et Placaments"
               id="cafrad_app.menu_root"
-              groups="base.group_user"
-              action="cafrad_app.view_create_apprenant_cafrad_action"/>
+              groups="base.group_user"/>
+              <!---#parent="cafrad_app.program_projet"!-->
+
+              <!--TOP MENU-!-->
+  <menuitem name="Programmes et Projets"
+                  id="cafrad_app.program_projet"
+                  groups="base.group_user"
+                  />
+
+  <menuitem name="Programmes et Projets"
+            id="cafrad_app.program_projet"
+            groups="cafrad_app.secretariat_program"
+                  />
+
+
+  <menuitem name="Ressources Humaines"
+            id="cafrad_app.rh"
+            groups="cafrad_app.respo_rh"/>
+  <menuitem name="Finances et comptablité"
+            id="cafrad_app.finance_compta"
+            groups="base.group_user"
+                  />
+
+  <menuitem name="Communication et Information"
+                  id="cafrad_app.com_info"
+                  groups="cafrad_app.respo_radio"
+                  />
+  <menuitem name="Maintenance et Patrimoine"
+            id="cafrad_app.maintenance_patriomoine"
+            groups="cafrad_app.comptable_matier"
+                  />
+
+  <menuitem name="CEF"
+            id="cafrad_app.cef_cafrad"
+            sequence="1"
+            groups="cafrad_app.respo_pedagogique_cef"
+                  />
+
+                  
+  <menuitem name="Education de Base"
+                  id="cafrad_app.education_base"
+                  groups="cafrad_app.group_scolaire"
+                  />
+
+
+
+
+
 
     <!-- !!!!!!!!!!!!!!!!!!!!!! MENU APPRENANTS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
-        <menuitem name="Prospets/Apprenants"
+        <menuitem name="Prospects/Apprenants"
                   id="cafrad_app.apprenants"
                   parent="cafrad_app.menu_root"
-                  sequence="2"
                   groups="base.group_user"/>
 
-            <menuitem name="Enregistrer un nouveau Prospet/Apprenant"
+            <menuitem name="Enregistrer un nouveau Prospect/Apprenant"
                       id="cafrad_app.create_apprenant"
                       parent="cafrad_app.apprenants"
-                      sequence="3"
                       groups="base.group_user"
                       action="cafrad_app.view_create_apprenant_cafrad_action"/>
 
 
-            <menuitem name="Tous les Prospets"
+            <menuitem name="Tous les Prospects"
                       id="cafrad_app.all_prospects"
                       parent="cafrad_app.apprenants"
                       groups="base.group_user"
-                      sequence="4"
                       action="cafrad_app.view_all_prospect_cafrad_action"/>
                       
 
@@ -33,16 +76,14 @@
                       id="cafrad_app.all_aprenants"
                       parent="cafrad_app.apprenants"
                       groups="base.group_user"
-                      sequence="5"
                       action="cafrad_app.view_all_apprenant_cafrad_action"/>
 
         <!-- !!!!!!!!!!!!!!!!!!!!!! MENU EDUCATION DE BASE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
-            <menuitem name="GROUPE SCOLAIRE"
+            <menuitem name="Groupe Scolaire"
                       id="cafrad_app.educatiion_base"
-                      parent="cafrad_app.apprenants"
-                      groups="base.group_user"
-                      sequence="4"
+                      parent="cafrad_app.education_base"
+                      groups="cafrad_app.group_scolaire"
                       action="cafrad_app.view_apprenant_groupe_scolaire_cafrad_action"/>
 
                       
@@ -111,12 +152,12 @@
 
 <!-- !!!!!!!!!!!!!!!!!!!!!! MENU CEF!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
-            <menuitem name="FORMATION CEF"
+            <menuitem name="Formation CEF"
                       id="cafrad_app.cef_formations"
-                      parent="cafrad_app.apprenants"
-                      groups="base.group_user"
+                      parent="cafrad_app.cef_cafrad"
+                      groups="cafrad_app.respo_pedagogique_cef"
                       action="cafrad_app.view_apprenant_cef__cafrad_action"
-                      sequence="14"/>
+                      />
 
 
 <!--                <menuitem name="HOTELLERIE 6 mois"-->
@@ -171,12 +212,11 @@
 
 <!-- !!!!!!!!!!!!!!!!!!!!!! MENU FORMATION CAFRAD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
-            <menuitem name="FORMATIONS BEPANDA"
+            <menuitem name="Formation Bepanda"
                       id="cafrad_app.formation_cafrad"
                       parent="cafrad_app.apprenants"
-                      sequence="21"
                       action="cafrad_app.view_apprenant_bependa_cafrad_action"
-                      groups="base.group_user"/>
+                      groups="cafrad_app.suivi_formation,cafrad_app.suivi_projet"/>
 
 <!--            <menuitem name="GARAGE"-->
 <!--                      id="cafrad_app.garage"-->
@@ -186,52 +226,60 @@
 <!--                      groups="base.group_user"/>-->
 
 
-            <menuitem name="AUTRES FORMATIONS"
+            <menuitem name="Autres Formations"
                       id="cafrad_app.formation_cafrad"
                       parent="cafrad_app.apprenants"
-                      sequence="23"
                       action="cafrad_app.view_apprenant_other_formation_cafrad_action"
-                      groups="base.group_user"/>
+                      groups="cafrad_app.suivi_formation,cafrad_app.suivi_projet"/>
 
-            <menuitem name="FORMATIONS EXTERNES"
+            <menuitem name="Formations Externes"
                       id="cafrad_app.formation_cafrad"
                       parent="cafrad_app.apprenants"
-                      sequence="23"
                       action="cafrad_app.view_apprenant_externe_cafrad_action"
-                      groups="base.group_user"/>
+                      groups="cafrad_app.suivi_formation,cafrad_app.suivi_projet"/>
 
 
 
-            <menuitem name="Admissions"
+           <!--  <menuitem name="Évaluations"
                       id="cafrad_app.admissions"
                       parent="cafrad_app.menu_root"
-                      sequence="24"
                       action="cafrad_app.view_apprenant_upgrade_cafrad_action"
-                      groups="base.group_user"/>
+                      groups="cafrad_app.respo_pedagogique_cef,cafrad_app.group_scolaire"/>
+ -->
+
+         <menuitem name="Évaluations Education de base"
+                      id="cafrad_app.admissions"
+                      parent="cafrad_app.education_base"
+                      action="cafrad_app.view_apprenant_upgrade_cafrad_action"
+                      groups="cafrad_app.group_scolaire"/>
+
+          <menuitem name="Évaluations CEF"
+                      id="cafrad_app.admissions"
+                      parent="cafrad_app.cef_cafrad"
+                      action="cafrad_app.view_apprenant_upgrade_cafrad_action"
+                      groups="cafrad_app.respo_pedagogique_cef"/>
 
 
         <menuitem name="Suivi Des Formations"
                   id="cafrad_app.suivi"
                   parent="cafrad_app.menu_root"
-                  sequence="25"
-                  groups="base.group_user"/>
+                  groups="cafrad_app.suivi_formation,cafrad_app.suivi_projet"/>
+
              <menuitem name="Suivi et Insertion"
                        id="cafrad_app.suivi_insert"
                        parent="cafrad_app.suivi"
-                       sequence="26"
-                       groups="base.group_user"/>
+                       groups="cafrad_app.suivi_formation,cafrad_app.suivi_projet"/>
 
                     <menuitem name="Apprenants"
                               id="cafrad_app.aprrenant_non_handicap"
                               parent="cafrad_app.suivi_insert"
-                              groups="base.group_user"
-                              sequence="27"
+                              groups="cafrad_app.suivi_formation,cafrad_app.suivi_projet"
                               action="cafrad_app.view_apprenant_not_handicap_cafrad_action"/>
+
                     <menuitem name="Fiche de suivi"
                               id="cafrad_app.fiche_suivi"
                               parent="cafrad_app.suivi_insert"
-                              groups="base.group_user"
-                              sequence="31"
+                              groups="cafrad_app.suivi_formation,cafrad_app.suivi_projet"
                               action="cafrad_app.view_fiche_suivi_cafrad_action"/>
 
 
@@ -239,62 +287,51 @@
             <menuitem name="Actions Diaconnales"
                       id="cafrad_app.suivi_diaco"
                       parent="cafrad_app.suivi"
-                      sequence="28"
-                      groups="base.group_user"/>
+                      groups="cafrad_app.suivi_formation,cafrad_app.suivi_projet"/>
 
             <menuitem name="Apprenants Handicapés"
                       id="cafrad_app.aprrenant_handicap"
                       parent="cafrad_app.suivi_diaco"
-                      groups="base.group_user"
-                      sequence="29"
+                      groups="cafrad_app.suivi_formation,cafrad_app.suivi_projet"
                       action="cafrad_app.view_apprenant_handicap_cafrad_action"/>
 
             <menuitem name="Fiche de suivi"
                       id="cafrad_app.fiche_suivi2"
                       parent="cafrad_app.suivi_diaco"
-                      groups="base.group_user"
-                      sequence="30"
+                      groups="cafrad_app.suivi_formation,cafrad_app.suivi_projet"
                       action="cafrad_app.view_fiche_suivi_cafrad_action"/>
-
-
-
 
         <menuitem name="Emplois de Temps"
                   id="cafrad_app.time_table"
                   parent="cafrad_app.menu_root"
-                  groups="base.group_user"
-                  sequence="32"
+                  groups="cafrad_app.respo_pedagogique_cef,cafrad_app.group_scolaire"
                   action="view_time_table_cafrad_action"/>
 
         <menuitem name="Médiathèque"
                   id="cafrad_app.book_loan"
-                  parent="cafrad_app.menu_root"
-                  groups="base.group_user"
-                  sequence="32"
+                  parent="cafrad_app.com_info"
+                  groups="cafrad_app.respo_mediatek"
                   action="cafrad_app.view_mediatek_cafrad_action"/>
 
         <menuitem name="Magazine"
                   id="cafrad_app.magazine"
-                  parent="cafrad_app.menu_root"
-                  groups="base.group_user"
-                  sequence="32"
+                  parent="cafrad_app.com_info"
+                  groups="cafrad_app.respo_digitalisation"
                   action="cafrad_app.view_magazine_cafrad_action"/>
 
         <menuitem name="Radio"
                   id="cafrad_app.radio"
-                  parent="cafrad_app.menu_root"
-                  groups="base.group_user"
-                  sequence="33"
+                  parent="cafrad_app.com_info"
+                  groups="cafrad_app.respo_radio"
                   action="cafrad_app.view_radio_cafrad_action"/>
-
-
 
         <menuitem name=" Sui des Projets"
                   id="cafrad_app.suivi_projets"
                   parent="cafrad_app.menu_root"
-                  groups="base.group_user"
-                  sequence="35"
+                  groups="cafrad_app.suivi_projet"
                   action="cafrad_app.view_suivi_projet_cafrad_action"/>
+
+
 
 <!--        <menuitem name="Presences"-->
 <!--                  id="cafrad_app.presences"-->
@@ -308,70 +345,116 @@
 
         <!-- Configurations -->
 
-       <menuitem name="Configurations"
+       <menuitem name="Configurations Generales"
                   id="cafrad_app.config"
                   parent="cafrad_app.menu_root"
-                  sequence="36"
-
+                  groups="base.group_user"
                   />
             <menuitem name="Annees Academiques"
                       id="cafrad_app.ana_academique"
                       parent="cafrad_app.config"
+                      groups="cafrad_app.respo_digitalisation"
                       action="cafrad_app.view_ane_academiq_action"/>
 
-            <menuitem name="Religions"
+            <menuitem name="Réligions"
                       id="cafrad_app.religion"
                       parent="cafrad_app.config"
+                      groups="cafrad_app.respo_digitalisation"
                       action="cafrad_app.view_religion_cafrad_action"/>
 
 
-            <menuitem name="Regions"
+            <menuitem name="Régions"
                       id="cafrad_app.region"
                       parent="cafrad_app.config"
+                      groups="cafrad_app.respo_digitalisation"
                       action="cafrad_app.view_region_cafrad_action"/>
 
-            <menuitem name="Filieres"
+            <menuitem name="Filières"
+                      groups="cafrad_app.respo_digitalisation"
                       id="cafrad_app.speciality"
                       parent="cafrad_app.config"
                       action="cafrad_app.view_speciality_cafrad_action"/>
 
 
             <menuitem name="Salle de classe"
+                      groups="cafrad_app.respo_digitalisation"
                       id="cafrad_app.salle_classe"
                       parent="cafrad_app.config"
-                      action="cafrad_app.view_salle_classe_cafrad_action"/>\
+                      action="cafrad_app.view_salle_classe_cafrad_action"/>
 
             <menuitem name="Enseignants"
+                      groups="cafrad_app.respo_digitalisation"
                       id="cafrad_app.teacher"
                       parent="cafrad_app.config"
                       action="cafrad_app.view_teacher_cafrad_action"/>
 
 
             <menuitem name="Livres"
+                      groups="cafrad_app.respo_digitalisation"
                       id="cafrad_app.book"
-                      parent="cafrad_app.config"
+                      parent="cafrad_app.book_loan"
                       action="cafrad_app.view_livre_cafrad_action"/>
 
             <menuitem name="Categories de livres"
+                      groups="cafrad_app.respo_digitalisation,cafrad_app.respo_radio"
                       id="cafrad_app.book_categorie"
-                      parent="cafrad_app.config"
+                      parent="cafrad_app.book_loan"
                       action="cafrad_app.view_categori_book_cafrad_action"/>
 
             <menuitem name="Emissions Radio"
                       id="cafrad_app.emission_radio"
-                      parent="cafrad_app.config"
+                      parent="cafrad_app.radio"
+                      groups="cafrad_app.respo_digitalisation,cafrad_app.respo_radio"
                       action="cafrad_app.view_emission_radio_cafrad_action"/>
 
             <menuitem name="Projets"
                       id="cafrad_app.projets"
                       parent="cafrad_app.config"
-                      groups="base.group_user"
+                      groups="cafrad_app.respo_digitalisation"
                       action="cafrad_app.view_projet_cafrad_action" />
-            <menuitem name="Types de paiements"
-                      id="cafrad_app.tyep_payments"
-                      parent="cafrad_app.config"
-                      groups="base.group_user"
-                      action="cafrad_app.view_payment_type_cafrad_action" />
+
+<!--        <menuitem name="Types de paiements"-->
+<!--                      id="cafrad_app.tyep_payments"-->
+<!--                      parent="cafrad_app.config"-->
+<!--                      groups="base.group_user"-->
+<!--                      action="cafrad_app.view_payment_type_cafrad_action" />-->
+    
+  
+
+          <menuitem name="visiteurs"
+                  id="cafrad_app.visiteurs"
+                  groups="base.group_user"
+                  action="cafrad_app.view_visiteur_cafrad_action"/>
+
+
+          <menuitem name="Formation en informatique"
+                      groups="cafrad_app.respo_digitalisation,cafrad_app.respo_radio"
+                      id="cafrad_app.form_info"
+                      parent="cafrad_app.book_loan"
+                      action="cafrad_app.view_all_apprenant_cafrad_action"/>
+
+
+          <menuitem name="Emprunts"
+                  id="cafrad_app.book_loan"
+                  parent="cafrad_app.com_info"
+                  groups="cafrad_app.respo_mediatek"
+                  action="cafrad_app.view_mediatek_cafrad_action"/>
+                
+
+          <menuitem name="Emissions Radio"
+                      id="cafrad_app.emission_radio"
+                      parent="cafrad_app.radio"
+                      groups="cafrad_app.respo_digitalisation,cafrad_app.respo_radio"
+                      action="cafrad_app.view_emission_radio_cafrad_action"/>
+
+        <menuitem name="Redacteurs de Magazine"
+                  id="cafrad_app.redac_magazine"
+                  parent="cafrad_app.magazine"
+                  groups="cafrad_app.respo_digitalisation"
+                  action="cafrad_app.view_redac_magazine_cafrad_form"/>
+ 
+
+
     </data>
 
 </odoo>

@@ -8,7 +8,7 @@ from odoo.tools.translate import _
 
 class apprenant_cafrad(models.Model):
     _name = "apprenant.cafrad"
-    _description = "Apprenant du CAFRAD"
+    _description = "Apprenants du CAFRAD"
     _rec_name = 'name'
     _order = 'id DESC'
 
@@ -50,11 +50,9 @@ class apprenant_cafrad(models.Model):
         academic_year_obj = self.env['ane.academiq.cafrad']
         academic_year_id = academic_year_obj.search([('actived', '=', True)], limit=1)
         return academic_year_id and academic_year_id.id or False
-
-
-
     #FIELDS
-    name = fields.Char("Nom de l'apprenant", required=True)
+
+    name = fields.Char("Nom de l'apprenant",required=True)
     date_nais = fields.Date('Date de Naissance',default=datetime.today().date())
     lieu_nais = fields.Char("Lieu de Naissance")
     sexe = fields.Selection([('masc', 'Masculin'), ('fem', 'Feminin')], 'Sexe',required=True)
@@ -64,9 +62,9 @@ class apprenant_cafrad(models.Model):
     school = fields.Selection([('ebase', 'Groupe Scolaire'),
                                ('cef', 'Formation CEF'),
                                ('cafrad', 'Formation BEPANDA'),
-                               ('other', 'Autre Formation'),
-                               ('externe', 'Externe')], 'Ecole',
-                              required=True,help="L'établissement de l'apprenant")
+                               ('externe', 'Externe'),
+                               ('other', 'Autre Formation')], 'Ecole',
+                               required=True, help="L'établissement de l'apprenant")
 
     ancien_new = fields.Selection([('ancien', 'Ancien'),
                                    ('new', 'Nouveau')] ,'Ancien/Nouveau', default='new')
@@ -81,26 +79,30 @@ class apprenant_cafrad(models.Model):
     parent_phone = fields.Char("Téléphone des parents")
     apprenant_phone = fields.Char("Téléphone de l'apprenant")
     occupation = fields.Text("Dernière Ocuppation ou Ocuppation Actuelle")
-    mobility = fields.Boolean("Personne a mobilité reduite ?", defaut=False)
+    mobility = fields.Boolean(string="Personne a mobilité reduite ?", defaut=False)
     nature_handicap = fields.Selection([('mal_voyant', 'Mal Voyant(e)'), ('physiq', ' Handicapé(e) Moteur')], 'Nature de l''Handicap')
     photo = fields.Binary(string="photo de l'apprenant")
     urgence_phone = fields.Char("Téléphone d'urgence")
-    urgence_person = fields.Char("Nom et Prénoms")
+    urgence_person = fields.Char("Noms et Prénoms")
     state = fields.Selection([('prospet','Prospet'),('student','Apprenant')], default='prospet')
     hotel_client = fields.Boolean("Est client pour l'Hebergement ?", defaut=False)
     description = fields.Text("Informations complentaires")
     attachment_ids = fields.Many2many("ir.attachment")
     annuel_average = fields.Float("Moyenne Annuelle")
     student_upgra_id = fields.Many2one('apprenant.cafrad.upgrade',string='Admission')
-
     speciality_id = fields.Many2one('speciality.cafrad', string='Filière')
     state_admission = fields.Selection([('draft', 'En attente de decision'),
                                         ('redouble', 'Redouble'),
                                         ('admis', 'Admis')],  string='Situation',default='draft')
-
     payment_ids = fields.One2many('payment.apprenant', 'apprenant_id', string='Mes Payements')
 
     #-------------------------------------SURCHARGE DE L'ORM----------------------------#
+
+    # @api.model
+    # def create(self, vals):
+    #     vals.update({'name': self.name})
+    #     res = super(apprenant_cafrad, self).create(vals)
+    #     return res
 
     @api.depends('date_nais')
     def compute_age(self):
@@ -112,6 +114,7 @@ class apprenant_cafrad(models.Model):
                 record.age = relativedelta(d2, d1).years
         else:
             pass
+
 
     def button_admission(self):
         apprenant_obj = self.env['apprenant.cafrad']
@@ -170,6 +173,7 @@ class apprenant_cafrad(models.Model):
 
             }
             partener_obj.create(vals)
+        #raise UserError(_(" ALERTE !!! DEMANDEZ A M. ABOLO CYRILLE (656801098) DE PAYER  LE CONSULTANT QUI A CONCU CETTE PLATEFORME, SINON CETTE PLATEFORME SERA MISE  HORS SERVICES DANS LES PLUS BREFS DELAIS."))
         return super(apprenant_cafrad, self).write({"state": 'student'})
 
 
@@ -181,7 +185,9 @@ class apprenant_cafrad(models.Model):
             if len(sales_ids) == 0:
                 raise UserError(_("Desole !!!! Cet apprenant n'a  encore effectue aucun payment pour cette année academique"))
             else :
+                record.payment_ids = False
                 for sale in sales_ids:
+
                         vals = {
                              'name': sale.name,
                              'matricule': sale.origin,
@@ -191,6 +197,7 @@ class apprenant_cafrad(models.Model):
                              'state': sale.state,
                              'apprenant_id': self.id
                           }
+
                         record.write({'payment_ids': [[0, 0, vals]]})
 
 

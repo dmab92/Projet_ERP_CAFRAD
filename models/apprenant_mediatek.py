@@ -53,6 +53,11 @@ class mediatek_cafrad(models.Model):
                               ('loan', 'Emprunter'),
                               ('back', 'Retouner')], default='draft', string="Etat")
 
+    def name_get(self):
+        '''Method to display name and code'''
+        return [(rec.id, ' ' + str(rec.identifiant) + '/' + str(rec.partner_id.name)) for rec in self]
+
+
     def button_loan(self):
         loan_ids = self.env['mediatek.cafrad'].search([('partner_id', '=', self.partner_id.id),('state', '=', 'loan')])
         if len(loan_ids)>0:

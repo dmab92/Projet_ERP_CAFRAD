@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+<!-- MAGAZINE -->
         <record id="view_magazine_cafrad_filter" model="ir.ui.view">
             <field name="name">magazine.cafrad.filter</field>
             <field name="model">magazine.cafrad</field>
@@ -76,6 +77,61 @@
                  Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Magazines
               </p><p>
                 Cette interface vous permet d'enregistrer les informations des Magazines
+              </p>
+            </field>
+        </record>
+
+
+
+
+        <!-- Redacteurs -->
+       
+        <record model="ir.ui.view" id="view_redac_magazine_cafrad_tree">
+            <field name="name">Liste des Redacteurs de Magazines</field>
+            <field name="model">redac.magazine.cafrad</field>
+            <field name="arch" type="xml">
+                <tree string="Liste des Redacteurs de Magazines">
+                    
+                    <field name="employee_id"/>
+                    <field name="phone"/>
+                    
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_redac_magazine_cafrad_form">
+            <field name="name">Les Redacteurs de Magazines</field>
+            <field name="model">redac.magazine.cafrad</field>
+            <field name="arch" type="xml">
+                <form string="Ensignants">
+                        <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Redacteurs de Magazines
+                               </p>
+                    <header>
+
+                    </header>
+                    <sheet>
+                        <group string="Informations sur les Redacteurs de Magazines">
+                            
+                                <field name="employee_id"/>
+                                <field name="phone"/>
+                        </group>
+
+                       
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_redac_magazine_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Liste des Redacteurs de Magazines</field>
+            <field name="res_model">redac.magazine.cafrad</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Redacteurs des Magazines
+              </p><p>
+                Cette interface vous permet d'enregistrer les informations des Redacteurs Magazines
               </p>
             </field>
         </record>

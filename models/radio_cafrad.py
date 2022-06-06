@@ -52,3 +52,17 @@ class radio_line_cafrad(models.Model):
     support = fields.Char("Support")
     duree  = fields.Float("Duree")
     radio_id = fields.Many2one("radio.cafrad")
+
+
+
+
+class stagiaire_radio(models.Model):
+    """Defining model for emsion radio camando."""
+    _description = 'Les Stagiaires de la Radio au CAFRAD'
+    _name = 'stagiaire.radio.cafrad'
+
+    name = fields.Char("Nom", required=1)
+    phone = fields.Char("Telephone")
+    date_start = fields.Date("Date de debut du stage")
+    date_end = fields.Date("Date de fin du stage")
+    encadreur_id = fields.Many2one('hr.employee', "Encadre par ")

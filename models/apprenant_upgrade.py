@@ -15,20 +15,20 @@ class apprenant_cafrad_upgrade(models.Model):
         academic_year_id = academic_year_obj.search([('actived', '=', True)], limit=1)
         return academic_year_id and academic_year_id.id or False
 
-    name = fields.Char("Description", required=1)
+    name = fields.Char("Description",required=True)
     ane_academique_id = fields.Many2one('ane.academiq.cafrad', "Année Académique",
                                         default=lambda self: self._get_default_academic_year())
-    class_room_id = fields.Many2one('salle.classe.cafrad', 'Salle de Classe',required=True)
+    class_room_id = fields.Many2one('salle.classe.cafrad', 'Salle de Classe', required=True)
     date_register = fields.Datetime('Date d\'énregistrement', default=fields.datetime.now())
     apprenant_ids = fields.One2many('apprenant.cafrad', 'student_upgra_id', copy=True, string="Les Apprenants")
     apprenant_count = fields.Integer(
         string="Nombre d'apprenants", compute='_get_apprenant_count', store=True)
 
-
     @api.onchange('class_room_id','ane_academique_id')
     def _onchange_class_room_id(self):
         evaluation_line_ids = self.env['apprenant.cafrad'].search([('classe_id', '=', self.class_room_id.id),
-                                                             ('ane_academique_id', '=', self.ane_academique_id.id)])
+
+                                                                   ('ane_academique_id', '=', self.ane_academique_id.id)])
         for rec in self:
             if rec.class_room_id:
                 lines = [(5, 0, 0)]

@@ -40,6 +40,7 @@
                     </header>
                     <sheet>
                         <group string="Informations sur l'enseiignant">
+                            <field name="photo" widget="image" class="oe_avatar oe_left" style="max-width:100px;max-height:117px;"/>
                             <group>
                                 <field name="date_register" readonly="1"/>
                                 <!--<field name="name"/>-->
@@ -48,7 +49,7 @@
                                 <field name="teacher_phone"/>
                             </group>
                             <group>
-                                <field name="photo" widget="image" class="oe_avatar oe_left" style="max-width:100px;max-height:117px;"/>
+<!--                                <field name="photo" widget="image" class="oe_avatar oe_left" style="max-width:100px;max-height:117px;"/>-->
                                 <field name="matricule"/>
                                 <field name="school"/>
                             </group>

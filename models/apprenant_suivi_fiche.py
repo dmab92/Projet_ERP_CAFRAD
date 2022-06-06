@@ -7,8 +7,9 @@ class apprenant_cafrad_suivi_fiche(models.Model):
     _name = "apprenant.cafrad.suivi.fiche"
     _description = "Fiche de Suivi des apprenannts du CAFRAD"
     _order = 'id DESC'
+    _rec_name = 'apprenant_id'
 
-    state = fields.Selection([('draft', 'Brouillon'),
+    state = fields.Selection([('draft', 'En attente d''insertion'),
                               ('running', 'En cours d''insertion'),
                               ('insert', 'Inseré(e)')], default='draft')
     ################################## A/-ACCOMPAGNEMENT SOCIAL  ########################################
@@ -19,7 +20,7 @@ class apprenant_cafrad_suivi_fiche(models.Model):
     ane_academique_id = fields.Many2one('ane.academiq.cafrad', 'Année Academique',
                                         help="Selection l'Année Academique")
     class_room_id = fields.Many2one('salle.classe.cafrad',string='Salle de Classe', help="La classe de l'apprenant")
-    reponsable_id = fields.Many2one('hr.employee', "Responsable du suivi",
+    reponsable_id = fields.Many2one('hr.employee', "Responsable du suivi", required=True,
                                     help="Il s'agit du personel en charge du suivi de l'apprnant")
     fiche_suivi_line_ids = fields.One2many("apprenant.cafrad.suivi.fiche.line",'apprenant_suivi_fiche_id',string="Suivi de l'apprenant")
 
@@ -35,19 +36,17 @@ class apprenant_cafrad_suivi_fiche(models.Model):
                               required=True, help="L'établissement de l'apprenant")
     email = fields.Char("Email")
     last_diplom = fields.Char("Dernier Diplome")
-    ane_academique_id = fields.Many2one('ane.academiq.cafrad', "Annee Academique")
+    ane_academique_id = fields.Many2one('ane.academiq.cafrad', "Anneée Academique")
     religion_id = fields.Many2one('religion.cafrad', "Religion")
-    region_id = fields.Many2one('region.cafrad',
-                                string='Région d\'origine', help="La région d'origine de l'apprenant")
-    classe_id = fields.Many2one('salle.classe.cafrad',
-                                string='Classe', help="La classe de l'apprenant")
+    region_id = fields.Many2one('region.cafrad', string='Région d\'origine', help="La région d'origine de l'apprenant")
+    classe_id = fields.Many2one('salle.classe.cafrad', string='Classe', help="La classe de l'apprenant")
     parent_name = fields.Char("Nom et Prenoms des parents")
     parent_phone = fields.Char("Téléphone des parents")
     apprenant_phone = fields.Char("Téléphone de l'apprenant")
     occupation = fields.Text("Dernière Ocuppation ou Ocuppation Actuelle")
-
     mobility = fields.Boolean("Personne a mobilité reduite ?", defaut=False)
-    nature_handicap = fields.Selection([('mal_voyant', 'Mal Voyant(e)'), ('physiq', ' Handicapé(e) Moteur')],
+    nature_handicap = fields.Selection([('mal_voyant', 'Mal Voyant(e)'),
+                                        ('physiq', ' Handicapé(e) Moteur')],
                                        'Nature de l''Handicap')
     photo = fields.Binary(string="photo de l'apprenant")
     description = fields.Text("Informations complentaires")
@@ -56,11 +55,11 @@ class apprenant_cafrad_suivi_fiche(models.Model):
 
     speciality_id = fields.Many2one('speciality.cafrad', string='Filière')
     date_start_training = fields.Datetime('Date de debut de la formation', default=fields.datetime.now())
-    tutor_name = fields.Char("Nom et Prenoms du Tuteur de la Formation")
+    tutor_name = fields.Char("Noms et Prénoms du Tuteur de la Formation")
     tutor_phone = fields.Char("Téléphone du Tuteur de la Formation")
     quarter_live = fields.Char("Quartier de residence")
     matiere_strong = fields.Char("Matieres Fortes")
-    matiere_wek = fields.Char("Matieres Faiblees")
+    matiere_wek = fields.Char("Solutions Proposées")
     disciplin_observ = fields.Char("Obervations sur la discipline")
     difficulty = fields.Char('Difficicultés Relevées')
     solution = fields.Char("Solution Proposées")
@@ -80,11 +79,11 @@ class apprenant_cafrad_suivi_fiche(models.Model):
 
     your_ambition = fields.Char("Quelles sont vos ambitions ?")
     your_passion = fields.Char("Quelles sont vos passions ?")
-    your_quality = fields.Char("Quelles sont vos Qualitées")
-    your_defaut = fields.Char('Quels sont vos defauts ?')
+    your_quality = fields.Char("Quelles sont vos Qualités")
+    your_defaut = fields.Char('Quels sont vos défauts ?')
     why_formation = fields.Text("Pourquoi avoir choisi cette formation ?")
-    souhait_end = fields.Char("Quel est votre souhait a appres la formation ?")
-    type_emploi_end = fields.Char("Aimerz vous travailler en emploi-salarie ou en Auto emploi ?")
+    souhait_end = fields.Char("Quel est votre souhait après la formation ?")
+    type_emploi_end = fields.Char("Aimeriez-vous travailler en emploi salarié ou en Auto emploi ? ?")
     why = fields.Char("Pourquoi ?")
     end_word = fields.Char("Votre mot de fin")
 
@@ -97,44 +96,40 @@ class apprenant_cafrad_suivi_fiche(models.Model):
     encadreur_pro = fields.Many2one("res.partner", "Encadreur Professionel")
     partener_insert = fields.Many2one("res.partner", "Entreprise d'insertion")
     account_insert = fields.Char("Activitée et lieu d'auto inserton")
-    state_suivi = fields.Selection([('draft', 'brouillon'),
+
+    state_suivi = fields.Selection([('draft', 'En Attente d''insertion'),
                                     ('running', 'En Cours d''insertion'),
-                                    ('insertalone', 'Inserer a son compte'),
-                                    ('insert', 'Inserer dans une entreprise')],
+                                    ('insertalone', 'Inseré(e) a son compte'),
+                                    ('insert', 'Inseré(e) dans une entreprise')],
                                    string='Situation', default='draft')
 
     @api.onchange('apprenant_id')
     def _onchange_apprenant_id(self):
         for rec in self:
             if rec.apprenant_id:
-                rec.ane_academique_id = rec.apprenant_id.ane_academique_id
-                rec.class_room_id = rec.apprenant_id.classe_id
+                rec.ane_academique_id = rec.apprenant_id.ane_academique_id and rec.apprenant_id.ane_academique_id.id
                 rec.date_nais= rec.apprenant_id.date_nais
-                rec.lieu_nais = rec.apprenant_id.lieu_nais
                 rec.sexe = rec.apprenant_id.sexe
                 rec.matricule = rec.apprenant_id.matricule
-                rec.religion_id = rec.apprenant_id.religion_id
-                rec.region_id = rec.apprenant_id.region_id
-                rec.classe_id = rec.apprenant_id.classe_id
+                rec.religion_id = rec.apprenant_id.religion_id and rec.apprenant_id.religion_id.id
+                rec.region_id = rec.apprenant_id.region_id and rec.apprenant_id.region_id.id
+                rec.class_room_id = rec.apprenant_id.classe_id and rec.apprenant_id.classe_id.id
                 rec.occupation = rec.apprenant_id.occupation
                 rec.mobility = rec.apprenant_id.mobility
                 rec.nature_handicap = rec.apprenant_id.nature_handicap
-                rec.speciality_id = rec.apprenant_id.speciality_id
-                rec.school= rec.apprenant_id.school
-                rec.ane_academique_id = rec.apprenant_id.ane_academique_id
-                rec.mobility = rec.apprenant_id.mobility
-                rec.nature_handicap = rec.apprenant_id.nature_handicap
-                rec.lieu_nais= rec.lieu_nais
-                rec.apprenant_phone=rec.apprenant_phone
+                rec.speciality_id = rec.apprenant_id.speciality_id and rec.apprenant_id.speciality_id.id
+                rec.school = rec.apprenant_id.school
+                rec.lieu_nais = rec.lieu_nais
+                rec.apprenant_phone = rec.apprenant_id.apprenant_phone
 
     @api.model
     def create(self, vals):
         # vals['ane_academique_id'] = "Your Value"
         apprenant_id = vals.get('apprenant_id')
-        apprenant = self.env['apprenant.cafrad.suivi.fiche'].browse(apprenant_id)
+        apprenant = self.env['apprenant.cafrad'].browse(apprenant_id)
         vals.update({
             'ane_academique_id': apprenant.ane_academique_id and apprenant.ane_academique_id.id,
-            'class_room_id': apprenant.classe_id,
+            'class_room_id': apprenant.classe_id and apprenant.classe_id.id,
             'apprenant_phone': apprenant.apprenant_phone,
             'matricule':apprenant.matricule
         })
@@ -143,12 +138,12 @@ class apprenant_cafrad_suivi_fiche(models.Model):
 
     def write(self, vals):
         apprenant_id = vals.get('apprenant_id')
-        apprenant = self.env['apprenant.cafrad.suivi.fiche'].browse(apprenant_id)
+        apprenant = self.env['apprenant.cafrad'].browse(apprenant_id)
         vals.update({
             'ane_academique_id': apprenant.ane_academique_id and apprenant.ane_academique_id.id,
-            'class_room_id': apprenant.classe_id,
+            'class_room_id': apprenant.classe_id and apprenant.classe_id.id,
             'apprenant_phone': apprenant.apprenant_phone,
-            'matricule': apprenant.matricule
+            'matricule': apprenant.matricule,
         })
         res = super(apprenant_cafrad_suivi_fiche, self).write(vals)
         return res
@@ -196,8 +191,6 @@ class apprenant_cafrad_suivi_fiche(models.Model):
         #
         # }
         return self.env.ref('cafrad_app.action_report_fiche_suivi').report_action(self)
-
-
 
 
 

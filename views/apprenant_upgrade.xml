@@ -45,11 +45,10 @@
 <!--                            />-->
                     </header>
                     <sheet>
-
                             <group>
-                                <field name="name" placehoder="Description"/>
+                                <field name="name" placehoder="Description" required="1"/>
                                 <field name="ane_academique_id" />
-                                <field name="class_room_id" domain="[('ane_academique_id', '=', 'ane_academique_id')]"/>
+                                <field name="class_room_id" required="1" domain="[('ane_academique_id', '=', 'ane_academique_id')]"/>
                                 <field name="date_register"/>
                                 <field name="apprenant_count"/>
                             </group>

@@ -29,7 +29,8 @@ class time_table_cafrad(models.Model):
     class_room_id = fields.Many2one('salle.classe.cafrad', 'Salle de Classe',required=True)
     state = fields.Selection([('draft', 'Brouillon'),
                               ('validated', 'Validé')], default='draft',string="Etat")
-    matiere_id = fields.Many2one("speciality.cafrad", String="Filiere")
+
+    #matiere_id = fields.Many2one("speciality.cafrad", String="Filiere")
 
     def button_validate(self):
         return self.write({'state': 'validated'})

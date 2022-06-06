@@ -21,6 +21,7 @@
             <field name="model">ane.academiq.cafrad</field>
             <field name="arch" type="xml">
                 <tree string="Les Années Academiques">
+                    <!-- <field name="name"/> -->
                     <field name="date_start"/>
                     <field name="date_end"/>
                     <field name ="actived"/>
@@ -42,6 +43,7 @@
                     <sheet>
                         <group>
                             <group>
+                                <!-- <field name="name"/> -->
                                  <field name="date_start"/>
                             </group>
                             <group>

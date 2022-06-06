@@ -106,6 +106,7 @@
                             <field name="date_register" readonly="1"/>
                             <field name="ane_academique_id"  options='{"no_open": True, "no_create": True}'/>
                             <field name="apprenant_phone"  />
+                            <field name="school"/>
                             <field name="matricule" readonly="1" />
                             <field name="class_room_id" readonly="1" options='{"no_open": True, "no_create": True}'/>
                             <field name="reponsable_id"  options='{"no_open": True, "no_create": True}' />

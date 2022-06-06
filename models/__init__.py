@@ -13,3 +13,4 @@ from . import magazine_cafrad
 from . import radio_cafrad
 from . import apprenant_projet
 from . import employe_presence_cafrad
+from . import visiteur_cafrad

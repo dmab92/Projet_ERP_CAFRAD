@@ -46,8 +46,10 @@ class teacher_cafrad(models.Model):
     matricule = fields.Char("Matricule de l'enseignant", readonly="True", default=lambda self: self._get_next_reference())
     age = fields.Integer('Age', compute="compute_age")
     date_register = fields.Datetime('Date d\'énregistrement', default=fields.datetime.now())
-    school = fields.Selection([('ebase', 'Groupe Scolaire'), ('cef', 'Formation CEF'), ('cafrad', 'Formation BEPENDA')
-                                  , ('other', 'Autre Formation'),
+    school = fields.Selection([('ebase', 'Groupe Scolaire'),
+                               ('cef', 'Formation CEF'),
+                               ('cafrad', 'Formation BEPENDA')
+                                ,('other', 'Autre Formation'),
                                ('externe', 'Externe')], 'Ecole',
                               required=True, help="L'établissement de l'apprenant")
     teacher_phone= fields.Char("Telephone de l'enseignant")

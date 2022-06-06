@@ -134,4 +134,62 @@
                </p>
             </field>
         </record>
+
+
+
+        <!-- STAGIARES-->
+
+        <record model="ir.ui.view" id="view_emission_cafrad_tree">
+            <field name="name">Les Stagiaires de la Rdio</field>
+            <field name="model">stagiaire.radio.cafrad</field>
+            <field name="arch" type="xml">
+                <tree string="Les Stagiaires de la Radio">
+                    <field name="name"/>
+                    <field name="phone" />
+                    <field name="date_start"/>
+                    <field name="date_end" />
+                    <field name="encadreur_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_emission_cafrad_from">
+            <field name="name">Les Stagiaires de la Radio </field>
+            <field name="model">stagiaire.radio.cafrad</field>
+            <field name="arch" type="xml">
+                <form string="Les Stagiaires">
+                    <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Stagiaires de la Radio
+                    </p>
+                    <header>
+
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                 <field name="name"/>
+                                <field name="phone" />
+                                <field name="date_start"/>
+                                <field name="date_end" />
+                                <field name="encadreur_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_stagiaire_radio_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Les Stagiaires de la Radio </field>
+            <field name="res_model">stagiaire.radio.cafrad</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Creez vos Emissions ici
+              </p>
+                <p>
+                Pour creer un(e) Stagiaire,  cliquer sur le buton creer en haut a gauche de ce message
+               </p>
+            </field>
+        </record>
 </odoo>

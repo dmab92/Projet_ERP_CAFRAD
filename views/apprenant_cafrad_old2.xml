@@ -69,7 +69,8 @@
                                 <field name="age"/>
                                 <field name="matricule"/>
                                 <field name="lieu_nais" placeholder="Lieu de Naissance"/>
-                                <field name="mobility"/>
+                                <field name="mobility" 
+                                    string="Personne a mobilité reduite ?"/>
                                 <field name="nature_handicap" attrs="{'invisible': [('mobility','=', False)]}"/>
 <!--                                <field name="hotel_client"/>-->
 <!--                                <field name="description" attrs="{'invisible': [('hotel_client','=', False)]}"/>-->

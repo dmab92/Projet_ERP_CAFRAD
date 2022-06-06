@@ -60,8 +60,8 @@
                             <field name="class_room_id" options="{&quot;no_create&quot;: True}"/>
                              <field name="start_date"  attrs="{'invisible': [('school','=', 'ebase')]}" />
                              <field name="end_date"  attrs="{'invisible': [('school','=', 'ebase')]}" />
-
                         </group>
+
                          <notebook colspan="4">
                             <page string="Emploi de Temps">
                                 <field name="timetable_ids" nolabel="1" colspan="4">
@@ -81,6 +81,7 @@
                 </form>
             </field>
         </record>
+        
 
         <record id="view_time_table_cafrad_action" model="ir.actions.act_window">
             <field name="name">Emplois de Temps</field>

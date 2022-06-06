@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_visiteur_cafrad_filter" model="ir.ui.view">
+            <field name="name">visiteur.cafrad.filter</field>
+            <field name="model">visiteur.cafrad</field>
+            <field name="arch" type="xml">
+                <search string="visiteurs">
+                    <field name="motif"/>
+                    <field name="name"/>
+                    <field name="date_register"/>
+
+                    <group expand="0" string="Group By">
+                        <filter string="name" name="groupby_name" domain="[]" context="{'group_by': 'name'}"/>
+                        <filter string="date_register" name="groupby_date_register" domain="[]" context="{'group_by': 'date_register'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_visiteur_cafrad_tree">
+            <field name="name">Liste des Visiteurs</field>
+            <field name="model">visiteur.cafrad</field>
+            <field name="arch" type="xml">
+                <tree string="Liste des Visiteurs">
+                    <field name="name"/>
+                    <field name="date_register"/>
+                    <field name="motif"/>
+                    <field name="user_id">
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_visiteur_cafrad_form">
+            <field name="name">Les Visiteurs</field>
+            <field name="model">visiteur.cafrad</field>
+            <field name="arch" type="xml">
+                <form string="Ensignants">
+                        <p class="oe_grey">
+                                    Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Visiteurs
+                               </p>
+                    <header>
+
+                    </header>
+                    <sheet>
+                        <group string="Informations sur les Visiteurs">
+                            <group>
+                                <field name="name"/>
+                                <field name="date_register"/>
+                                 <field name="motif"/>
+                            </group>
+                            <group>
+                                <field name="phone" />
+                                <field name="email" />
+                            </group>
+                        </group>
+
+                        <notebook colspan="4">
+                            <page string="Informations Particulieres">
+                                <field name="remarques" nolabel="1" colspan="4" />
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_visiteur_cafrad_action" model="ir.actions.act_window">
+            <field name="name">Liste des Visteurs</field>
+            <field name="res_model">visiteur.cafrad</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                 Cr&#233;ez / &#233;ditez vos donn&#233;es sur les Visiteurs
+              </p><p>
+                Cette interface vous permet d'enregistrer les informations des Visiteurs
+              </p>
+            </field>
+        </record>
+</odoo>

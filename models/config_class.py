@@ -106,7 +106,7 @@ class matiere_cafrad(models.Model):
     _description = "Matiere de formation des apprenants du CAFRAD"
     _order = 'id DESC'
 
-    name = fields.Char("Nom de la filiere", required=True)
+    name = fields.Char("Nom de la matiere", required=True)
     responsable_id = fields.Many2one('teacher.cafrad',
                                   "Responsable",
                                   help="Il s'agit du responsable de la matiere")
